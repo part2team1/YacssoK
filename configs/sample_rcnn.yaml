@@ -1,0 +1,32 @@
+# 스켈레톤 동작 확인용: 합성 샘플 데이터 + 가벼운 Faster R-CNN 1 epoch
+base: base.yaml
+
+exp_name: sample_rcnn
+owner: team
+note: 스켈레톤 동작 확인
+
+data:
+  train_images: data/sample/train_images
+  train_annotations: data/sample/train_annotations
+  test_images: data/sample/test_images
+  class_map: data/sample/class_map.json
+  split_dir: data/sample/splits
+  yolo_dir: data/sample/yolo
+  img_size: 320
+
+augment:
+  name: basic
+  hflip: 0.5
+  brightness: 0.2
+
+model:
+  family: rcnn
+  arch: fasterrcnn_mobilenet_v3_large_fpn
+  pretrained: false           # 다운로드 없이 (동작 확인용)
+
+train:
+  epochs: 1
+  batch_size: 4
+  lr: 0.005
+  optimizer: sgd
+  num_workers: 0

@@ -1,0 +1,39 @@
+# ── 데이터·결과 (용량이 크고 대회 데이터는 재배포 금지) ──
+data/*
+!data/.gitkeep
+!data/README.md
+!data/class_map.json
+!data/splits/
+outputs/*
+!outputs/.gitkeep
+runs/
+wandb/
+*.pt
+*.pth
+*.onnx
+*.zip
+
+# ── 제출 파일 (기록은 docs/에 남기고 파일은 커밋하지 않음) ──
+submissions/
+*.csv
+!docs/**/*.csv
+
+# ── Python·uv ──
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# ── Jupyter ──
+.ipynb_checkpoints/
+
+# ── 개인 설정·비밀 정보 ──
+.env
+*.key
+kaggle.json
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
