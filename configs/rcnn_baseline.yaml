@@ -1,0 +1,18 @@
+# Baseline B (모델 B): COCO 사전학습 Faster R-CNN ResNet50-FPN v2
+base: base.yaml
+
+exp_name: 1028_modelB_frcnn_v0_baseline
+owner: modelB
+note: 비교용 2단계 탐지기 베이스라인
+
+model:
+  family: rcnn
+  arch: fasterrcnn_resnet50_fpn_v2
+  pretrained: true
+
+train:
+  epochs: 20
+  batch_size: 4
+  lr: 0.01
+  optimizer: sgd
+  num_workers: 2

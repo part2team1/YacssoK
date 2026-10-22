@@ -1,0 +1,46 @@
+# 파일별 책임자(owner). 해당 파일이 바뀐 PR에 리뷰어로 자동 지정됩니다.
+# @X_ID 등을 팀원의 GitHub 아이디로 바꿔 주세요. 두 명을 적으면 둘 중 한 명이 승인하면 됩니다.
+# 아래쪽 규칙이 위쪽보다 우선합니다.
+
+# 기본: PM·실험리드 두 명
+*                         @X_ID @Y_ID
+
+# PM·실험리드 X: 문서·보고서
+/README.md                @X_ID @Y_ID
+/reports/                 @X_ID
+/docs/                    @X_ID
+/app/                     @X_ID @Y_ID
+
+# PM·실험리드 Y: 환경·공통 코드·실행
+/pyproject.toml           @Y_ID @X_ID
+/uv.lock                  @Y_ID @X_ID
+/.github/                 @Y_ID @X_ID
+/src/interfaces.py        @Y_ID
+/src/utils.py             @Y_ID
+/src/metrics.py           @Y_ID
+/src/train.py             @Y_ID
+/src/infer.py             @Y_ID
+/src/models/base.py       @Y_ID
+/scripts/make_submission.py @Y_ID
+
+# 데이터 A: EDA·시각화
+/src/eda.py               @DATA_A_ID @DATA_B_ID
+/src/visualize.py         @DATA_A_ID @DATA_B_ID
+/notebooks/01_eda.ipynb   @DATA_A_ID
+/notebooks/04_error_analysis.ipynb @DATA_A_ID
+
+# 데이터 B: 데이터셋·증강·분할
+/src/dataset.py           @DATA_B_ID @DATA_A_ID
+/src/transforms.py        @DATA_B_ID @DATA_A_ID
+/scripts/split_data.py    @DATA_B_ID
+/scripts/export_yolo.py   @DATA_B_ID
+
+# 모델 A: YOLO
+/src/models/yolo.py       @MODEL_A_ID @MODEL_B_ID
+/configs/yolo*            @MODEL_A_ID @MODEL_B_ID
+
+# 모델 B: 대안 모델·앙상블
+/src/models/rcnn.py       @MODEL_B_ID @MODEL_A_ID
+/src/models/classifier.py @MODEL_B_ID @MODEL_A_ID
+/src/ensemble.py          @MODEL_B_ID @MODEL_A_ID
+/configs/rcnn*            @MODEL_B_ID @MODEL_A_ID

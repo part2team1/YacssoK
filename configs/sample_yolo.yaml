@@ -1,0 +1,25 @@
+# 스켈레톤 동작 확인용: 합성 샘플 데이터 + 아주 짧은 학습 (CPU로도 몇 분)
+# 먼저 실행: uv run python scripts/make_sample_data.py
+base: base.yaml
+
+exp_name: sample_yolo
+owner: team
+note: 스켈레톤 동작 확인
+
+data:
+  train_images: data/sample/train_images
+  train_annotations: data/sample/train_annotations
+  test_images: data/sample/test_images
+  class_map: data/sample/class_map.json
+  split_dir: data/sample/splits
+  yolo_dir: data/sample/yolo
+  img_size: 320
+
+model:
+  family: yolo
+  weights: yolov8n.yaml       # 다운로드 없이 처음부터 (동작 확인용)
+
+train:
+  epochs: 2
+  batch_size: 8
+  num_workers: 0

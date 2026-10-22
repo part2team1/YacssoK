@@ -1,0 +1,50 @@
+# git commit 할 때 자동으로 실행되는 검사 (Source 작성 표준 13장 체크리스트 자동화)
+#
+# 설치:  uv run pre-commit install          (clone 후 1회, 각자 PC에서)
+# 수동:  uv run pre-commit run --all-files  (전체 파일 검사)
+#
+# 검사에 걸리면 커밋이 취소됩니다.
+#  - 자동으로 고쳐 주는 훅(ruff --fix, ruff-format, nbstripout, 공백 정리)은 파일을 고친 뒤 멈춥니다.
+#    → 고쳐진 파일을 다시 `git add` 하고 `git commit` 하면 됩니다.
+#  - 자동으로 못 고치는 오류는 메시지를 보고 직접 고칩니다.
+#
+# 버전 갱신은 Y가 `uv run pre-commit autoupdate` 후 PR로 올립니다.
+# ruff 버전은 pyproject.toml의 dev 그룹 ruff 버전과 같게 유지합니다 (같은 규칙으로 검사하기 위해).
+
+default_install_hook_types: [pre-commit]
+
+repos:
+  # ── 기본 파일 검사 ─────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: no-commit-to-branch          # main에서 직접 커밋 금지 → 내 이름 브랜치에서 작업
+        args: [--branch, main]
+      - id: check-added-large-files      # 5MB 넘는 파일(가중치 .pt, 이미지 묶음 등) 커밋 방지
+        args: [--maxkb=5000]
+      - id: check-merge-conflict         # <<<<<<< 충돌 표시가 남은 채 커밋 방지
+      - id: detect-private-key           # 개인 키 커밋 방지
+      - id: check-yaml                   # configs/*.yaml 문법 오류
+      - id: check-toml                   # pyproject.toml 문법 오류
+      - id: check-json                   # class_map.json 등 문법 오류
+      - id: end-of-file-fixer            # 파일 끝 줄바꿈 정리
+        exclude: \.ipynb$
+      - id: trailing-whitespace          # 줄 끝 공백 정리
+        args: [--markdown-linebreak-ext=md]
+        exclude: \.ipynb$
+
+  # ── 노트북 출력 제거 (diff를 깔끔하게, 레포 용량 절약) ─────
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout
+
+  # ── 코드 스타일 (ruff: pyproject.toml의 [tool.ruff] 규칙 사용) ──
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.10
+    hooks:
+      - id: ruff-check                   # 린트 (import 정렬, 이름 규칙, 버그 패턴)
+        args: [--fix]
+        types_or: [python, pyi, jupyter]
+      - id: ruff-format                  # 코드 포맷 통일
+        types_or: [python, pyi, jupyter]
