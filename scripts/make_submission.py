@@ -1,4 +1,4 @@
-"""Kaggle 제출 파일 생성 (PM·실험리드 Y).
+"""Kaggle 제출 파일 생성 (Experimentation Lead).
 
 실행:
     uv run python scripts/make_submission.py --exp 1028_modelA_yolov8s_v0_baseline

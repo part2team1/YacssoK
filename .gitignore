@@ -13,10 +13,19 @@ wandb/
 *.onnx
 *.zip
 
+# ── 리포트·그림 (공개 레포: 대회 이미지가 들어갈 수 있어 커밋하지 않음, 디스코드·보고서로만 공유) ──
+reports/*.html
+reports/figures/*
+!reports/figures/.gitkeep
+
 # ── 제출 파일 (기록은 docs/에 남기고 파일은 커밋하지 않음) ──
 submissions/
 *.csv
 !docs/**/*.csv
+# 정제 규칙·기록은 커밋 (정제된 어노테이션 자체는 대회 데이터라 각자 스크립트로 생성)
+!data/annotations/
+data/annotations/*.json
+!data/annotations/*.csv
 
 # ── Python·uv ──
 .venv/
