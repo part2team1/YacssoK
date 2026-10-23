@@ -173,3 +173,17 @@ def _iou(a, b) -> float:
     inter = max(0.0, ix2 - ix1) * max(0.0, iy2 - iy1)
     union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
     return inter / union if union > 0 else 0.0
+def class_box_size(boxes_df: pd.DataFrame) -> pd.DataFrame:
+    """클래스별 평균 박스 크기 (작은 순). 작은 알약은 해상도·증강 실험 후보."""
+    out = (
+        boxes_df.groupby(["category_id", "name"])
+        .agg(
+            n_boxes=("area", "size"),
+            mean_w=("box_w", "mean"),
+            mean_h=("box_h", "mean"),
+            mean_rel_area=("rel_area", "mean"),
+        )
+        .reset_index()
+        .sort_values("mean_rel_area")
+    )
+    return out.round(3).reset_index(drop=True)
