@@ -1,4 +1,4 @@
-"""추론 실행 로직 (PM·실험리드 Y 담당). 학습된 실험 폴더 하나로 테스트 이미지를 예측한다."""
+"""추론 실행 로직 (Experimentation Lead 담당). 학습된 실험 폴더 하나로 테스트 이미지를 예측한다."""
 
 from __future__ import annotations
 

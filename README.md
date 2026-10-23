@@ -21,8 +21,8 @@
 
 | 이름 | 역할 | 담당 | 협업일지 |
 | --- | --- | --- | --- |
-| `TODO` | PM · 실험리드 X | 일정·회의, Kaggle 제출, 보고서·발표, 데모 | [링크](TODO) |
-| `TODO` | PM · 실험리드 Y | 환경·공통 코드, 학습·평가·제출 파이프라인, 실험 관리 | [링크](TODO) |
+| `TODO` | PM(X) | 일정·회의, Kaggle 제출, 보고서·발표, 데모 | [링크](TODO) |
+| `TODO` | Experimentation Lead | 환경·공통 코드, 학습·평가·제출 파이프라인, 실험 관리 | [링크](TODO) |
 | `TODO` | Data Engineer A | EDA, 시각화, 오분류 분석 | [링크](TODO) |
 | `TODO` | Data Engineer B | 데이터셋, 정제·분할, 증강 | [링크](TODO) |
 | `TODO` | Model Architect A | YOLO 베이스라인·튜닝 | [링크](TODO) |
@@ -88,7 +88,7 @@ data/raw/
 
 ### 패키지를 추가하고 싶을 때
 
-각자 `uv add`를 하면 `uv.lock` 충돌이 납니다. **Y에게 요청**하거나, 패키지 추가만 담은 PR을 올립니다.
+각자 `uv add`를 하면 `uv.lock` 충돌이 납니다. **Experimentation Lead에게 요청**하거나, 패키지 추가만 담은 PR을 올립니다.
 
 ```bash
 uv add 패키지명            # pyproject.toml과 uv.lock이 함께 바뀜 → 둘 다 커밋
@@ -118,6 +118,7 @@ uv run pytest                         # 팀 표준 형식 검사
 ### 1. 실제 데이터로 학습부터 제출까지
 
 ```bash
+uv run python scripts/check_data.py                                     # data/raw 배치·공용 파일 확인 (처음 한 번)
 uv run python scripts/prepare_data.py --config configs/base.yaml        # class_map.json, records.json
 uv run python scripts/split_data.py   --config configs/base.yaml        # data/splits/v0/train.txt, val.txt
 uv run python scripts/export_yolo.py  --config configs/yolo_baseline.yaml   # YOLO용 데이터 (YOLO만)
@@ -132,15 +133,24 @@ uv run python scripts/make_submission.py --exp <실험A> <실험B>              
 
 학습 결과는 `outputs/{실험 이름}/`에 `config.yaml`, `best.pt`, `metrics.json`, `preds_val.json`으로 저장되고, `outputs/experiment_log.jsonl`에 한 줄씩 쌓입니다.
 
+역할별 도구 (자세한 사용법은 역할별 실행 가이드):
+
+| 스크립트 | 하는 일 | 주 사용자 |
+| --- | --- | --- |
+| `scripts/clean_labels.py --version v1` | 라벨 정제본 `data/annotations/v1.json` + 보고서 + `splits/v1` | 데이터 |
+| `scripts/make_reports.py 01 04` | 노트북을 실행해 그래프가 든 `reports/*.html` 생성 | 데이터·모델 |
+| `scripts/evaluate.py --exp <실험> --nms-iou 0.6` | 재학습 없이 예측 설정만 바꿔 검증 점수 재계산 | 모델 |
+| `scripts/build_drug_info.py` | 데모 결과 표용 약 정보 `data/drug_info.json` (커밋 안 함) | 데모 |
+
 ### 2. 분석 노트북
 
 | 노트북 | 내용 | 담당 |
 | --- | --- | --- |
 | `01_eda` | 클래스·크기·박스 분포, 라벨 오류 의심 항목 | 데이터 A |
 | `02_data_check` | Dataset 출력 형식, 증강 결과, 분할 확인 | 데이터 B |
-| `03_experiment_compare` | 전체 실험 점수 비교표와 그래프 | Y |
+| `03_experiment_compare` | 전체 실험 점수 비교표와 그래프 | Experimentation Lead |
 | `04_error_analysis` | 틀린 예측, 헷갈리는 클래스 쌍 | 데이터 A |
-| `05_report_figures` | 보고서용 그림 저장 | X |
+| `05_report_figures` | 보고서용 그림 저장 | PM(X) |
 
 ### 3. 데모
 
@@ -165,11 +175,11 @@ pill-detection/
 ├── notebooks/      # 01_eda, 02_data_check, 03_experiment_compare, 04_error_analysis, 05_report_figures
 │   └── scratch/    # 개인 실험 노트북 ({이름}_{주제}.ipynb)
 ├── src/            # 공통 코드 (interfaces, utils, dataset, transforms, eda, visualize, metrics, models/, train, infer, ensemble)
-├── scripts/        # 실행 진입점 (split_data, export_yolo, run_train, make_submission, check_env)
+├── scripts/        # 실행 진입점 (check_env, check_data, prepare·split·export, run_train, evaluate, make_submission, clean_labels, make_reports, build_drug_info)
 ├── app/            # 데모 (Gradio)
 ├── outputs/        # 실험 결과 (git 제외)
 ├── tests/          # 형식 검사 테스트
-├── reports/        # 보고서, 발표자료, figures/
+├── reports/        # make_reports.py 결과·그림 (공개 레포라 커밋하지 않음)
 └── docs/           # 회의록, 실험 기록
 ```
 
@@ -260,6 +270,10 @@ uv run pre-commit run --all-files   # 커밋 없이 전체 검사만
 - 리뷰는 24시간 안에 합니다. 담당자 부재 시 백업 담당자가 승인합니다.
 - **11/4 코드 동결 이후**에는 버그 수정만 병합합니다.
 
-### 커밋하지 않는 것
+### 커밋하지 않는 것 (이 레포는 공개입니다)
 
-데이터, 모델 가중치(`.pt`), `outputs/`, 제출 CSV, `kaggle.json`·API 키, 개인 PC 절대 경로
+데이터, 모델 가중치(`.pt`), `outputs/`, 제출 CSV, `kaggle.json`·API 키, 개인 PC 절대 경로,
+`reports/*.html`·`reports/figures/` (대회 이미지가 들어감), 약 정보 `data/drug_info.json`, 정제 어노테이션 `data/annotations/*.json`
+
+대회 데이터는 재배포 금지입니다. 공개 레포의 PR 본문·이슈·커밋에 **대회 이미지(원본, 예측 박스 그림, 실제 데이터로 띄운 데모 캡처)를 올리지 않습니다.**
+PR에는 숫자 표와 그래프(막대·히스토그램)만 넣고, 이미지가 들어간 결과는 팀 디스코드로 공유합니다.

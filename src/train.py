@@ -1,4 +1,4 @@
-"""학습 실행 로직 (PM·실험리드 Y 담당).
+"""학습 실행 로직 (Experimentation Lead 담당).
 
 설정 파일 하나 → 모델 생성 → 학습 → 검증 예측 → 점수 계산 → outputs/{exp_name}/ 에 저장.
 모든 실험이 같은 순서로 저장되므로 notebooks/03_experiment_compare.ipynb 에서 한 번에 비교할 수 있다.

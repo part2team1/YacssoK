@@ -31,6 +31,9 @@ PILLS = [
 ]
 
 
+NAMES = {cid: name for cid, name, _, _ in PILLS}
+
+
 def draw_pill(
     img: np.ndarray, shape: str, color, cx: int, cy: int, size: int, angle: float
 ) -> tuple:
@@ -94,7 +97,20 @@ def main() -> None:
         for cid, bbox in items:  # 알약 하나당 JSON 하나 (대회 데이터처럼 흩어진 구조)
             save_json(
                 {
-                    "images": [{"id": i, "file_name": file_name, "width": w, "height": h}],
+                    "images": [
+                        {
+                            "id": i,
+                            "file_name": file_name,
+                            "width": w,
+                            "height": h,
+                            # 대회 JSON의 약 정보 항목 일부를 흉내 냄 (데모 약 정보 표시 테스트용)
+                            "dl_idx": str(cid),
+                            "dl_name": NAMES[cid],
+                            "dl_company": "샘플제약",
+                            "dl_material": "샘플성분",
+                            "di_etc_otc_code": "일반의약품",
+                        }
+                    ],
                     "annotations": [
                         {
                             "id": ann_id,

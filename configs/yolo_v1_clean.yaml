@@ -1,0 +1,12 @@
+# 예시 (데이터 B): 정제 데이터 v1으로 baseline A와 같은 설정을 학습 → 정제 효과 비교 (실험 D1)
+# 먼저 실행: uv run python scripts/clean_labels.py --config configs/base.yaml --version v1
+#           uv run python scripts/export_yolo.py --config configs/yolo_v1_clean.yaml
+base: yolo_baseline.yaml
+
+exp_name: 1028_dataB_yolov8s_v1_clean
+owner: dataB
+note: 라벨 정제 v1 효과 확인
+
+data:
+  train_annotations: data/annotations/v1.json
+  version: v1

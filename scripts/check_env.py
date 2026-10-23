@@ -47,7 +47,11 @@ def main() -> None:
     except Exception:
         pass
 
-    print("\n환경설정 완료" if ok else "\n설치 실패 항목이 있습니다. Y에게 화면을 공유하세요.")
+    print(
+        "\n환경설정 완료"
+        if ok
+        else "\n설치 실패 항목이 있습니다. Experimentation Lead에게 화면을 공유하세요."
+    )
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@
 박스를 함께 바꾸지 않는 증강(예: 이미지만 회전)은 정답이 틀어지므로 금지.
 
 고도화 아이디어 (실험 계획 D2~D5): 회전·원근 변환, 약한 색상 변화, Copy-paste.
-albumentations를 쓰고 싶으면 Y에게 패키지 추가를 요청하고 이 파일 안에서만 감싼다.
+albumentations를 쓰고 싶으면 Experimentation Lead에게 패키지 추가를 요청하고 이 파일 안에서만 감싼다.
 """
 
 from __future__ import annotations
