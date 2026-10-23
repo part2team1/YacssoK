@@ -1,4 +1,4 @@
-"""평가 함수 (PM·실험리드 Y 담당).
+"""평가 함수 (Experimentation Lead 담당).
 
 검증 점수는 대회 리더보드 지표와 같은 방식으로 계산해야 내부 점수와 Kaggle 점수가 같은 방향으로 움직인다.
 configs의 eval.iou_thresholds로 IoU 구간을 맞춘다 (null이면 COCO 기본 0.50:0.95).

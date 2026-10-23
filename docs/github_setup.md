@@ -1,4 +1,4 @@
-# GitHub 레포 초기 설정 (PM·실험리드 Y, 10/22)
+# GitHub 레포 초기 설정 (Experimentation Lead, 10/22)
 
 팀원이 클론하기 전에 레포 관리자가 한 번만 진행합니다.
 
