@@ -200,3 +200,87 @@ def background_counts(ann_dir) -> pd.DataFrame:
             rows[img["file_name"]] = img.get("back_color", "없음")
     return pd.Series(rows).value_counts().rename("n_images").reset_index()
 
+
+
+
+
+# ===== src/eda.py 맨 아래에 붙여넣기 =====
+# (파일 위쪽의 `print("현재 작업 경로:", Path.cwd())` 와 중복된 `from pathlib import Path` 는 지워주세요.
+#  모듈 안에 print가 있으면 import 할 때마다 출력됩니다.)
+
+
+def _combo_codes(name: str) -> list[str]:
+    """'K-003351-032310-038162_json' 또는 '..._0_2_0_2_90_000_200' -> ['003351', '032310', '038162']"""
+    return name.split("_")[0].split("-")[1:]
+
+
+def image_json_pairs(ann_dir, image_dir, ext: str = ".png") -> pd.DataFrame:
+    """이미지 1장 기준으로 json이 몇 개 연결됐는지와 상태.
+
+    status:
+    - ok: 이미지와 json이 모두 있고, 약 개수만큼 json이 있음
+    - partial_json: 이미지에 찍힌 약 중 일부만 json이 있음
+    - no_json: 이미지는 있는데 json이 하나도 없음
+    - no_image: json은 있는데 이미지가 없음
+    """
+    ann_dir, image_dir = resolve_path(ann_dir), resolve_path(image_dir)
+    js = pd.DataFrame(
+        [
+            {"stem": p.stem, "combo_folder": p.parent.parent.name, "pill_folder": p.parent.name}
+            for p in ann_dir.glob("*/*/*.json")
+        ],
+        columns=["stem", "combo_folder", "pill_folder"],
+    )
+    js["n_pills"] = js["combo_folder"].map(lambda n: len(_combo_codes(n)))
+    imgs = pd.DataFrame({"stem": [p.stem for p in image_dir.rglob(f"*{ext}")]})
+
+    per_img = (
+        js.groupby("stem")
+        .agg(
+            n_json=("pill_folder", "size"),
+            n_pills=("n_pills", "first"),
+            pills_with_json=("pill_folder", list),
+        )
+        .reset_index()
+    )
+    m = imgs.merge(per_img, on="stem", how="outer", indicator=True)
+    m["status"] = m["_merge"].map(
+        {"left_only": "no_json", "right_only": "no_image", "both": "ok"}
+    ).astype(str)
+    m.loc[(m["status"] == "ok") & (m["n_json"] < m["n_pills"]), "status"] = "partial_json"
+    return m.drop(columns="_merge").sort_values(["status", "stem"]).reset_index(drop=True)
+
+
+def missing_jsons(ann_dir, image_dir, ext: str = ".png") -> pd.DataFrame:
+    """이미지 파일명으로 '있어야 할 json 경로'를 만들어 없는 것만 돌려준다."""
+    ann_dir, image_dir = resolve_path(ann_dir), resolve_path(image_dir)
+    rows = []
+    for img in sorted(image_dir.rglob(f"*{ext}")):
+        combo = img.stem.split("_")[0]  # 'K-003351-032310-038162'
+        for code in _combo_codes(img.stem):
+            jp = ann_dir / f"{combo}_json" / f"K-{code}" / f"{img.stem}.json"
+            rows.append(
+                {
+                    "image": img.name,
+                    "pill_code": f"K-{code}",
+                    "expected_json": str(jp.relative_to(ann_dir)),
+                    "exists": jp.exists(),
+                }
+            )
+    exp = pd.DataFrame(rows, columns=["image", "pill_code", "expected_json", "exists"])
+    return exp[~exp["exists"]].drop(columns="exists").reset_index(drop=True)
+
+
+# ===== notebooks/01_eda.ipynb 에서 쓰는 법 =====
+# from src.eda import image_json_pairs, missing_jsons
+#
+# ANN_DIR = "data/raw/train_annotations"
+# IMG_DIR = "data/raw/train_images"
+#
+# pairs = image_json_pairs(ANN_DIR, IMG_DIR)
+# pairs["status"].value_counts()                                   # ok / partial_json / no_json / no_image 개수
+# pd.crosstab(pairs["n_pills"], pairs["n_json"], margins=True)     # 사진당 연결된 json 수
+#
+# miss = missing_jsons(ANN_DIR, IMG_DIR)
+# miss.groupby("pill_code").size().sort_values(ascending=False)    # 약별 누락 수
+# miss.to_csv("outputs/missing_json.csv", index=False, encoding="utf-8-sig")

@@ -77,4 +77,26 @@ def get_transforms(cfg_augment: dict | None, train: bool):
         ops.append(VerticalFlip(cfg_augment["vflip"]))
     if cfg_augment.get("brightness", 0) > 0:
         ops.append(BrightnessContrast(cfg_augment["brightness"], cfg_augment.get("contrast", 0.2)))
-    return Compose(ops) if ops else None
+
+    if cfg_augment.get("rotate90", 0) > 0:
+        ops.append(Rotate90(cfg_augment["rotate90"]))
+        return Compose(ops) if ops else None
+
+
+
+
+class Rotate90:
+    """90·180·270도 회전. 박스 좌표도 같이 돌린다."""
+
+    def __init__(self, p: float = 0.5):
+        self.p = p
+
+    def __call__(self, img, boxes, labels):
+        if random.random() < self.p:
+            k = random.choice([1, 2, 3])
+            for _ in range(k):  # 반시계 90도씩
+                h, w = img.shape[:2]
+                img = np.rot90(img)
+                x1, y1, x2, y2 = boxes[:, 0], boxes[:, 1], boxes[:, 2], boxes[:, 3]
+                boxes = np.stack([y1, w - x2, y2, w - x1], axis=1)
+        return img, boxes, labels
