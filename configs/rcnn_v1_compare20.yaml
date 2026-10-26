@@ -1,0 +1,14 @@
+# YOLO와 같은 v1 분할에서 Faster R-CNN 20 epoch 비교
+base: rcnn_baseline.yaml
+
+exp_name: 1026_modelB_frcnn_v1_compare
+owner: modelB
+note: YOLOv8s와 같은 v1 분할에서 20 epoch 비교
+
+data:
+  train_annotations: data/annotations/v1.json
+  version: v1
+
+train:
+  epochs: 20
+  device: auto

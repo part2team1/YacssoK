@@ -1,0 +1,9 @@
+# Faster R-CNN과 같은 v1 분할에서 YOLO 20 epoch 비교
+base: yolo_v1_clean.yaml
+
+exp_name: 1026_dataB_yolov8s_v1_compare20
+owner: dataB
+note: Faster R-CNN과 같은 v1 분할에서 20 epoch 비교
+
+train:
+  epochs: 20
