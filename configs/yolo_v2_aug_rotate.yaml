@@ -1,0 +1,15 @@
+# 예시 (데이터 B·모델 A): YOLO 증강 바꾸기 (실험 D3)
+# YOLO는 src/transforms.py 대신 ultralytics 내장 증강을 쓰므로 yolo_args로 조절한다.
+# 키 목록: https://docs.ultralytics.com/modes/train/#augmentation-settings-and-hyperparameters
+base: yolo_v2_clean.yaml
+
+exp_name: 1027_dataB_yolov8s_v2_rotate
+owner: dataB
+note: 정제된 데이터셋(v2)에 회전·상하반전 증강 추가
+
+yolo_args:
+  degrees: 180        # 회전 (알약은 어떤 각도로도 놓임)
+  flipud: 0.5         # 상하 반전
+  fliplr: 0.5         # 좌우 반전 (기본값)
+  hsv_h: 0.0          # 색조 변화 끔 (색이 알약 구분 단서)
+  plots: true         # 학습 곡선·PR 곡선·혼동 행렬 그림 저장
