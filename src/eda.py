@@ -11,6 +11,7 @@ import math
 from numbers import Real
 
 import pandas as pd
+import json
 
 from src.interfaces import MAX_PILLS_PER_IMAGE, ClassInfo, Record
 from src.utils import resolve_path
@@ -277,5 +278,109 @@ def check_record_missing(records):
         issues,
         columns=["record_idx", "file_name", "field", "issue"],
     )
+
+
+
+def check_annotation_angles(ann_dir: str | Path) -> pd.DataFrame:
+    """원본 JSON 파일명의 각도와 images 내부 각도를 비교한다.
+
+    파일명 끝의 ..._70_000_200.json에서:
+    - 70: camera_la
+    - 000: camera_lo
+    - 200: size
+
+    각 JSON의 images 항목마다 한 행을 반환한다.
+    """
+    ann_dir = resolve_path(ann_dir)
+
+    if not ann_dir.is_dir():
+        raise FileNotFoundError(f"어노테이션 폴더를 찾을 수 없습니다: {ann_dir}")
+
+    json_files = sorted(ann_dir.rglob("*.json"))
+    rows = []
+
+    for json_path in json_files:
+        # 파일명 끝의 la, lo, size 추출
+        parts = json_path.stem.rsplit("_", 3)
+
+        base_row = {
+            "json_path": str(json_path),
+            "image_index": None,
+            "image_file": None,
+            "file_la": None,
+            "file_lo": None,
+            "json_la": None,
+            "json_lo": None,
+        }
+
+        if len(parts) != 4:
+            rows.append({**base_row, "status": "파일명 형식 오류"})
+            continue
+
+        try:
+            file_la = int(parts[-3])
+            file_lo = int(parts[-2])
+        except ValueError:
+            rows.append({**base_row, "status": "파일명 각도 변환 오류"})
+            continue
+
+        base_row["file_la"] = file_la
+        base_row["file_lo"] = file_lo
+
+        try:
+            with json_path.open(encoding="utf-8-sig") as f:
+                data = json.load(f)
+        except (OSError, UnicodeError, json.JSONDecodeError) as e:
+            rows.append({**base_row, "status": f"JSON 읽기 오류: {e}"})
+            continue
+
+        if not isinstance(data, dict) or not isinstance(data.get("images"), list):
+            rows.append({**base_row, "status": "images 리스트 없음 또는 형식 오류"})
+            continue
+
+        if not data["images"]:
+            rows.append({**base_row, "status": "images 리스트 비어 있음"})
+            continue
+
+        for i, img in enumerate(data["images"]):
+            row = {**base_row, "image_index": i}
+
+            if not isinstance(img, dict):
+                rows.append({**row, "status": "image 항목 형식 오류"})
+                continue
+
+            json_la = img.get("camera_la")
+            json_lo = img.get("camera_lo")
+
+            row["image_file"] = img.get("file_name")
+            row["json_la"] = json_la
+            row["json_lo"] = json_lo
+
+            if json_la is None or json_lo is None:
+                status = "JSON 각도 결측"
+            elif isinstance(json_la, bool) or isinstance(json_lo, bool):
+                status = "JSON 각도 형식 오류"
+            else:
+                try:
+                    la = float(json_la)
+                    lo = float(json_lo)
+                    status = (
+                        "일치"
+                        if file_la == la and file_lo == lo
+                        else "불일치"
+                    )
+                except (TypeError, ValueError, OverflowError):
+                    status = "JSON 각도 형식 오류"
+
+            rows.append({**row, "status": status})
+
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "json_path", "image_index", "image_file",
+            "file_la", "file_lo", "json_la", "json_lo", "status",
+        ],
+    )
+
 
 
