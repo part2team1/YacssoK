@@ -167,6 +167,28 @@ def show_all_records(
     plt.show()
 
 
+def show_by_filename(
+    records: list[Record],
+    image_dir: str | Path,
+    class_map: list[ClassInfo],
+    file_name: str,
+) -> None:
+    """파일명이 일치하는 이미지의 정답 박스를 표시한다."""
+    matched = [r for r in records if r["file_name"] == file_name]
+
+    if not matched:
+        print(f"해당 파일을 records에서 찾을 수 없습니다: {file_name}")
+        return
+
+    show_samples(
+        matched,
+        image_dir,
+        class_map,
+        n=len(matched),
+        cols=1,
+    )
+
+
 def show_prediction(
     img: np.ndarray,
     pred: Prediction,
