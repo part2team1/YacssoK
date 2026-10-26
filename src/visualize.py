@@ -95,6 +95,37 @@ def show_samples(
     plt.show()
 
 
+def show_image_files(
+    file_names: list[str],
+    image_dir: str | Path,
+    max_images: int = 24,
+    cols: int = 3,
+) -> None:
+    """파일 이름 목록의 원본 이미지를 격자로 보여준다."""
+    file_names = list(dict.fromkeys(file_names))[:max_images]
+    if not file_names:
+        print("표시할 이미지가 없습니다.")
+        return
+
+    rows = int(np.ceil(len(file_names) / cols))
+    fig, axes = plt.subplots(rows, cols, figsize=(5 * cols, 4 * rows), squeeze=False)
+    for ax in axes.ravel():
+        ax.axis("off")
+
+    image_dir = resolve_path(image_dir)
+    for ax, file_name in zip(axes.ravel(), file_names, strict=False):
+        path = image_dir / file_name
+        try:
+            ax.imshow(read_image_rgb(path))
+            ax.set_title(file_name, fontsize=8)
+        except Exception as exc:
+            ax.text(0.5, 0.5, f"이미지 읽기 실패\n{file_name}\n{type(exc).__name__}",
+                    ha="center", va="center", wrap=True)
+
+    plt.tight_layout()
+    plt.show()
+
+
 def show_prediction(
     img: np.ndarray,
     pred: Prediction,

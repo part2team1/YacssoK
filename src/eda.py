@@ -113,6 +113,89 @@ def bbox_stats(boxes_df: pd.DataFrame) -> pd.DataFrame:
     return boxes_df[cols].describe(percentiles=[0.05, 0.25, 0.5, 0.75, 0.95]).T.round(3)
 
 
+def image_metadata_issues(
+    images_df: pd.DataFrame, image_dir: str | Path
+) -> pd.DataFrame:
+    """JSON 이미지 목록과 실제 이미지 파일 목록·픽셀 크기의 차이를 찾는다."""
+    from src.dataset import list_images, read_image_rgb
+
+    paths_by_name = {path.name: path for path in list_images(image_dir)}
+    json_names = set(images_df["file_name"].dropna().astype(str))
+    rows = []
+
+    for row in images_df.itertuples(index=False):
+        file_name = str(row.file_name)
+        path = paths_by_name.get(file_name)
+        if path is None:
+            rows.append({
+                "file_name": file_name,
+                "issue": "image_file_missing",
+                "json_width": row.width,
+                "json_height": row.height,
+                "actual_width": None,
+                "actual_height": None,
+                "detail": "JSON에는 있지만 이미지 폴더에서 파일을 찾지 못함",
+            })
+            continue
+
+        try:
+            image = read_image_rgb(path)
+        except Exception as exc:
+            rows.append({
+                "file_name": file_name,
+                "issue": "image_unreadable",
+                "json_width": row.width,
+                "json_height": row.height,
+                "actual_width": None,
+                "actual_height": None,
+                "detail": type(exc).__name__,
+            })
+            continue
+
+        actual_height, actual_width = image.shape[:2]
+        try:
+            json_width, json_height = int(row.width), int(row.height)
+        except (TypeError, ValueError):
+            rows.append({
+                "file_name": file_name,
+                "issue": "invalid_json_dimensions",
+                "json_width": row.width,
+                "json_height": row.height,
+                "actual_width": actual_width,
+                "actual_height": actual_height,
+                "detail": "JSON의 width 또는 height를 정수로 읽을 수 없음",
+            })
+            continue
+
+        if (json_width, json_height) != (actual_width, actual_height):
+            rows.append({
+                "file_name": file_name,
+                "issue": "image_size_mismatch",
+                "json_width": json_width,
+                "json_height": json_height,
+                "actual_width": actual_width,
+                "actual_height": actual_height,
+                "detail": "JSON 크기와 실제 이미지 픽셀 크기가 다름",
+            })
+
+    for file_name in sorted(set(paths_by_name) - json_names):
+        rows.append({
+            "file_name": file_name,
+            "issue": "missing_json_record",
+            "json_width": None,
+            "json_height": None,
+            "actual_width": None,
+            "actual_height": None,
+            "detail": "이미지 파일은 있지만 JSON images 목록에 없음",
+        })
+
+    columns = [
+        "file_name", "issue", "json_width", "json_height",
+        "actual_width", "actual_height", "detail",
+    ]
+    return pd.DataFrame(rows, columns=columns)
+
+
 def find_label_issues(
     images_df: pd.DataFrame, boxes_df: pd.DataFrame, image_dir: str | Path | None = None
 ) -> pd.DataFrame:
