@@ -1,0 +1,5 @@
+base: yolo_baseline.yaml
+exp_name: 1026_yolov8s_v2_clean
+data:
+  train_annotations: data/annotations/v2.json
+  version: v2

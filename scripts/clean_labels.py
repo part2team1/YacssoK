@@ -31,11 +31,17 @@ from src.utils import load_config, resolve_path, save_json
 MIN_SIZE = 3  # 너비·높이가 이 픽셀보다 작으면 잘못된 박스로 본다
 
 
-def load_manual_drop(path) -> set[tuple[str, int]]:
+def load_manual_drop(path) -> set[tuple[str, int | None]]:
+    """(file_name, category_id) 목록. category_id를 all 로 적으면 그 이미지 전체를 뺀다
+    (라벨이 빠진 알약이 있는 이미지처럼 박스 하나로는 고칠 수 없는 경우)."""
     if not path.exists():
         return set()
+    out: set[tuple[str, int | None]] = set()
     with open(path, encoding="utf-8") as f:
-        return {(row["file_name"], int(row["category_id"])) for row in csv.DictReader(f)}
+        for row in csv.DictReader(f):
+            cid = (row.get("category_id") or "").strip()
+            out.add((row["file_name"].strip(), None if cid.lower() in ("", "all") else int(cid)))
+    return out
 
 
 # 특정 파일 bbox swap 코드 추가
@@ -49,6 +55,14 @@ def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[d
     cleaned, log = [], []
 
     for r in records:
+        if (r["file_name"], None) in manual_drop:  # 이미지 전체 제외      ← 여기부터
+            log.append(
+                {"file_name": r["file_name"], "category_id": None, "action": "drop_image_manual"}
+            )
+            continue                                                          # ← 여기까지 추가
+        w, h = r["width"], r["height"]
+
+        
         file_name = r["file_name"]
 
         # 이미지 전체 수동 제외
