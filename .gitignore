@@ -15,6 +15,7 @@ wandb/
 
 # ── 리포트·그림 (공개 레포: 대회 이미지가 들어갈 수 있어 커밋하지 않음, 디스코드·보고서로만 공유) ──
 reports/*.html
+!reports/model_comparison_v1_20epochs.html
 reports/figures/*
 !reports/figures/.gitkeep
 
