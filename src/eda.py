@@ -7,6 +7,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import math
+from numbers import Real
 
 import pandas as pd
 
@@ -200,3 +202,80 @@ def background_counts(ann_dir) -> pd.DataFrame:
         for img in load_json(path).get("images", []):
             rows[img["file_name"]] = img.get("back_color", "없음")
     return pd.Series(rows).value_counts().rename("n_images").reset_index()
+
+
+
+def check_record_missing(records):
+    """image_id, file_name, width, height, boxes, category_ids 결측치 검사"""
+    issues = []
+    required = (
+        "image_id", "file_name", "width",
+        "height", "boxes", "category_ids",
+    )
+
+    def add(i, r, field, issue):
+        issues.append({
+            "record_idx": i,
+            "file_name": r.get("file_name"),
+            "field": field,
+            "issue": issue,
+        })
+
+    def is_missing(value):
+        return (
+            value is None
+            or (isinstance(value, str) and not value.strip())
+            or (
+                isinstance(value, Real)
+                and not math.isfinite(value)
+            )
+        )
+
+    for i, r in enumerate(records):
+        for field in required:
+            if field not in r:
+                add(i, r, field, "키 없음")
+            elif is_missing(r[field]):
+                add(i, r, field, "결측치 또는 NaN/무한대")
+
+        # bbox 내부 확인
+        boxes = r.get("boxes")
+        if isinstance(boxes, list):
+            if not boxes:
+                add(i, r, "boxes", "빈 리스트(객체 없음)")
+
+            for j, box in enumerate(boxes):
+                if not isinstance(box, (list, tuple)) or len(box) != 4:
+                    add(i, r, f"boxes[{j}]", "좌표 4개 형식이 아님")
+                    continue
+
+                for k, value in enumerate(box):
+                    if is_missing(value):
+                        add(i, r, f"boxes[{j}][{k}]", "결측치 또는 NaN/무한대")
+                    elif not isinstance(value, Real) or isinstance(value, bool):
+                        add(i, r, f"boxes[{j}][{k}]", "숫자가 아님")
+        elif boxes is not None and "boxes" in r:
+            add(i, r, "boxes", "리스트가 아님")
+
+        # category_ids 내부 확인
+        cats = r.get("category_ids")
+        if isinstance(cats, list):
+            if not cats:
+                add(i, r, "category_ids", "빈 리스트(클래스 없음)")
+
+            for j, cid in enumerate(cats):
+                if is_missing(cid):
+                    add(i, r, f"category_ids[{j}]", "결측치 또는 NaN/무한대")
+        elif cats is not None and "category_ids" in r:
+            add(i, r, "category_ids", "리스트가 아님")
+
+        if isinstance(boxes, list) and isinstance(cats, list):
+            if len(boxes) != len(cats):
+                add(i, r, "boxes/category_ids", "개수 불일치")
+
+    return pd.DataFrame(
+        issues,
+        columns=["record_idx", "file_name", "field", "issue"],
+    )
+
+
