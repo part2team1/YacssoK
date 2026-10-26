@@ -1,0 +1,122 @@
+{
+  "객체 파일 없음": [
+    {
+      "file_name": "K-003351-013900-021325_0_2_0_2_70_000_200.png",
+      "category_ids": [3351],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-013900-036637_0_2_0_2_70_000_200.png",
+      "category_ids": [3351],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-020014-022074_0_2_0_2_90_000_200.png",
+      "category_ids": [20014],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-021325-032310_0_2_0_2_90_000_200.png",
+      "category_ids": [32310],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-032310-038162_0_2_0_2_70_000_200.png",
+      "category_ids": [3351],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-033880-038162_0_2_0_2_75_000_200.png",
+      "category_ids": [33880],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-035206-041768_0_2_0_2_70_000_200.png",
+      "category_ids": [3351],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003544-004543-012247-016548_0_2_0_2_90_000_200.png",
+      "category_ids": [4543],
+      "note": "해당 객체의 annotation 파일을 찾지 못함",
+      "status": "검토 필요",
+      "action": null
+    }
+  ],
+  "bbox 안찍힘": [
+    {
+      "file_name": "K-001900-016548-019607-033009_0_2_0_2_70_000_200.png",
+      "category_ids": [16548],
+      "note": "해당 객체의 annotation 파일은 있으나 bbox가 표시되지 않음",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-016262-018357_0_2_0_2_75_000_200.png",
+      "category_ids": [18357],
+      "note": "해당 객체의 annotation 파일은 있으나 bbox가 표시되지 않음",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-029667-031863_0_2_0_2_70_000_200.png",
+      "category_ids": [3351],
+      "note": "해당 객체의 annotation 파일은 있으나 bbox가 표시되지 않음",
+      "status": "검토 필요",
+      "action": null
+    }
+  ],
+  "bbox 위치 오류": [
+    {
+      "file_name": "K-003351-019232-029667_0_2_1_2_70_000_200.png",
+      "category_ids": [19232],
+      "note": "bbox가 객체 일부를 잘라냄",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-020014-020238_0_2_0_2_90_000_200.png",
+      "category_ids": [3351],
+      "note": "bbox가 엉뚱한 위치를 가리킴",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003483-025367-027733-035206_0_2_0_2_75_000_200.png",
+      "category_ids": [27733, 35206],
+      "note": "두 객체의 bbox 위치가 서로 바뀜",
+      "status": "검토 필요",
+      "action": null
+    }
+  ],
+  "기타": [
+    {
+      "file_name": "K-003351-020238-031863_0_2_0_2_70_000_200.png",
+      "category_ids": [3351],
+      "note": "label_idx 2인 알약에 25가 표시됨. label_idx 25인 알약에는 bbox가 표시되지 않음",
+      "status": "검토 필요",
+      "action": null
+    },
+    {
+      "file_name": "K-003351-022074-031863_0_2_0_2_75_000_200.png",
+      "category_ids": [3351],
+      "note": "박스는 정상으로 보이나 label_idx 2 알약의 뒷면인지 확인 필요",
+      "status": "검토 필요",
+      "action": null
+    }
+  ]
+}
