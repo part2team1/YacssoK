@@ -95,6 +95,78 @@ def show_samples(
     plt.show()
 
 
+
+def show_all_records(
+    records: list[Record],
+    image_dir: str | Path,
+    class_map: list[ClassInfo],
+    page: int = 1,
+    per_page: int = 6,
+    cols: int = 2,
+) -> None:
+    """전체 records를 파일명순으로 정렬해 페이지별로 정답 박스와 클래스 정보를 표시."""
+    if not records:
+        print("표시할 이미지가 없습니다.")
+        return
+    if per_page < 1 or cols < 1:
+        raise ValueError("per_page와 cols는 1 이상이어야 합니다.")
+
+    ordered = sorted(records, key=lambda r: r["file_name"])
+    total_pages = (len(ordered) + per_page - 1) // per_page
+
+    if not 1 <= page <= total_pages:
+        raise ValueError(f"page는 1~{total_pages} 범위여야 합니다.")
+
+    cat_info = {c["category_id"]: c for c in class_map}
+    start = (page - 1) * per_page
+    selected = ordered[start:start + per_page]
+
+    rows = (len(selected) + cols - 1) // cols
+    fig, axes = plt.subplots(
+        rows, cols,
+        figsize=(8 * cols, 8 * rows),
+        squeeze=False,
+    )
+
+    for ax in axes.ravel():
+        ax.axis("off")
+
+    for index, (ax, record) in enumerate(
+        zip(axes.ravel(), selected), start=start + 1
+    ):
+        img = read_image_rgb(
+            resolve_path(image_dir) / record["file_name"]
+        )
+
+        labels = [
+            cat_info[category_id]["label_idx"]
+            for category_id in record["category_ids"]
+        ]
+        ax.imshow(draw_boxes(img, record["boxes"], labels))
+
+        # 같은 클래스의 객체가 여러 개여도 목록에는 한 번만 표시
+        descriptions = []
+        for category_id in dict.fromkeys(record["category_ids"]):
+            info = cat_info[category_id]
+            descriptions.append(
+                f"label={info['label_idx']} | "
+                f"category_id={category_id} | {info['name']}"
+            )
+
+        ax.set_title(
+            f"[{index}/{len(ordered)}] {record['file_name']}\n"
+            + "\n".join(descriptions),
+            fontsize=9,
+        )
+
+    fig.suptitle(
+        f"정답 검토 — {page}/{total_pages} 페이지",
+        fontsize=14,
+    )
+    plt.tight_layout()
+    plt.show()
+
+
 def show_prediction(
     img: np.ndarray,
     pred: Prediction,
