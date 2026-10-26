@@ -38,41 +38,117 @@ def load_manual_drop(path) -> set[tuple[str, int]]:
         return {(row["file_name"], int(row["category_id"])) for row in csv.DictReader(f)}
 
 
+# 특정 파일 bbox swap 코드 추가
 def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[dict]]:
-    """규칙대로 박스를 고치거나 빼고, 바꾼 내용을 log로 남긴다."""
+    """정제 규칙을 적용하고 변경 내역을 기록한다. 원본 records는 수정하지 않는다."""
+    swap_file = (
+        "K-003483-025367-027733-035206_0_2_0_2_75_000_200.png"
+    )
+    swap_cids = (27733, 35206)
+
     cleaned, log = [], []
+
     for r in records:
+        file_name = r["file_name"]
+
+        # 이미지 전체 수동 제외
+        if (file_name, "all") in manual_drop:
+            log.append({
+                "file_name": file_name,
+                "category_id": None,
+                "action": "drop_image_manual",
+            })
+            continue
+
         w, h = r["width"], r["height"]
-        boxes, cats = [], []
-        for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
-            if (r["file_name"], cid) in manual_drop:
-                log.append(
-                    {"file_name": r["file_name"], "category_id": cid, "action": "drop_manual"}
+        source_boxes = [list(box) for box in r["boxes"]]
+        source_cats = list(r["category_ids"])
+
+        # 수동 교정: 지정한 두 클래스의 bbox 교환
+        if file_name == swap_file:
+            cid_a, cid_b = swap_cids
+
+            if source_cats.count(cid_a) != 1 or source_cats.count(cid_b) != 1:
+                raise ValueError(
+                    f"bbox 교환 대상이 각각 하나씩 있어야 합니다: "
+                    f"{file_name}, category_ids={source_cats}"
                 )
+
+            i = source_cats.index(cid_a)
+            j = source_cats.index(cid_b)
+
+            source_boxes[i], source_boxes[j] = (
+                source_boxes[j],
+                source_boxes[i],
+            )
+
+            for cid in swap_cids:
+                log.append({
+                    "file_name": file_name,
+                    "category_id": cid,
+                    "action": "swap_bbox",
+                })
+
+        boxes, cats = [], []
+
+        for (x1, y1, x2, y2), cid in zip(
+            source_boxes, source_cats, strict=True
+        ):
+            if (file_name, cid) in manual_drop:
+                log.append({
+                    "file_name": file_name,
+                    "category_id": cid,
+                    "action": "drop_manual",
+                })
                 continue
-            # 규칙 1: 이미지 밖으로 나간 부분은 이미지 경계로 자른다
+
+            # 규칙 1: 이미지 밖으로 나간 부분을 이미지 경계로 자른다
             nx1, ny1 = max(0.0, x1), max(0.0, y1)
-            nx2, ny2 = (min(float(w), x2) if w else x2), (min(float(h), y2) if h else y2)
+            nx2 = min(float(w), x2) if w else x2
+            ny2 = min(float(h), y2) if h else y2
+
             if (nx1, ny1, nx2, ny2) != (x1, y1, x2, y2):
-                log.append({"file_name": r["file_name"], "category_id": cid, "action": "clip"})
-            # 규칙 2: 너무 작거나 넓이가 없는 박스는 뺀다
+                log.append({
+                    "file_name": file_name,
+                    "category_id": cid,
+                    "action": "clip",
+                })
+
+            # 규칙 2: 너무 작거나 넓이가 없는 박스를 뺀다
             if nx2 - nx1 < MIN_SIZE or ny2 - ny1 < MIN_SIZE:
-                log.append({"file_name": r["file_name"], "category_id": cid, "action": "drop_tiny"})
+                log.append({
+                    "file_name": file_name,
+                    "category_id": cid,
+                    "action": "drop_tiny",
+                })
                 continue
+
             boxes.append([nx1, ny1, nx2, ny2])
             cats.append(cid)
-        # 규칙 3: 과제 조건(최대 4개)을 넘으면 기록만 남긴다 (자동 삭제하지 않고 사람이 확인)
+
+        # 규칙 3: 객체가 너무 많으면 검토 대상으로 기록
         if len(boxes) > MAX_PILLS_PER_IMAGE:
-            log.append(
-                {"file_name": r["file_name"], "category_id": None, "action": "check_too_many"}
-            )
-        # 규칙 4: 박스가 하나도 없는 이미지는 학습에서 뺀다
+            log.append({
+                "file_name": file_name,
+                "category_id": None,
+                "action": "check_too_many",
+            })
+
+        # 규칙 4: 박스가 하나도 없는 이미지는 제외
         if not boxes:
-            log.append(
-                {"file_name": r["file_name"], "category_id": None, "action": "drop_image_no_box"}
-            )
+            log.append({
+                "file_name": file_name,
+                "category_id": None,
+                "action": "drop_image_no_box",
+            })
             continue
-        cleaned.append({**r, "boxes": boxes, "category_ids": cats})
+
+        cleaned.append({
+            **r,
+            "boxes": boxes,
+            "category_ids": cats,
+        })
+
     return cleaned, log
 
 
