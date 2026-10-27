@@ -173,3 +173,28 @@ def _iou(a, b) -> float:
     inter = max(0.0, ix2 - ix1) * max(0.0, iy2 - iy1)
     union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
     return inter / union if union > 0 else 0.0
+
+def class_box_size(boxes_df: pd.DataFrame) -> pd.DataFrame:
+    """클래스별 평균 박스 크기 (작은 순). 작은 알약은 해상도-증강 실험 후보."""
+    out = (
+        boxes_df.groupby(["category_id", "name"])
+        .agg(
+            n_boxes=("area", "size"),
+            mean_w=("box_w", "mean"),
+            mean_h=("box_h", "mean"),
+            mean_rel_area=("rel_area", "mean"), 
+        )
+        .reset_index()
+        .sort_values("mean_rel_area")
+    )
+    return out.round(3).reset_index(drop=True)
+
+def background_counts(ann_dir) -> pd.DataFrame:
+    """어노테이션 images[]의 back_color(촬영 배경)별 이미지 수."""
+    from src.utils import load_json, resolve_path
+
+    rows = {}
+    for path in resolve_path(ann_dir).rglob("*.json"):
+        for img in load_json(path).get("images", []):
+            rows[img["file_name"]] = img.get("back_color", "없음")
+    return pd.Series(rows).value_counts().rename("n_images").reset_index()

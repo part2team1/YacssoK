@@ -8,6 +8,8 @@
 
 from __future__ import annotations
 
+import math 
+import random 
 from collections import defaultdict
 from pathlib import Path
 
@@ -173,3 +175,34 @@ def list_images(image_dir: str | Path) -> list[Path]:
 
     image_dir = resolve_path(image_dir)
     return sorted(p for p in image_dir.iterdir() if p.suffix.lower() in IMAGE_EXTS)
+
+
+# ── 5. 클래스 불균형: 드문 클래스 이미지 반복 (실험 D1) ─────────
+
+def repeat_factors(records: list[Record], threshold: float) -> list[float]:
+    """
+    이미지별 반복 배수 (LVIS의 Repeat Factor Sampling).
+
+    클래스 c가 학습 이미지의 f_c 비율에 나오면 r_c = max(1, sqrt(threshold / f_c)).
+    이미지의 배수는 그 이미지에 든 클래스 중 가장 큰 r_c.
+    threshold 0.1이면 이미지의 10%보다 드물게 나오는 클래스부터 반복된다.
+    """
+    n = max(1, len(records))
+    image_count: dict[int, int] = {}
+    for r in records:
+        for c in set(r["category_ids"]):
+            image_count[c] = image_count.get(c, 0) + 1
+    rc = {c: max(1.0, math.sqrt(threshold / (k / n))) for c, k in image_count.items()}
+    return [max((rc[c] for c in r["category_ids"]), default=1.0) for r in records]
+
+
+def oversample(records: list[Record], threshold: float, seed: int = 42) -> list[Record]:
+    """repeat_factors대로 Record를 반복한 목록. 소수 부분은 확률로 정해 seed가 같으면 결과도 같다."""
+    if threshold <= 0:
+        return list(records)
+    rng = random.Random(seed)
+    out: list[Record] = []
+    for r, f in zip(records, repeat_factors(records, threshold), strict=True):
+        k = int(f) + (1 if rng.random() < f - int(f) else 0)
+        out.extend([r] * k)
+    return out
