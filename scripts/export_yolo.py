@@ -17,7 +17,7 @@ import shutil
 
 import torch
 
-from src.dataset import load_records, load_split
+from src.dataset import load_records, load_split, oversample, repeat_factors  #v3.D1.3 ← 뒤에 두 이름 추가
 from src.utils import (
     category_to_label,
     label_names,
@@ -26,6 +26,7 @@ from src.utils import (
     resolve_path,
     save_yaml,
     xyxy_to_yolo,
+    yolo_data_yaml,          # v3.D1.3 ← from src.utils import ( … ) 목록 맨 아래에 추가
 )
 
 
@@ -41,6 +42,7 @@ def _link_or_copy(src, dst) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/yolo_baseline.yaml")
+    ap.add_argument("--set", nargs="*", default=None, help="설정 값 바꾸기 (예: data.version=v0_f1)")
     args = ap.parse_args()
     cfg = load_config(args.config)
     d = cfg["data"]
@@ -51,8 +53,11 @@ def main() -> None:
     root = resolve_path(d["yolo_dir"]) / d["version"]
     image_dir = resolve_path(d["train_images"])
 
+    train_records = [] # v3.D1.3  (나) for split 줄 위에 한 줄
     for split in ("train", "val"):
         split_records = load_split(records, f"{d['split_dir']}/{d['version']}/{split}.txt")
+        if split == "train":
+            train_records = split_records
         (root / "images" / split).mkdir(parents=True, exist_ok=True)
         (root / "labels" / split).mkdir(parents=True, exist_ok=True)
         for r in split_records:
@@ -78,6 +83,34 @@ def main() -> None:
         root / "data.yaml",
     )
     print(f"저장: {root / 'data.yaml'}")
+
+    # 가이드v2-v3 실험 D1: 드문 클래스가 든 이미지를 목록에 여러 번 적어 더 자주 학습 (baseline data.yaml은 그대로)
+    thr = float(d.get("repeat_threshold", 0) or 0)
+    if thr > 0:
+        repeated = oversample(train_records, thr, seed=cfg.get("seed", 42))
+        list_file = root / f"train_rfs{thr:g}.txt"
+        # abspath: 링크를 따라가지 않아야 ultralytics가 labels/ 폴더를 찾는다
+        list_file.write_text(
+            "\n".join(os.path.abspath(root / "images" / "train" / r["file_name"]) for r in repeated)
+            + "\n",
+            encoding="utf-8",
+        )
+        rf = repeat_factors(train_records, thr)
+        out_yaml = yolo_data_yaml(cfg)
+        save_yaml(
+            {
+                "path": str(root.resolve()),
+                "train": list_file.name,
+                "val": "images/val",
+                "names": dict(enumerate(label_names(class_map))),
+            },
+            out_yaml,
+        )
+        print(
+            f"오버샘플링(threshold={thr:g}): 학습 이미지 {len(train_records)}장 → {len(repeated)}장 "
+            f"(반복된 이미지 {sum(f > 1 for f in rf)}장, 최대 {max(rf, default=1):.1f}배)"
+        )
+        print(f"저장: {out_yaml}")    
 
 
 if __name__ == "__main__":
