@@ -1,0 +1,21 @@
+# M3: 위치(박스) 손실 비중 키우기
+# 대회 지표 mAP@[0.75:0.95]는 박스를 75% 이상 정확히 겹쳐야 점수를 준다.
+# Ultralytics YOLO 손실 = box(기본 7.5) + cls(0.5) + dfl(1.5).
+# 베이스라인(yolo_baseline.yaml)과 box 값 하나만 다르게 해서 효과를 비교한다.
+base: base.yaml
+
+exp_name: 1028_pegstar_yolov8s_v0_boxgain10
+owner: pegstar
+note: "M3 박스 손실 비중 7.5 -> 10 (yolo_args.box), 높은 IoU 구간 정밀도 확인"
+
+model:
+  family: yolo
+  weights: yolov8s.pt
+
+train:
+  epochs: 50
+  batch_size: 16
+  lr: 0.01
+
+yolo_args:
+  box: 10.0
