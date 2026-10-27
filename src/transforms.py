@@ -66,6 +66,57 @@ class BrightnessContrast:
         return img, boxes, labels
 
 
+class Rotate90:
+    """90도 단위 회전 (실험 D3). 박스가 축에 맞춰 그대로 돌아가서 박스가 헐거워지지 않는다.
+
+    임의 각도 회전은 회전된 박스를 감싸는 더 큰 박스가 되어 정답이 헐거워진다.
+    mAP@[0.75:0.95]처럼 박스 정확도를 보는 지표에서는 90도 단위가 안전하다.
+    """
+
+    def __init__(self, p: float = 0.5):
+        self.p = p
+
+    def __call__(self, img, boxes, labels):
+        if random.random() < self.p:
+            k = random.choice([1, 2, 3])  # 90, 180, 270도 (시계 반대 방향)
+            for _ in range(k):
+                w = img.shape[1]
+                img = np.rot90(img)  # 반시계 90도: (x, y) → (y, w - x)
+                b = boxes.copy()
+                boxes = np.stack([b[:, 1], w - b[:, 2], b[:, 3], w - b[:, 0]], axis=1).astype(
+                    np.float32
+                )
+        return img, boxes, labels
+
+
+class SaturationValue:
+    """채도·명도만 조금 바꾼다 (실험 D3). 색상(hue)은 알약 구분 단서라 그대로 둔다."""
+
+    def __init__(self, saturation: float = 0.3, value: float = 0.2, p: float = 0.5):
+        self.saturation, self.value, self.p = saturation, value, p
+
+    def __call__(self, img, boxes, labels):
+        if random.random() < self.p:
+            hsv = cv2.cvtColor(np.ascontiguousarray(img), cv2.COLOR_RGB2HSV).astype(np.float32)
+            hsv[..., 1] *= 1.0 + random.uniform(-self.saturation, self.saturation)
+            hsv[..., 2] *= 1.0 + random.uniform(-self.value, self.value)
+            img = cv2.cvtColor(np.clip(hsv, 0, 255).astype(np.uint8), cv2.COLOR_HSV2RGB)
+        return img, boxes, labels
+
+
+class GaussianBlur:
+    """약한 흐림 (실험 D3). 초점이 덜 맞은 사진에 대비한다. 각인이 사라질 만큼 세게 하지 않는다."""
+
+    def __init__(self, max_kernel: int = 5, p: float = 0.3):
+        self.max_kernel, self.p = max_kernel, p
+
+    def __call__(self, img, boxes, labels):
+        if random.random() < self.p:
+            k = random.choice([k for k in range(3, self.max_kernel + 1, 2)] or [3])
+            img = cv2.GaussianBlur(np.ascontiguousarray(img), (k, k), 0)
+        return img, boxes, labels
+
+    
 def get_transforms(cfg_augment: dict | None, train: bool):
     """configs의 augment 블록으로 변환을 만든다. 검증·추론에는 증강을 쓰지 않는다."""
     if not train or not cfg_augment or cfg_augment.get("name", "none") == "none":
@@ -77,4 +128,10 @@ def get_transforms(cfg_augment: dict | None, train: bool):
         ops.append(VerticalFlip(cfg_augment["vflip"]))
     if cfg_augment.get("brightness", 0) > 0:
         ops.append(BrightnessContrast(cfg_augment["brightness"], cfg_augment.get("contrast", 0.2)))
+    if cfg_augment.get("rot90", 0) > 0:                       # ← 여기부터 추가
+        ops.append(Rotate90(cfg_augment["rot90"]))
+    if cfg_augment.get("sat_val", 0) > 0:
+        ops.append(SaturationValue(p=cfg_augment["sat_val"]))
+    if cfg_augment.get("blur", 0) > 0:
+        ops.append(GaussianBlur(p=cfg_augment["blur"]))
     return Compose(ops) if ops else None
