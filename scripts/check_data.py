@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import argparse
 
-from src.utils import load_config, resolve_path, yolo_data_yaml #v2-v3, D1-6
+from src.utils import load_config, resolve_path, yolo_data_yaml  #v2-v3, D1-6
 
 EXPECTED = {"train_images": 232, "train_annotations": 114, "test_images": 842}
 

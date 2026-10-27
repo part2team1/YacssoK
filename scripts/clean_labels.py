@@ -16,6 +16,12 @@
 
 규칙을 바꾸거나 추가하려면 clean() 함수만 고친다. 사람이 직접 확인한 오류는
 data/annotations/manual_drop.csv (file_name,category_id) 에 적으면 해당 박스를 뺀다.
+빼지 않고 고치려면 data/annotations/manual_fix.csv (실험 D10) 에 적는다:
+    file_name,category_id,action,new_value
+    a.png,1899,class,3482                  ← 1899로 잘못 적힌 박스를 3482로
+    a.png,3482,box,100.0 120.0 260.0 300.0  ← 박스 좌표를 x1 y1 x2 y2(픽셀)로 바꿈
+    b.png,1899,add,40.0 50.0 200.0 210.0    ← 빠진 알약 박스 추가
+고치기가 먼저 적용되고, manual_drop은 고친 뒤의 category_id 기준으로 뺀다.
 """
 
 from __future__ import annotations
@@ -25,6 +31,7 @@ import csv
 import shutil
 
 from src.dataset import load_records
+from src.dataset import records_to_coco as to_coco
 from src.interfaces import MAX_PILLS_PER_IMAGE, Record
 from src.utils import load_config, resolve_path, save_json
 
@@ -44,11 +51,53 @@ def load_manual_drop(path) -> set[tuple[str, int | None]]:
     return out
 
 
-def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[dict]]:
+def load_manual_fix(path) -> list[dict]:
+    """manual_fix.csv 의 줄 목록 (실험 D10). 파일이 없으면 빈 목록."""
+    if not path.exists():
+        return []
+    with open(path, encoding="utf-8-sig") as f:
+        return [
+            {k: (v or "").strip() for k, v in row.items()}
+            for row in csv.DictReader(f)
+            if (row.get("file_name") or "").strip()
+        ]
+
+
+def apply_fixes(r: Record, fixes: list[dict], log: list[dict]) -> Record:
+    """한 이미지에 manual_fix 줄을 적용한 사본을 돌려준다 (실험 D10)."""
+    boxes = [list(b) for b in r["boxes"]]
+    cats = list(r["category_ids"])
+    for fx in fixes:
+        cid, action, value = int(fx["category_id"]), fx["action"], fx.get("new_value", "")
+        idx = [i for i, c in enumerate(cats) if c == cid]
+        if action == "add":
+            boxes.append([float(v) for v in value.split()])
+            cats.append(cid)
+        elif not idx:
+            action = "not_found"  # 그 클래스 박스가 없음 → 기록만 (fix_not_found)
+        elif action == "class":
+            for i in idx:
+                cats[i] = int(value)
+        elif action == "box":
+            boxes[idx[0]] = [float(v) for v in value.split()]
+        else:
+            continue  # check 등 고치지 않는 줄
+        log.append({"file_name": r["file_name"], "category_id": cid, "action": f"fix_{action}"})
+    return {**r, "boxes": boxes, "category_ids": cats}
+
+
+def clean(
+    records: list[Record], manual_drop: set, manual_fix: list[dict] | None = None
+) -> tuple[list[Record], list[dict]]:
     """규칙대로 박스를 고치거나 빼고, 바꾼 내용을 log로 남긴다."""
     cleaned, log = [], []
+    fixes_by_file: dict[str, list[dict]] = {}
+    for fx in manual_fix or []:
+        fixes_by_file.setdefault(fx["file_name"], []).append(fx)
     for r in records:
-        if (r["file_name"], None) in manual_drop:  # 이미지 전체 제외      ← 여기부터
+        if r["file_name"] in fixes_by_file:  # 실험 D10: 사람이 확인한 고침 먼저 적용
+            r = apply_fixes(r, fixes_by_file[r["file_name"]], log)
+        if (r["file_name"], None) in manual_drop:  # 이미지 전체 제외
             log.append(
                 {"file_name": r["file_name"], "category_id": None, "action": "drop_image_manual"}
             )
@@ -87,35 +136,6 @@ def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[d
     return cleaned, log
 
 
-def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
-    images, annotations = [], []
-    for r in records:
-        images.append(
-            {
-                "id": r["image_id"],
-                "file_name": r["file_name"],
-                "width": r["width"],
-                "height": r["height"],
-            }
-        )
-        for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
-            annotations.append(
-                {
-                    "id": len(annotations) + 1,
-                    "image_id": r["image_id"],
-                    "category_id": cid,
-                    "bbox": [round(x1, 1), round(y1, 1), round(x2 - x1, 1), round(y2 - y1, 1)],
-                    "area": round((x2 - x1) * (y2 - y1), 1),
-                    "iscrowd": 0,
-                }
-            )
-    cats = [
-        {"id": cid, "name": name, "supercategory": "pill"}
-        for cid, name in sorted(categories.items())
-    ]
-    return {"images": images, "annotations": annotations, "categories": cats}
-
-
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/base.yaml")
@@ -129,7 +149,18 @@ def main() -> None:
 
     records, categories = load_records(args.source or d["train_annotations"])
     ann_dir = resolve_path(d["class_map"]).parent / "annotations"  # 기본: data/annotations
-    cleaned, log = clean(records, load_manual_drop(ann_dir / "manual_drop.csv"))
+    manual_fix = load_manual_fix(ann_dir / "manual_fix.csv")
+    unknown = {
+        int(v)
+        for fx in manual_fix
+        for v in ([fx["category_id"]] + ([fx["new_value"]] if fx["action"] == "class" else []))
+        if int(v) not in categories
+    }
+    if unknown:
+        raise SystemExit(
+            f"manual_fix.csv에 학습 데이터에 없는 category_id가 있습니다: {sorted(unknown)}"
+        )
+    cleaned, log = clean(records, load_manual_drop(ann_dir / "manual_drop.csv"), manual_fix)
 
     save_json(to_coco(cleaned, categories), ann_dir / f"{args.version}.json")
     with open(ann_dir / f"{args.version}_report.csv", "w", encoding="utf-8", newline="") as f:
