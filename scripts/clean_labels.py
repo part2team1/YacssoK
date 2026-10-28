@@ -69,12 +69,17 @@ def load_manual_fix(path) -> list[dict]:
 
 
 def apply_fixes(r: Record, fixes: list[dict], log: list[dict]) -> Record:
-    """한 이미지에 manual_fix 줄을 적용한 사본을 돌려준다 (실험 D10)."""
+    """원본 category_id를 기준으로 수정 대상을 고른 사본을 돌려준다 (실험 D10).
+
+    교환·연쇄 수정이나 add가 뒤따르는 수정의 대상을 바꾸지 않도록
+    class·box의 대상 인덱스는 수정 전 라벨에서만 찾는다.
+    """
     boxes = [list(b) for b in r["boxes"]]
     cats = list(r["category_ids"])
+    original_cats = tuple(r["category_ids"])
     for fx in fixes:
         cid, action, value = int(fx["category_id"]), fx["action"], fx.get("new_value", "")
-        idx = [i for i, c in enumerate(cats) if c == cid]
+        idx = [i for i, c in enumerate(original_cats) if c == cid]
         if action == "add":
             boxes.append([float(v) for v in value.split()])
             cats.append(cid)
