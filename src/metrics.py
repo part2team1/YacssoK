@@ -37,7 +37,11 @@ def compute_map(
     result = metric.compute()
     out = {}
     for key, value in result.items():
-        if key == "classes":
+        if (
+            key == "classes"
+        ):  # *_per_class 목록의 각 칸이 어느 label_idx인지 (검증셋에 있는 클래스만)
+            if class_metrics:
+                out["classes"] = [int(v) for v in value.flatten()]
             continue
         if value.numel() == 1:
             if float(value) == -1:  # 계산 대상이 아닌 항목 (예: IoU 0.75~0.95에서는 map_50 없음)

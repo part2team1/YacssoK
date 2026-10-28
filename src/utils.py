@@ -79,9 +79,18 @@ def resolve_path(path: str | Path) -> Path:
     path = Path(path)
     return path if path.is_absolute() else PROJECT_ROOT / path
 
+def yolo_data_yaml(cfg: dict) -> Path:
+    """YOLO 학습에 쓸 data.yaml 경로. 오버샘플링(data.repeat_threshold)을 켜면 별도 파일을 쓴다.
+
+    같은 데이터 버전을 쓰는 baseline 실험의 data.yaml을 덮어쓰지 않기 위해서다.
+    """
+    d = cfg["data"]
+    root = resolve_path(d["yolo_dir"]) / d["version"]
+    thr = float(d.get("repeat_threshold", 0) or 0)
+    return root / ("data.yaml" if thr <= 0 else f"data_rfs{thr:g}.yaml")
+
 
 # ── JSON ─────────────────────────────────────────────────────
-
 
 def load_json(path: str | Path) -> Any:
     with open(path, encoding="utf-8") as f:

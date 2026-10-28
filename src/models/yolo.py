@@ -15,7 +15,8 @@ from pathlib import Path
 
 from src.interfaces import MAX_PILLS_PER_IMAGE, Prediction
 from src.models.base import BaseDetector
-from src.utils import get_device, image_id_from_name, resolve_path
+#from src.utils import get_device, image_id_from_name, resolve_path
+from src.utils import get_device, image_id_from_name, yolo_data_yaml #v2-v3 D1.5
 
 
 class YoloDetector(BaseDetector):
@@ -33,32 +34,51 @@ class YoloDetector(BaseDetector):
         from ultralytics import YOLO
 
         m, t = self.cfg["model"], self.cfg["train"]
-        data_yaml = (
-            resolve_path(self.cfg["data"]["yolo_dir"]) / self.cfg["data"]["version"] / "data.yaml"
-        )
+        data_yaml = yolo_data_yaml(self.cfg)  # repeat_threshold를 켜면 data_rfs*.yaml  #v2.D1.5
+
         if not data_yaml.exists():
             raise FileNotFoundError(
                 f"{data_yaml} 이 없습니다. 먼저 실행: uv run python scripts/export_yolo.py --config <config>"
             )
         # weights가 .pt면 사전학습 가중치에서, .yaml이면 처음부터 학습
         self.model = YOLO(m["weights"])
-        self.model.train(
-            data=str(data_yaml),
-            epochs=t["epochs"],
-            imgsz=self.cfg["data"]["img_size"],
-            batch=t["batch_size"],
-            lr0=t["lr"],
-            optimizer=t.get("optimizer", "auto"),
-            workers=t.get("num_workers", 4),
-            device=self._device_arg(),
-            seed=self.cfg.get("seed", 42),
-            project=str(out_dir),
-            name="yolo_run",
-            exist_ok=True,
-            plots=False,
-            verbose=False,
-            **self.cfg.get("yolo_args", {}),  # ultralytics 고유 옵션은 configs의 yolo_args에
-        )
+        # self.model.train(
+        #     data=str(data_yaml),
+        #     epochs=t["epochs"],
+        #     imgsz=self.cfg["data"]["img_size"],
+        #     batch=t["batch_size"],
+        #     lr0=t["lr"],
+        #     optimizer=t.get("optimizer", "auto"),
+        #     workers=t.get("num_workers", 4),
+        #     device=self._device_arg(),
+        #     seed=self.cfg.get("seed", 42),
+        #     project=str(out_dir),
+        #     name="yolo_run",
+        #     exist_ok=True,
+        #     plots=False,
+        #     verbose=False,
+        #     **self.cfg.get("yolo_args", {}),  # ultralytics 고유 옵션은 configs의 yolo_args에
+        # )
+        args = {
+            "data": str(data_yaml),
+            "epochs": t["epochs"],
+            "imgsz": self.cfg["data"]["img_size"],
+            "batch": t["batch_size"],
+            "lr0": t["lr"],
+            "optimizer": t.get("optimizer", "auto"),
+            "workers": t.get("num_workers", 4),
+            "device": self._device_arg(),
+            "seed": self.cfg.get("seed", 42),
+            "project": str(out_dir),
+            "name": "yolo_run",
+            "exist_ok": True,
+            "plots": False,
+            "verbose": False,
+        }
+        # ultralytics 고유 옵션은 configs의 yolo_args에. 같은 키(plots 등)는 yolo_args 값이 이긴다
+        args.update(self.cfg.get("yolo_args") or {})
+        self.model.train(**args)
+
         best = out_dir / "yolo_run" / "weights" / "best.pt"
         if not best.exists():
             best = out_dir / "yolo_run" / "weights" / "last.pt"
