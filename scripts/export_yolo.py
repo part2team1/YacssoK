@@ -17,7 +17,12 @@ import shutil
 
 import torch
 
-from src.dataset import load_records, load_split, oversample, repeat_factors  #v3.D1.3 ← 뒤에 두 이름 추가
+from src.dataset import (  #v3.D1.3 ← 뒤에 두 이름 추가
+    load_records,
+    load_split,
+    oversample,
+    repeat_factors,
+)
 from src.utils import (
     category_to_label,
     label_names,
@@ -26,7 +31,7 @@ from src.utils import (
     resolve_path,
     save_yaml,
     xyxy_to_yolo,
-    yolo_data_yaml,          # v3.D1.3 ← from src.utils import ( … ) 목록 맨 아래에 추가
+    yolo_data_yaml,  # v3.D1.3 ← from src.utils import ( … ) 목록 맨 아래에 추가
 )
 
 
