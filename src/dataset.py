@@ -176,6 +176,36 @@ def list_images(image_dir: str | Path) -> list[Path]:
     image_dir = resolve_path(image_dir)
     return sorted(p for p in image_dir.iterdir() if p.suffix.lower() in IMAGE_EXTS)
 
+#가이드 D2.1> scripts/clean_labels.py에 있던 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
+#def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
+def records_to_coco(records: list[Record], categories: dict[int, str]) -> dict:
+    """Record 목록을 COCO 형식 dict로 (정제·합성 데이터 저장용). bbox는 COCO xywh."""
+    images, annotations = [], []
+    for r in records:
+        images.append(
+            {
+                "id": r["image_id"],
+                "file_name": r["file_name"],
+                "width": r["width"],
+                "height": r["height"],
+            }
+        )
+        for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
+            annotations.append(
+                {
+                    "id": len(annotations) + 1,
+                    "image_id": r["image_id"],
+                    "category_id": cid,
+                    "bbox": [round(x1, 1), round(y1, 1), round(x2 - x1, 1), round(y2 - y1, 1)],
+                    "area": round((x2 - x1) * (y2 - y1), 1),
+                    "iscrowd": 0,
+                }
+            )
+    cats = [
+        {"id": cid, "name": name, "supercategory": "pill"}
+        for cid, name in sorted(categories.items())
+    ]
+    return {"images": images, "annotations": annotations, "categories": cats}
 
 # ── 5. 클래스 불균형: 드문 클래스 이미지 반복 (실험 D1) ─────────
 

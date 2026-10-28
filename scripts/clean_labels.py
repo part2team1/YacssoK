@@ -25,6 +25,7 @@ import csv
 import shutil
 
 from src.dataset import load_records
+from src.dataset import records_to_coco as to_coco   # D2.1: to_coco함수추가, dataset.py로 이동후 
 from src.interfaces import MAX_PILLS_PER_IMAGE, Record
 from src.utils import load_config, resolve_path, save_json
 
@@ -75,34 +76,34 @@ def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[d
         cleaned.append({**r, "boxes": boxes, "category_ids": cats})
     return cleaned, log
 
-
-def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
-    images, annotations = [], []
-    for r in records:
-        images.append(
-            {
-                "id": r["image_id"],
-                "file_name": r["file_name"],
-                "width": r["width"],
-                "height": r["height"],
-            }
-        )
-        for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
-            annotations.append(
-                {
-                    "id": len(annotations) + 1,
-                    "image_id": r["image_id"],
-                    "category_id": cid,
-                    "bbox": [round(x1, 1), round(y1, 1), round(x2 - x1, 1), round(y2 - y1, 1)],
-                    "area": round((x2 - x1) * (y2 - y1), 1),
-                    "iscrowd": 0,
-                }
-            )
-    cats = [
-        {"id": cid, "name": name, "supercategory": "pill"}
-        for cid, name in sorted(categories.items())
-    ]
-    return {"images": images, "annotations": annotations, "categories": cats}
+#가이드 D2.1> 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
+# def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
+#     images, annotations = [], []
+#     for r in records:
+#         images.append(
+#             {
+#                 "id": r["image_id"],
+#                 "file_name": r["file_name"],
+#                 "width": r["width"],
+#                 "height": r["height"],
+#             }
+#         )
+#         for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
+#             annotations.append(
+#                 {
+#                     "id": len(annotations) + 1,
+#                     "image_id": r["image_id"],
+#                     "category_id": cid,
+#                     "bbox": [round(x1, 1), round(y1, 1), round(x2 - x1, 1), round(y2 - y1, 1)],
+#                     "area": round((x2 - x1) * (y2 - y1), 1),
+#                     "iscrowd": 0,
+#                 }
+#             )
+#     cats = [
+#         {"id": cid, "name": name, "supercategory": "pill"}
+#         for cid, name in sorted(categories.items())
+#     ]
+#     return {"images": images, "annotations": annotations, "categories": cats}
 
 
 def main() -> None:

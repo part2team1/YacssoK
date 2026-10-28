@@ -1,0 +1,15 @@
+# configs/yolo_v3all_aihub.yaml
+# 실험 D6 (데이터): AI Hub 외부 데이터로 학습에 없던 알약까지 추가 (클래스 수가 늘어남)
+# 먼저: uv run python scripts/make_external.py --config configs/base.yaml --version v3all --classes all
+#       uv run python scripts/export_yolo.py --config configs/yolo_v3all_aihub.yaml
+# class_map이 바뀌므로 이 설정으로 학습한 모델끼리만 앙상블할 수 있다.
+base: yolo_baseline.yaml
+exp_name: 1030_dataB_yolov8s_v3all_aihub
+owner: dataB
+note: AI Hub 조합 데이터로 새 알약 클래스 추가 (D6)
+data:
+  train_images: data/external/v3all/images
+  train_annotations: data/annotations/v3all.json
+  class_map: data/class_map_v3all.json
+  version: v3all
+  
