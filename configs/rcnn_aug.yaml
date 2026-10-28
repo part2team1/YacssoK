@@ -1,0 +1,13 @@
+# 실험 D3 (데이터, R-CNN): transforms.py 증강 조합 (모두 박스를 정확히 따라감)
+base: rcnn_baseline.yaml
+exp_name: 1026_dataA_frcnn_v0_aug
+owner: dataA
+note: 뒤집기 + 90도 회전 + 채도·명도 + 약한 흐림 (D3)
+augment:
+  name: basic
+  hflip: 0.5
+  vflip: 0.5
+  rot90: 0.5
+  brightness: 0.2
+  sat_val: 0.5
+  blur: 0.2
