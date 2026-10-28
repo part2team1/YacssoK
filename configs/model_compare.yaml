@@ -1,0 +1,12 @@
+# 모델별 학습 설정과 분리해 비교 그림의 표시 기준을 관리한다.
+base: yolo_m_v8m.yaml
+
+comparison:
+  conf_threshold: 0.25
+  max_predictions: 4
+  match_iou: 0.75
+  experiments:
+    YOLOv8m: 1027_pegstar_yolov8m_v0_mcompare
+    YOLO11m: 1027_pegstar_yolo11m_v0_mcompare
+    YOLO12m: 1027_pegstar_yolo12m_v0_mcompare
+    YOLO26m: 1027_pegstar_yolo26m_v0_mcompare
