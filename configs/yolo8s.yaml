@@ -1,0 +1,28 @@
+# configs/yolo_clspw.yaml
+# 실험 T2 (모델): 드문 클래스의 분류 손실을 키운다 (Ultralytics cls_pw, 학습 로그에 Class weights 출력)
+# base: yolo_baseline.yaml
+# exp_name: 1026_modelA_yolov8s_v0_clspw05
+# owner: modelA
+# note: 클래스 빈도 역수^0.5 손실 가중치 (T2)
+# yolo_args:
+# cls_pw:0.5
+
+base: yolo_baseline.yaml
+exp_name: 1026_modelA_yolov8s_v0_img640
+
+
+
+owner: modelA
+note: yolov8s
+
+model:
+  weights: yolov8s.pt
+
+data:
+  img_size: 640
+
+train:
+  epochs: 50
+  batch_size: 8
+  lr: 0.01
+  optimizer: auto

@@ -1,0 +1,23 @@
+# configs/yolo11s.yaml
+# 실험 M2 (모델): 최신 버전 YOLO11 (같은 크기 s)
+
+base: yolo_baseline.yaml
+
+exp_name: 1027_sun_yolo11s_v0_img640
+owner: modelA
+note: YOLOv8s → YOLO11s (M2)
+
+model:
+  weights: yolo11s.pt
+
+data:
+  img_size: 640
+
+train:
+  epochs: 50
+  batch_size: 8
+  lr: 0.01
+  optimizer: auto
+
+ 
+ 
