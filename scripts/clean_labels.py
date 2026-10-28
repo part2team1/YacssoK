@@ -25,7 +25,7 @@ import csv
 import shutil
 
 from src.dataset import load_records
-from src.dataset import records_to_coco as to_coco   # D2.1: to_coco함수추가, dataset.py로 이동후 
+from src.dataset import records_to_coco as to_coco  # D2.1: to_coco함수추가, dataset.py로 이동후 
 from src.interfaces import MAX_PILLS_PER_IMAGE, Record
 from src.utils import load_config, resolve_path, save_json
 
