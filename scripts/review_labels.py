@@ -91,13 +91,17 @@ def save(img: np.ndarray, path) -> None:
     buf.tofile(str(path))
 
 
-def load_backgrounds(d: dict) -> dict[str, str]:
-    """합성 이미지 → 배경 원본 이름 (make_copy_paste.py가 남긴 <버전>_copy_paste.csv)."""
+def load_backgrounds(d: dict) -> tuple[dict[str, str], dict[str, int]]:
+    """합성 이미지 → (배경 원본 이름, 붙인 알약 수). make_copy_paste.py가 남긴 <버전>_copy_paste.csv."""
     log = resolve_path(d["class_map"]).parent / "annotations" / f"{d['version']}_copy_paste.csv"
-    if not log.exists():
-        return {}
-    with open(log, encoding="utf-8") as f:
-        return {row["synth_image"]: row["background_image"] for row in csv.DictReader(f)}
+    names: dict[str, str] = {}
+    n_pasted: dict[str, int] = {}
+    if log.exists():
+        with open(log, encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                names[row["synth_image"]] = row["background_image"]
+                n_pasted[row["synth_image"]] = n_pasted.get(row["synth_image"], 0) + 1
+    return names, n_pasted
 
 
 def main() -> None:
@@ -118,7 +122,7 @@ def main() -> None:
     records = all_records
     if args.split != "all":
         records = load_split(records, f"{d['split_dir']}/{d['version']}/{args.split}.txt")
-    backgrounds = load_backgrounds(d)
+    backgrounds, n_pasted = load_backgrounds(d)
     if args.images == "synth":
         records = [r for r in records if r["file_name"] in backgrounds]
         if not records:
@@ -138,7 +142,7 @@ def main() -> None:
         old.unlink()
 
     rows, synth_rows = [], []
-    n_flagged = 0
+    n_flagged = n_saved = 0
     for r in records:
         img = cv2.cvtColor(read_image_rgb(image_dir / r["file_name"]), cv2.COLOR_RGB2BGR)
         labels = [c2l[c] for c in r["category_ids"]]
@@ -157,19 +161,17 @@ def main() -> None:
                 footer(draw(img, r["boxes"], labels), info),
                 out_dir / f"{r['file_name'].rsplit('.', 1)[0]}.jpg",
             )
+            n_saved += 1
             continue
 
         # 합성 이미지: 붙이기 전 배경과 나란히 + 자동 점검
         b_rec = by_name[backgrounds[r["file_name"]]]
         b_img = cv2.cvtColor(read_image_rgb(image_dir / b_rec["file_name"]), cv2.COLOR_RGB2BGR)
         bg = background_color(b_img)
-        orig = [tuple(b) for b in b_rec["boxes"]]
         b_labels = [c2l[c] for c in b_rec["category_ids"]]
-        pasted = [
-            (b, c)
-            for b, c in zip(r["boxes"], r["category_ids"], strict=True)
-            if tuple(b) not in orig
-        ]
+        # make_copy_paste.py는 배경의 원래 박스 뒤에 붙인 박스를 차례로 더한다 → 뒤에서 k개가 붙인 것
+        k = n_pasted[r["file_name"]]
+        pasted = list(zip(r["boxes"], r["category_ids"], strict=True))[-k:]
         flagged = []
         for (x1, y1, x2, y2), cid in pasted:
             ys, xs = slice(int(y1), int(y2)), slice(int(x1), int(x2))
@@ -197,13 +199,19 @@ def main() -> None:
         gap = np.full((img.shape[0], 12, 3), 255, np.uint8)
         pair = np.concatenate([footer(left, "before"), gap, footer(right, info)], axis=1)
         save(pair, out_dir / f"{r['file_name'].rsplit('.', 1)[0]}.jpg")
+        n_saved += 1
 
     with open(out_dir / "index.csv", "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]) if rows else ["file_name"])
         writer.writeheader()
         writer.writerows(rows)
     n_synth = sum(1 for row in rows if row["synth"])
-    print(f"이미지 {len(rows)}장 (원본 {len(rows) - n_synth}, 합성 {n_synth}) 저장: {out_dir}")
+    print(f"이미지 {len(rows)}장 확인 (원본 {len(rows) - n_synth}, 합성 {n_synth})")
+    print(f"박스·번호를 그린 그림 {n_saved}장 저장: {out_dir}")
+    if args.only_flagged and n_saved == 0:
+        print(
+            "(--only-flagged: 점검에 걸린 합성 이미지가 없어 그림을 저장하지 않았습니다. 전체를 보려면 옵션을 빼세요.)"
+        )
     if synth_rows:
         with open(out_dir / "synth_check.csv", "w", newline="", encoding="utf-8-sig") as f:
             writer = csv.DictWriter(f, fieldnames=list(synth_rows[0]))

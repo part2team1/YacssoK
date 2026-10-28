@@ -22,6 +22,11 @@ data/annotations/manual_drop.csv (file_name,category_id) 에 적으면 해당 �
     a.png,3482,box,100.0 120.0 260.0 300.0  ← 박스 좌표를 x1 y1 x2 y2(픽셀)로 바꿈
     b.png,1899,add,40.0 50.0 200.0 210.0    ← 빠진 알약 박스 추가
 고치기가 먼저 적용되고, manual_drop은 고친 뒤의 category_id 기준으로 뺀다.
+
+수정:
+manual_fix에 class·box·add가 있는 이미지는 manual_drop의 이미지 전체
+제외 지시를 무시한다. 수정 기록은 해당 이미지의 삭제 사유를 모두
+해결한 경우에만 작성한다. 클래스별 박스 삭제 지시는 그대로 적용한다.
 """
 
 from __future__ import annotations
@@ -73,8 +78,13 @@ def apply_fixes(r: Record, fixes: list[dict], log: list[dict]) -> Record:
         if action == "add":
             boxes.append([float(v) for v in value.split()])
             cats.append(cid)
-        elif not idx:
-            action = "not_found"  # 그 클래스 박스가 없음 → 기록만 (fix_not_found)
+        elif (
+            action in {"class", "box"} and not idx
+        ):  # 수정 대상이 없는데도 삭제만 취소되는 상황 방지
+            raise ValueError(
+                f"manual_fix.csv 수정 대상 없음: "
+                f"{r['file_name']}, category_id={cid}, action={action}"
+            )
         elif action == "class":
             for i in idx:
                 cats[i] = int(value)
@@ -94,14 +104,28 @@ def clean(
     fixes_by_file: dict[str, list[dict]] = {}
     for fx in manual_fix or []:
         fixes_by_file.setdefault(fx["file_name"], []).append(fx)
+
     for r in records:
-        if r["file_name"] in fixes_by_file:  # 실험 D10: 사람이 확인한 고침 먼저 적용
-            r = apply_fixes(r, fixes_by_file[r["file_name"]], log)
-        if (r["file_name"], None) in manual_drop:  # 이미지 전체 제외
+        file_name = r["file_name"]
+        fixes = fixes_by_file.get(file_name, [])
+
+        # 실제 수정 지시가 있으면 이미지 전체 삭제를 취소한다.
+        # check만 있는 이미지는 삭제를 유지한다.
+        has_fix = any(fx["action"] in {"class", "box", "add"} for fx in fixes)
+
+        if (file_name, None) in manual_drop and not has_fix:
             log.append(
-                {"file_name": r["file_name"], "category_id": None, "action": "drop_image_manual"}
+                {
+                    "file_name": file_name,
+                    "category_id": None,
+                    "action": "drop_image_manual",
+                }
             )
             continue
+
+        if fixes:
+            r = apply_fixes(r, fixes, log)
+
         w, h = r["width"], r["height"]
         boxes, cats = [], []
         for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
