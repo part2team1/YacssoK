@@ -1,0 +1,10 @@
+# configs/yolo_aug_mixup.yaml
+# 실험 D9 (데이터): D3의 안전한 증강 위에 MixUp(두 사진 겹치기)과 더 넓은 크기 변화를 더한다
+base: yolo_aug_safe.yaml
+exp_name: 1102_dataA_yolov8s_v0_augmixup
+owner: dataA
+note: augsafe + mixup 0.1 + scale 0.5 (D9)
+yolo_args:
+  mixup: 0.1
+  scale: 0.5
+  
