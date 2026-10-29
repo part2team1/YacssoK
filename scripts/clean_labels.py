@@ -76,7 +76,8 @@ def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[d
         cleaned.append({**r, "boxes": boxes, "category_ids": cats})
     return cleaned, log
 
-#가이드 D2.1> 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
+
+# 가이드 D2.1> 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
 # def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
 #     images, annotations = [], []
 #     for r in records:
