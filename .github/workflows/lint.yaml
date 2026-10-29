@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [develop, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Ruff and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.11"
+          enable-cache: true
+
+      - name: Install dependencies from lockfile
+        run: uv sync --locked
+      
+      - name: Check repository policy
+        run: uv run --locked python scripts/check_repo_policy.py
+
+      - name: Check file safety and syntax
+        env:
+          SKIP: no-commit-to-branch,nbstripout,ruff-check,ruff-format
+        run: uv run --locked pre-commit run --all-files
+
+      - name: Check code with Ruff
+        run: uv run --locked ruff check .
+
+      - name: Check formatting
+        run: uv run --locked ruff format --check --diff .
+
+      - name: Run tests
+        if: ${{ !cancelled() }}
+        run: uv run --locked pytest -q
