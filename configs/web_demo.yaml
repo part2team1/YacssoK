@@ -1,0 +1,7 @@
+# 각자 확보한 팀 YOLO 체크포인트 경로로 변경하세요. 가중치는 Git에 올리지 않습니다.
+weights: outputs/1028_dataB_yolov8s_v1_clean/yolo_run/weights/best.pt
+class_map: data/class_map.json
+imgsz: 640
+model_label: 팀 학습 모델 · YOLOv8s
+examples_dir: data/demo_examples
+port: 7862
