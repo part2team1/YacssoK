@@ -116,7 +116,7 @@ class GaussianBlur:
             img = cv2.GaussianBlur(np.ascontiguousarray(img), (k, k), 0)
         return img, boxes, labels
 
-    
+
 def get_transforms(cfg_augment: dict | None, train: bool):
     """configs의 augment 블록으로 변환을 만든다. 검증·추론에는 증강을 쓰지 않는다."""
     if not train or not cfg_augment or cfg_augment.get("name", "none") == "none":
@@ -128,7 +128,7 @@ def get_transforms(cfg_augment: dict | None, train: bool):
         ops.append(VerticalFlip(cfg_augment["vflip"]))
     if cfg_augment.get("brightness", 0) > 0:
         ops.append(BrightnessContrast(cfg_augment["brightness"], cfg_augment.get("contrast", 0.2)))
-    if cfg_augment.get("rot90", 0) > 0:                       # ← 여기부터 추가
+    if cfg_augment.get("rot90", 0) > 0:  # ← 여기부터 추가
         ops.append(Rotate90(cfg_augment["rot90"]))
     if cfg_augment.get("sat_val", 0) > 0:
         ops.append(SaturationValue(p=cfg_augment["sat_val"]))
