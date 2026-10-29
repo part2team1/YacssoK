@@ -176,8 +176,9 @@ def list_images(image_dir: str | Path) -> list[Path]:
     image_dir = resolve_path(image_dir)
     return sorted(p for p in image_dir.iterdir() if p.suffix.lower() in IMAGE_EXTS)
 
-#가이드 D2.1> scripts/clean_labels.py에 있던 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
-#def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
+
+# 가이드 D2.1> scripts/clean_labels.py에 있던 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
+# def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
 def records_to_coco(records: list[Record], categories: dict[int, str]) -> dict:
     """Record 목록을 COCO 형식 dict로 (정제·합성 데이터 저장용). bbox는 COCO xywh."""
     images, annotations = [], []
@@ -207,7 +208,9 @@ def records_to_coco(records: list[Record], categories: dict[int, str]) -> dict:
     ]
     return {"images": images, "annotations": annotations, "categories": cats}
 
+
 # ── 5. 클래스 불균형: 드문 클래스 이미지 반복 (실험 D1) ─────────
+
 
 def repeat_factors(records: list[Record], threshold: float) -> list[float]:
     """
