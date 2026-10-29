@@ -174,6 +174,7 @@ def _iou(a, b) -> float:
     union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
     return inter / union if union > 0 else 0.0
 
+
 def class_box_size(boxes_df: pd.DataFrame) -> pd.DataFrame:
     """클래스별 평균 박스 크기 (작은 순). 작은 알약은 해상도-증강 실험 후보."""
     out = (
@@ -182,12 +183,13 @@ def class_box_size(boxes_df: pd.DataFrame) -> pd.DataFrame:
             n_boxes=("area", "size"),
             mean_w=("box_w", "mean"),
             mean_h=("box_h", "mean"),
-            mean_rel_area=("rel_area", "mean"), 
+            mean_rel_area=("rel_area", "mean"),
         )
         .reset_index()
         .sort_values("mean_rel_area")
     )
     return out.round(3).reset_index(drop=True)
+
 
 def background_counts(ann_dir) -> pd.DataFrame:
     """어노테이션 images[]의 back_color(촬영 배경)별 이미지 수."""

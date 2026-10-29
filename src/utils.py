@@ -79,6 +79,7 @@ def resolve_path(path: str | Path) -> Path:
     path = Path(path)
     return path if path.is_absolute() else PROJECT_ROOT / path
 
+
 def yolo_data_yaml(cfg: dict) -> Path:
     """YOLO 학습에 쓸 data.yaml 경로. 오버샘플링(data.repeat_threshold)을 켜면 별도 파일을 쓴다.
 
@@ -91,6 +92,7 @@ def yolo_data_yaml(cfg: dict) -> Path:
 
 
 # ── JSON ─────────────────────────────────────────────────────
+
 
 def load_json(path: str | Path) -> Any:
     with open(path, encoding="utf-8") as f:

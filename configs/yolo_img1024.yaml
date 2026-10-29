@@ -7,4 +7,3 @@ data:
   img_size: 1024
 train:
   batch_size: 8                           # 해상도를 올리면 GPU 메모리 때문에 줄임
-  

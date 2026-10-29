@@ -17,7 +17,7 @@ import shutil
 
 import torch
 
-from src.dataset import (  #v3.D1.3 ← 뒤에 두 이름 추가
+from src.dataset import (  # v3.D1.3 ← 뒤에 두 이름 추가
     load_records,
     load_split,
     oversample,
@@ -47,7 +47,9 @@ def _link_or_copy(src, dst) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/yolo_baseline.yaml")
-    ap.add_argument("--set", nargs="*", default=None, help="설정 값 바꾸기 (예: data.version=v0_f1)")
+    ap.add_argument(
+        "--set", nargs="*", default=None, help="설정 값 바꾸기 (예: data.version=v0_f1)"
+    )
     args = ap.parse_args()
     cfg = load_config(args.config)
     d = cfg["data"]
@@ -58,7 +60,7 @@ def main() -> None:
     root = resolve_path(d["yolo_dir"]) / d["version"]
     image_dir = resolve_path(d["train_images"])
 
-    train_records = [] # v3.D1.3  (나) for split 줄 위에 한 줄
+    train_records = []  # v3.D1.3  (나) for split 줄 위에 한 줄
     for split in ("train", "val"):
         split_records = load_split(records, f"{d['split_dir']}/{d['version']}/{split}.txt")
         if split == "train":
@@ -115,7 +117,7 @@ def main() -> None:
             f"오버샘플링(threshold={thr:g}): 학습 이미지 {len(train_records)}장 → {len(repeated)}장 "
             f"(반복된 이미지 {sum(f > 1 for f in rf)}장, 최대 {max(rf, default=1):.1f}배)"
         )
-        print(f"저장: {out_yaml}")    
+        print(f"저장: {out_yaml}")
 
 
 if __name__ == "__main__":

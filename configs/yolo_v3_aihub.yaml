@@ -10,4 +10,3 @@ data:
   train_images: data/external/v3/images
   train_annotations: data/annotations/v3.json
   version: v3
-  
