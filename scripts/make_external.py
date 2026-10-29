@@ -15,6 +15,7 @@
     data/external/v3/images/          원본 + AI Hub 이미지 (하드링크 또는 복사)  — 커밋하지 않음
     data/annotations/v3.json          원본 + AI Hub 어노테이션 (COCO)            — 커밋하지 않음
     data/annotations/v3_external.csv  추가한 AI Hub 이미지 목록 (파일 이름만)     — 커밋
+    data/annotations/external_drop.csv (있으면 읽음) 라벨이 틀려 뺄 AI Hub 사진 file_name 목록 — 커밋
     data/splits/v3/                   train = 원본 train + AI Hub, val = 원본 val — 커밋
     data/class_map_{version}.json     (--classes all 일 때만) 늘어난 클래스 표    — 커밋
 
@@ -202,7 +203,16 @@ def main() -> None:
     names = dict(categories)
     candidates = []
     angles = set(args.angles or [])
+    # 사람이 확인해 뺄 AI Hub 사진 (review_labels·find_label_issues로 찾은 라벨 오류). 파일 이름만 — 커밋
+    drop_path = resolve_path(d["class_map"]).parent / "annotations" / "external_drop.csv"
+    drop: set[str] = set()
+    if drop_path.exists():
+        with open(drop_path, encoding="utf-8") as f:
+            drop = {row["file_name"].strip() for row in csv.DictReader(f) if row.get("file_name")}
     for file_name, items in sorted(by_image.items()):
+        if file_name in drop:
+            skipped["사람이 뺌 (external_drop.csv)"] += 1
+            continue
         if file_name in comp_files or file_name in test_files:
             skipped["대회 이미지와 이름이 같음"] += 1
             continue
@@ -340,4 +350,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-    

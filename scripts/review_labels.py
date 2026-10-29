@@ -6,10 +6,12 @@
     uv run python scripts/review_labels.py --config configs/yolo_v1_clean.yaml         # 정제 v1 확인 (D5·D10)
     uv run python scripts/review_labels.py --config configs/yolo_v2_copypaste.yaml --images synth   # 합성만 (D2)
     uv run python scripts/review_labels.py --config configs/yolo_v2_copypaste.yaml --images synth --only-flagged
+    uv run python scripts/review_labels.py --config configs/yolo_v3_aihub.yaml --images external  # 외부만 (D6)
 
 옵션
     --split   all / train / val            분할 파일 기준으로 고르기
-    --images  all / original / synth        원본만, 합성(cp_*)만, 둘 다
+    --images  all / original / synth / external
+                                            원본만, 합성(cp_*)만, AI Hub로 더한 사진만(D6), 전부
     --only-flagged                          합성 이미지 중 자동 점검에 걸린 것만 그림 저장
 
 결과 (대회 이미지이므로 커밋하지 않음): outputs/label_review/<버전>_<split>_<images>/
@@ -104,11 +106,20 @@ def load_backgrounds(d: dict) -> tuple[dict[str, str], dict[str, int]]:
     return names, n_pasted
 
 
+def load_external(d: dict) -> set[str]:
+    """make_external.py가 더한 AI Hub 이미지 이름 (<버전>_external.csv)."""
+    log = resolve_path(d["class_map"]).parent / "annotations" / f"{d['version']}_external.csv"
+    if not log.exists():
+        return set()
+    with open(log, encoding="utf-8") as f:
+        return {row["file_name"] for row in csv.DictReader(f)}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/base.yaml")
     ap.add_argument("--split", choices=["all", "train", "val"], default="all")
-    ap.add_argument("--images", choices=["all", "original", "synth"], default="all")
+    ap.add_argument("--images", choices=["all", "original", "synth", "external"], default="all")
     ap.add_argument(
         "--only-flagged", action="store_true", help="합성 중 점검에 걸린 것만 그림 저장"
     )
@@ -129,8 +140,16 @@ def main() -> None:
             raise SystemExit(
                 "합성 이미지가 없습니다. D2 설정 파일(yolo_v2_copypaste.yaml)인지 확인하세요."
             )
+    elif args.images == "external":
+        added = load_external(d)
+        records = [r for r in records if r["file_name"] in added]
+        if not records:
+            raise SystemExit(
+                "외부 이미지가 없습니다. D6 설정 파일(yolo_v3_aihub.yaml)인지 확인하세요."
+            )
     elif args.images == "original":
-        records = [r for r in records if r["file_name"] not in backgrounds]
+        added = load_external(d)
+        records = [r for r in records if r["file_name"] not in set(backgrounds) | added]
 
     class_map = load_class_map(d["class_map"])
     c2l = category_to_label(class_map)

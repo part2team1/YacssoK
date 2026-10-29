@@ -1,0 +1,6 @@
+# configs/data_v3c.yaml — 결합 데이터: 정제 v1 + AI Hub (D5·D10 + D6)
+base: base.yaml
+data:
+  train_images: data/external/v3c/images
+  train_annotations: data/annotations/v3c.json
+  version: v3c

@@ -1,0 +1,40 @@
+# 데이터 실험 × 모델 한 번에 돌리기 계획 (scripts/run_matrix.py, 데이터 실험 적용 가이드)
+# 복사해서 내 이름으로 쓴다: configs/matrix_<이름>.yaml  (prefix만 바꾸면 됨)
+#   uv run python scripts/run_matrix.py --plan configs/matrix_data.yaml --dry-run
+prefix: 1030_modelA            # 실험 이름 = {prefix}_{모델}_{실험}
+
+models:                        # 이름: 모델 설정 파일 (모두 같은 에폭·검증셋)
+  yolov8s: configs/yolo_baseline.yaml
+  yolo11s: configs/yolo11s.yaml
+  yolo26s: configs/yolo26s.yaml
+  yolov8m: configs/yolo_v8m.yaml
+
+bundles:                       # 데이터 실험 묶음 = run_train.py --set 값
+  D1: [data.repeat_threshold=0.1]
+  D2: [data.version=v2, data.train_images=data/synth/v2/images, data.train_annotations=data/annotations/v2.json]
+  D3: [yolo_args.fliplr=0.5, yolo_args.flipud=0.5, yolo_args.degrees=0.0, yolo_args.hsv_h=0.0,
+       yolo_args.hsv_s=0.4, yolo_args.hsv_v=0.3, yolo_args.scale=0.3, yolo_args.translate=0.1,
+       yolo_args.mosaic=1.0, yolo_args.close_mosaic=10]
+  D4: [data.img_size=1024, train.batch_size=8]
+  D5: [data.version=v1, data.train_annotations=data/annotations/v1.json]
+  D6: [data.version=v3, data.train_images=data/external/v3/images, data.train_annotations=data/annotations/v3.json]
+  D6A: [data.version=v3all, data.train_images=data/external/v3all/images,
+        data.train_annotations=data/annotations/v3all.json, data.class_map=data/class_map_v3all.json]
+  D9: [yolo_args.mixup=0.1, yolo_args.scale=0.5]          # D3과 같이 쓴다 (runs의 augmixup)
+  V3CP: [data.version=v3cp, data.train_images=data/synth/v3cp/images, data.train_annotations=data/annotations/v3cp.json]
+
+runs:                          # 실험 이름: 묶음 목록 (뒤에 쓴 묶음의 같은 키가 이김)
+  base: []                     # D0 기준 (반드시 둔다)
+  rfs01: [D1]
+  copypaste: [D2]
+  augsafe: [D3]
+  img1024: [D4]
+  clean: [D5]                  # 검증 정답이 바뀜 → base를 --val-config로 다시 채점해 비교
+  aihub: [D6]
+  augmixup: [D3, D9]
+  # aihuball: [D6A]            # 팀 결정 후. 검증보다 Kaggle 점수로 판단
+  # combo: [V3CP, D1, D3, D4]  # 단일 결과를 보고 효과 있던 것만 남겨 결합
+  # D11 각인 OCR 재분류: 학습 없이 {ocr: <탐지 실험>} 모델 위에 얹는다 (몇 분).
+  #   탐지 실험이 먼저 끝나 있어야 하므로 runs의 맨 끝에 둔다. 단일 결과를 본 뒤 가장 좋은 실험으로 바꾼다.
+  #   필요: uv sync --extra ocr, data/drug_info.json (scripts/build_drug_info.py). 없으면 이 줄만 실패로 표시됨
+  copypaste_ocr: {ocr: copypaste}

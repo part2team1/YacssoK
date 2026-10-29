@@ -1,0 +1,8 @@
+# configs/yolo26s.yaml
+# 실험 M2 (모델): 최신 버전 YOLO26 (2026.01 공개, NMS가 필요 없는 구조)
+base: yolo_baseline.yaml
+exp_name: 1027_modelA_yolo26s_v0_version
+owner: modelA
+note: YOLOv8s → YOLO26s (M2)
+model:
+  weights: yolo26s.pt

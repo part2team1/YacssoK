@@ -1,0 +1,8 @@
+# configs/yolo11s.yaml
+# 실험 M2 (모델): 최신 버전 YOLO11 (같은 크기 s)
+base: yolo_baseline.yaml
+exp_name: 1027_modelA_yolo11s_v0_version
+owner: modelA
+note: YOLOv8s → YOLO11s (M2)
+model:
+  weights: yolo11s.pt

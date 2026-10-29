@@ -7,6 +7,8 @@
     uv run python scripts/find_label_issues.py --exp <학습된 실험> --split val
     uv run python scripts/find_label_issues.py --exp <학습된 실험> --split all --draw      # 확인용 그림까지
     uv run python scripts/find_label_issues.py --exp <학습된 실험> --split all --ocr       # 각인 OCR 비교 추가 (D11)
+    uv run python scripts/find_label_issues.py --exp <baseline 실험> --data-config configs/yolo_v3_aihub.yaml \
+        --split train --external --draw     # AI Hub로 더한 사진의 라벨 점검 (D6)
 
 결과 (대회 데이터에서 나온 것이므로 커밋하지 않음):
     outputs/<실험>/label_issues_<split>.csv   후보 목록 (manual_fix.csv와 같은 앞 네 칸 + 근거)
@@ -33,7 +35,13 @@ from torchvision.ops import box_iou
 from src.dataset import load_records, load_split, read_image_rgb
 from src.infer import load_experiment
 from src.interfaces import OUTPUT_DIR
-from src.utils import category_to_label, label_to_category, load_class_map, resolve_path
+from src.utils import (
+    category_to_label,
+    label_to_category,
+    load_class_map,
+    load_config,
+    resolve_path,
+)
 
 FIELDS = [
     "file_name",
@@ -60,6 +68,12 @@ def main() -> None:
     ap.add_argument("--split", choices=["val", "train", "all"], default="val")
     ap.add_argument("--conf", type=float, default=0.5, help="이 확신도 이상 예측만 근거로 씀")
     ap.add_argument("--draw", action="store_true", help="후보 사진을 그림으로 저장")
+    ap.add_argument(
+        "--data-config", default=None, help="이 설정의 data 블록(정답·분할)을 점검 (모델은 --exp)"
+    )
+    ap.add_argument(
+        "--external", action="store_true", help="AI Hub로 더한 사진만 (<버전>_external.csv)"
+    )
     ap.add_argument("--ocr", action="store_true", help="각인 OCR로 클래스 비교 (D11)")
     ap.add_argument(
         "--ocr-margin", type=float, default=0.3, help="다른 알약이 이만큼 더 비슷하면 후보"
@@ -68,9 +82,20 @@ def main() -> None:
 
     cfg, model = load_experiment(args.exp)
     d = cfg["data"]
+    if args.data_config:  # 모델은 그대로, 점검할 데이터만 바꾼다 (예: v3 외부 데이터)
+        d = {**d, **load_config(args.data_config)["data"]}
+        if d["class_map"] != cfg["data"]["class_map"]:
+            raise SystemExit(
+                "모델과 데이터의 class_map이 다릅니다 (v3all은 v3all로 학습한 실험으로 점검)."
+            )
     records, _ = load_records(d["train_annotations"])
     if args.split != "all":
         records = load_split(records, f"{d['split_dir']}/{d['version']}/{args.split}.txt")
+    if args.external:
+        log = resolve_path(d["class_map"]).parent / "annotations" / f"{d['version']}_external.csv"
+        with open(log, encoding="utf-8") as f:
+            added = {row["file_name"] for row in csv.DictReader(f)}
+        records = [r for r in records if r["file_name"] in added]
     class_map = load_class_map(d["class_map"])
     c2l, l2c = category_to_label(class_map), label_to_category(class_map)
     image_dir = resolve_path(d["train_images"])
@@ -190,7 +215,12 @@ def main() -> None:
             ok, buf = cv2.imencode(".jpg", canvas)
             buf.tofile(str(draw_dir / (r["file_name"].rsplit(".", 1)[0] + ".jpg")))
 
-    out = out_dir / f"label_issues_{args.split}.csv"
+    tag = (
+        args.split
+        + (f"_{d['version']}" if args.data_config else "")
+        + ("_ext" if args.external else "")
+    )
+    out = out_dir / f"label_issues_{tag}.csv"
     with open(out, "w", newline="", encoding="utf-8-sig") as f:  # 엑셀에서 바로 열림
         writer = csv.DictWriter(f, fieldnames=FIELDS)
         writer.writeheader()
