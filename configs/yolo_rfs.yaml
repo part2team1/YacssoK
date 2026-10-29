@@ -6,4 +6,3 @@ owner: dataB
 note: 이미지의 10%보다 드물게 나오는 클래스를 sqrt 배수로 반복 (D1)
 data:
   repeat_threshold: 0.1
-  

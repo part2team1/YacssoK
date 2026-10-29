@@ -115,7 +115,7 @@ def main() -> None:
             f"오버샘플링(threshold={thr:g}): 학습 이미지 {len(train_records)}장 → {len(repeated)}장 "
             f"(반복된 이미지 {sum(f > 1 for f in rf)}장, 최대 {max(rf, default=1):.1f}배)"
         )
-        print(f"저장: {out_yaml}")    
+        print(f"저장: {out_yaml}")
 
 
 if __name__ == "__main__":

@@ -12,4 +12,3 @@ data:
   train_annotations: data/annotations/v3all.json
   class_map: data/class_map_v3all.json
   version: v3all
-  

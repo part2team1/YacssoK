@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies from lockfile
         run: uv sync --locked
-      
+
       - name: Check repository policy
         run: uv run --locked python scripts/check_repo_policy.py
 

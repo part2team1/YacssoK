@@ -182,7 +182,7 @@ def class_box_size(boxes_df: pd.DataFrame) -> pd.DataFrame:
             n_boxes=("area", "size"),
             mean_w=("box_w", "mean"),
             mean_h=("box_h", "mean"),
-            mean_rel_area=("rel_area", "mean"), 
+            mean_rel_area=("rel_area", "mean"),
         )
         .reset_index()
         .sort_values("mean_rel_area")
