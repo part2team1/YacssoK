@@ -1,6 +1,6 @@
 # 데이터 실험 적용 가이드 (모델팀용)
 
-Oct 30, 2026 ·
+Oct 28, 2026
 
 ## 이 문서로 하는 일
 
@@ -707,8 +707,10 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 4))
 for i, exp in enumerate(EXPS):
     df = pd.read_csv(OUTPUT_DIR / exp / "yolo_run" / "results.csv")
     df.columns = df.columns.str.strip()
-    train = df["train/box_loss"] + df["train/cls_loss"] + df["train/dfl_loss"]
-    val = df["val/box_loss"] + df["val/cls_loss"] + df["val/dfl_loss"]
+    # 모델마다 loss 종류가 다름 (YOLO26은 dfl_loss 없음) → 있는 *_loss 칸을 모두 더함
+    loss = [c for c in df.columns if c.endswith("_loss")]
+    train = df[[c for c in loss if c.startswith("train/")]].sum(axis=1)
+    val = df[[c for c in loss if c.startswith("val/")]].sum(axis=1)
     m = df["metrics/mAP50-95(B)"]
     c = f"C{i}"
     ax1.plot(df["epoch"], train, c, label=f"{exp} train")
@@ -922,7 +924,7 @@ yolo_args:
 점수가 오르지 않은 실험도 기록표에 남깁니다. “D1과 D2는 따로는 +0.02였지만 합치면 과적합됐다” 같은 결과가 보고서의 좋은 재료입니다.
 
 
-# 빠른 시작: 처음부터 끝까지 (이 순서대로)
+## 빠른 시작: 처음부터 끝까지 (이 순서대로)
 
 **develop 동기화 → 데이터 버전 만들기 → 준비 점검 → 1 epoch 동작 확인 → 본 실행 → 결과 확인** 순서입니다. 여기서는 실행 순서만 보여 주고, 각 단계의 자세한 내용은 아래 장들에 있습니다. **모두가 돌릴 필요는 없습니다.** GPU PC 한 대에서 한 사람이 돌리거나, 모델 담당자끼리 `--models`로 모델을 나눠 돌립니다(사람마다 계획 파일을 복사해 `prefix`를 다르게).
 
@@ -986,7 +988,7 @@ uv run python scripts/run_pipeline.py --demo
 4. 1등 CSV(`submissions/<실험>.csv`) 제출. 차이가 작으면 2\~3등도 `uv run python scripts/make_submission.py --exp <실험>`으로 만들어 제출하고 Public 점수로 고름
 5. (시간이 되면) 고른 설정으로 전체 데이터 재학습 후 최종 제출
 
-# 더 개선하려면: 추가로 시도해 볼 것
+### 더 개선하려면: 추가로 시도해 볼 것
 
 **보고서를 본 뒤 기대 효과가 크고 비용이 작은 순서(①부터)로 해 봅니다.** 대부분 모델 가이드(v2)·데이터 가이드(v3)에 코드가 있고, develop에 아직 없는 것은 정답본 zip과 같은 파일을 비교해 가져옵니다.
 
