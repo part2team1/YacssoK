@@ -18,4 +18,8 @@ def build_model(cfg: dict, num_classes: int) -> BaseDetector:
         from src.models.rcnn import RcnnDetector
 
         return RcnnDetector(cfg, num_classes)
-    raise ValueError(f"알 수 없는 model.family: {family} (yolo / rcnn)")
+    if family == "ocr_rerank":  # 실험 D11: 각인 OCR로 이름 다시 고르기
+        from src.models.ocr_rerank import OcrRerankDetector
+
+        return OcrRerankDetector(cfg, num_classes)
+    raise ValueError(f"알 수 없는 model.family: {family} (yolo / rcnn / ocr_rerank)")
