@@ -54,6 +54,11 @@ def _call(cmd: list[str], dry: bool) -> bool:
     return subprocess.run(cmd, cwd=resolve_path(".")).returncode == 0
 
 
+def _done(exp: str) -> bool:
+    """학습이 끝난 실험 (점수가 없어도 metrics.json이 있으면 끝난 것)."""
+    return (OUTPUT_DIR / exp / "metrics.json").exists()
+
+
 def _map(exp: str):
     path = OUTPUT_DIR / exp / "metrics.json"
     return load_json(path).get("map") if path.exists() else None
@@ -90,10 +95,10 @@ def main() -> None:
             spec = plan["runs"][run]
             if isinstance(spec, dict):  # D11 OCR 재분류: 학습 없이 탐지 실험 위에 얹는다
                 det = f"{prefix}_{model}_{spec['ocr']}{suffix}"
-                if _map(exp) is not None and not args.force:
+                if _done(exp) and not args.force:
                     print(f"[{exp}] 이미 있음 → 건너뜀")
                     continue
-                if _map(det) is None and not args.dry_run:
+                if not _done(det) and not args.dry_run:
                     print(f"[{exp}] 탐지 실험 {det} 이 아직 없음 → 건너뜀")
                     skipped.append(exp)
                     continue
@@ -111,7 +116,7 @@ def main() -> None:
                 if not _call(cmd, args.dry_run):
                     failed.append(exp)
                 continue
-            if _map(exp) is not None and not args.force:
+            if _done(exp) and not args.force:
                 print(f"[{exp}] 이미 있음 → 건너뜀")
                 continue
             cfg = apply_overrides(load_config(model_cfg), items)

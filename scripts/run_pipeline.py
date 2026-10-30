@@ -133,6 +133,16 @@ def main() -> None:
     # 1) 데이터 실험
     if "data_exp" in args.stages:
         matrix(list(plan["runs"]), models)
+        for run in plan[
+            "runs"
+        ]:  # 학습은 끝났는데 점수가 없으면 그 데이터 버전의 검증 정답이 비어 있는 것
+            for m in models:
+                exp = name(m, run)
+                if (OUTPUT_DIR / exp / "metrics.json").exists() and metric(exp) is None:
+                    print(
+                        f"[주의] {exp}: 점수가 없습니다. 이 데이터 버전의 검증 정답(val)이 비어 있습니다."
+                    )
+                    log.append(f"- {exp}: 점수 없음 (검증 정답 비어 있음, 데이터 버전 확인 필요)")
         # 검증 정답이 바뀌는 실험(정제 v1)은 기준을 그 정답으로 다시 채점해 공정하게 비교
         for run in plan["runs"]:
             items = run_items(plan, run)
@@ -143,14 +153,22 @@ def main() -> None:
             val_cfg.write_text(yaml.safe_dump({"data": data}, allow_unicode=True), "utf-8")
             for m in models:
                 base_exp = name(m, "base")
-                if metric(base_exp) is None:
+                # 기준과 정제 실험이 둘 다 점수를 낸 경우에만 다시 채점 (정제 데이터가 없으면 건너뜀)
+                if metric(base_exp) is None or metric(name(m, run)) is None:
                     continue
                 if sh(
                     ["scripts/evaluate.py", "--exp", base_exp, "--val-config", str(val_cfg)], log
                 ):
                     evals = sorted((OUTPUT_DIR / base_exp).glob("eval_*_valv1.json"))
-                    if evals:
-                        state.setdefault("rescored", {})[f"{m}:{run}"] = load_json(evals[-1])["map"]
+                    score = load_json(evals[-1]).get("map") if evals else None
+                    if score is None:  # 검증 정답이 비어 있음: v1.json에 검증 이미지가 없음
+                        print(
+                            f"[주의] {run}: v1 검증 정답이 비어 있어 다시 채점하지 못했습니다. "
+                            "data/annotations/v1.json 과 data/splits/v1/val.txt 를 확인하세요."
+                        )
+                        log.append(f"- {run}: v1 검증 정답 비어 있음 (기준 다시 채점 실패)")
+                    else:
+                        state.setdefault("rescored", {})[f"{m}:{run}"] = score
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), "utf-8")
 
     # 2) 결합: 절반 이상 모델에서 +min_gain 이상인 실험만. 데이터 버전은 하나만 (가장 좋은 것)
