@@ -66,6 +66,7 @@ def load_config(path: str | Path) -> dict[str, Any]:
         cfg = _deep_update(deepcopy(base_cfg), cfg)
     return cfg
 
+
 def apply_overrides(cfg: dict, items: list[str] | None) -> dict:
     """명령줄의 --set data.version=v0_f1 seed=7 처럼 설정 값 몇 개를 바꾼다 (실험 D7·T4).
 
@@ -81,6 +82,7 @@ def apply_overrides(cfg: dict, items: list[str] | None) -> dict:
             node = node.setdefault(k, {})
         node[last] = yaml.safe_load(raw)
     return cfg
+
 
 def save_yaml(data: dict, path: str | Path) -> None:
     path = Path(path)

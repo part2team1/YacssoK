@@ -40,4 +40,8 @@ for path, needle, what in CHECKS:
     missing += not ok
     status = "OK  " if ok else ("없음" if not f.exists() else "부족")
     print(f"[{status}] {path:32s} {what}")
-print("\n모두 준비됨" if not missing else f"\n준비 안 된 항목 {missing}개 — 위 '없음/부족' 줄을 정답본 zip에서 가져오세요.")
+print(
+    "\n모두 준비됨"
+    if not missing
+    else f"\n준비 안 된 항목 {missing}개 — 위 '없음/부족' 줄을 정답본 zip에서 가져오세요."
+)
