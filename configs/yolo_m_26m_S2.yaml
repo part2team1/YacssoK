@@ -1,0 +1,18 @@
+# 단계 S2 (증강): S1 + 팀 합의 안전 증강 (configs/yolo_aug_safe.yaml과 같은 값)
+# 모델·학습 조건·검증 fold는 S1과 같고 증강만 다르다. 증강은 각 fold의 train에만 적용된다 (YOLO 학습 중 적용).
+# 실행: uv run python scripts/run_kfold.py --config configs/yolo_m_26m_S2.yaml --folds 0 1 2 3 4 --tag kfold
+base: yolo_m_26m_S1.yaml
+exp_name: 1029_pegstar_yolo26m_v0_S2
+owner: pegstar
+note: "S2 증강: S1 + 안전 증강(yolo_aug_safe: 뒤집기, 채도·명도·크기·위치, 모자이크, 색조 고정, 회전 없음)"
+yolo_args:
+  fliplr: 0.5
+  flipud: 0.5
+  degrees: 0.0
+  hsv_h: 0.0
+  hsv_s: 0.4
+  hsv_v: 0.3
+  scale: 0.3
+  translate: 0.1
+  mosaic: 1.0
+  close_mosaic: 10

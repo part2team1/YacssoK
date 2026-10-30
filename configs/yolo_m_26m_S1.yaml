@@ -1,0 +1,24 @@
+# 단계 S1 (기준): YOLO26m, 증강·외부 데이터 없음 (YOLO 내장 증강까지 모두 끔)
+# 팀 공통 기준: 조합 단위 5-fold, seed 42, epoch 50, batch 16, img 640, optimizer auto
+# 실행: uv run python scripts/run_kfold.py --config configs/yolo_m_26m_S1.yaml --folds 0 1 2 3 4 --tag kfold
+base: yolo_m_26m.yaml
+exp_name: 1029_pegstar_yolo26m_v0_S1
+owner: pegstar
+note: "S1 기준: YOLO26m, 증강 없음(YOLO 내장 증강 끔), batch 16, img 640, epoch 50"
+train:
+  batch_size: 16
+yolo_args:
+  mosaic: 0.0
+  close_mosaic: 0
+  mixup: 0.0
+  copy_paste: 0.0
+  hsv_h: 0.0
+  hsv_s: 0.0
+  hsv_v: 0.0
+  degrees: 0.0
+  translate: 0.0
+  scale: 0.0
+  shear: 0.0
+  perspective: 0.0
+  flipud: 0.0
+  fliplr: 0.0

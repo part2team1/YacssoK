@@ -1,0 +1,6 @@
+base: yolo_m_v8m.yaml
+exp_name: 1028_pegstar_yolov8s_v0_scompare
+owner: pegstar
+note: "small 비교 (YOLOv8s). epoch 50, batch 8, img 640, optimizer auto 등 나머지는 yolo_m_v8m과 같음"
+model:
+  weights: yolov8s.pt
