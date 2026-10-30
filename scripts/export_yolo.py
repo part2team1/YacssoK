@@ -32,6 +32,7 @@ from src.utils import (
     save_yaml,
     xyxy_to_yolo,
     yolo_data_yaml,  # v3.D1.3 ← from src.utils import ( … ) 목록 맨 아래에 추가
+    apply_overrides,
 )
 
 
@@ -51,9 +52,10 @@ def main() -> None:
         "--set", nargs="*", default=None, help="설정 값 바꾸기 (예: data.version=v0_f1)"
     )
     args = ap.parse_args()
-    cfg = load_config(args.config)
+    #cfg = load_config(args.config)
+    cfg = apply_overrides(load_config(args.config), args.set) 
     d = cfg["data"]
-
+    
     class_map = load_class_map(d["class_map"])
     cat2label = category_to_label(class_map)
     records, _ = load_records(d["train_annotations"])

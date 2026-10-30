@@ -28,6 +28,8 @@ def main() -> None:
     ap.add_argument("--nms-iou", type=float, default=None, help="eval.nms_iou 대신 쓸 값 (YOLO)")
     ap.add_argument("--max-det", type=int, default=None, help="eval.max_det 대신 쓸 값")
     ap.add_argument("--class-metrics", action="store_true", help="클래스별 AP 계산 (느림)")
+    ap.add_argument("--val-config", default=None, help="이 설정의 data 블록(검증셋·정답)으로 채점")
+    
     args = ap.parse_args()
 
     cfg, model = load_experiment(args.exp)
@@ -42,13 +44,20 @@ def main() -> None:
     if hasattr(model, "model") and hasattr(model.model, "roi_heads"):  # Faster R-CNN
         model.model.roi_heads.detections_per_img = ev["max_det"]
 
-    paths, targets = val_targets(cfg)
+    #paths, targets = val_targets(cfg)
+    data_cfg = cfg
+    if args.val_config:  # 모델은 그대로, 채점할 검증 데이터만 바꾼다
+        data_cfg = {**cfg, "data": {**cfg["data"], **load_config(args.val_config)["data"]}}
+        paths, targets = val_targets(data_cfg)    
+    
     preds = model.predict(paths)
     metrics = compute_map(
         preds, targets, ev.get("iou_thresholds"), class_metrics=args.class_metrics
     )
 
     tag = f"conf{ev['conf_thr']}_nms{ev.get('nms_iou')}_det{ev['max_det']}"
+    if args.val_config:
+        tag += "_val" + data_cfg["data"]["version"]   
     save_json(
         {"exp_name": args.exp, "eval": ev, **metrics}, OUTPUT_DIR / args.exp / f"eval_{tag}.json"
     )
