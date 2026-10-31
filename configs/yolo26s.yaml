@@ -1,0 +1,51 @@
+
+  # configs/base.yaml — 모든 실험의 기본값
+# 새 실험은 이 파일을 직접 고치지 말고, 새 파일을 만들어 `base: base.yaml` 아래에 바뀐 값만 적는다.
+# 키 이름은 바꾸지 않는다 (Source 작성 표준 6장).
+
+exp_name: 1031_sun_yolo26s_v1       # {MMDD}_{owner}_{model}_{data_version}_{note}
+owner: sun
+note: ""
+seed: 42
+
+data:
+  # Kaggle "Download All" 압축을 풀어 sprint_ai_project1_data/ 안의 세 폴더를 data/raw/ 로 옮긴 기준
+  # train_images 232장, train_annotations 114개 조합 폴더(조합 → 알약 → JSON), test_images 842장
+  train_images: data/raw/train_images
+  train_annotations: data/raw/train_annotations   # JSON 파일 하나 또는 JSON이 든 폴더
+  test_images: data/raw/test_images
+  class_map: data/class_map.json
+  split_dir: data/splits
+  version: v0                # v0 원본 / v1 정제 / v2 증강 추가 ...
+  yolo_dir: data/yolo26s         # export_yolo.py 결과 위치
+  img_size: 640
+
+augment:
+  name: none                  # none / basic
+  hflip: 0.0
+  vflip: 0.0
+  brightness: 0.0
+
+model:
+  family: yolo                # yolo / rcnn
+  weights: yolo26s.pt         # yolo: 사전학습 .pt 또는 처음부터 학습할 .yaml
+  # arch: fasterrcnn_resnet50_fpn_v2   # rcnn 전용
+  pretrained: true            # rcnn 전용
+
+train:
+  epochs: 50
+  batch_size: 16
+  lr: 0.01
+  optimizer: auto             # yolo: auto/SGD/AdamW, rcnn: sgd/adamw
+  num_workers: 4
+  device: auto                # auto / cuda:0 / cpu / mps
+
+eval:
+  # 대회 지표 mAP@[0.75:0.95]와 같게 계산 (Kaggle Overview > Evaluation)
+  iou_thresholds: [0.75, 0.80, 0.85, 0.90, 0.95]
+  conf_thr: 0.001             # mAP 계산은 낮은 임계값이 유리
+  nms_iou: 0.5
+  max_det: 4                  # 과제 조건: 이미지당 최대 4개
+
+submission:
+  conf_thr: 0.001

@@ -1,13 +1,13 @@
 # Baseline A (모델 A): COCO 사전학습 YOLOv8s, 기본 설정
 base: base.yaml
 
-exp_name: 1028_modelA_yolov8s_v0_baseline
-owner: modelA
-note: 첫 제출용 베이스라인
+exp_name: 1028_modelA_yolo26s_v0_baseline
+owner: sun
+note: 기준
 
 model:
   family: yolo
-  weights: yolov8s.pt
+  weights: yolo26s.pt
 
 train:
   epochs: 50

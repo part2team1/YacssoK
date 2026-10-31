@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import argparse
 
-from src.utils import load_config, resolve_path
+from src.utils import load_config, resolve_path, yolo_data_yaml
 
 EXPECTED = {"train_images": 232, "train_annotations": 114, "test_images": 842}
 
@@ -75,7 +75,7 @@ def main() -> None:
         )
 
     print("[3] YOLO 형식 (각자 PC에서 생성, 커밋하지 않음)")
-    yolo = resolve_path(d["yolo_dir"]) / d["version"] / "data.yaml"
+    yolo = yolo_data_yaml(cfg)
     print(f"  [{'OK' if yolo.exists() else '없음'}] {yolo.relative_to(resolve_path('.'))}")
     if not yolo.exists():
         todo.append(f"YOLO 학습 전에: uv run python scripts/export_yolo.py --config {args.config}")

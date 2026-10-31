@@ -17,7 +17,7 @@ import shutil
 
 import torch
 
-from src.dataset import load_records, load_split
+from src.dataset import load_records, load_split, oversample, repeat_factors 
 from src.utils import (
     category_to_label,
     label_names,
@@ -26,6 +26,7 @@ from src.utils import (
     resolve_path,
     save_yaml,
     xyxy_to_yolo,
+    yolo_data_yaml,
 )
 
 
@@ -78,6 +79,33 @@ def main() -> None:
         root / "data.yaml",
     )
     print(f"저장: {root / 'data.yaml'}")
+        # 실험 D1: 드문 클래스가 든 이미지를 목록에 여러 번 적어 더 자주 학습 (baseline data.yaml은 그대로)
+    thr = float(d.get("repeat_threshold", 0) or 0)
+    if thr > 0:
+        repeated = oversample(train_records, thr, seed=cfg.get("seed", 42))
+        list_file = root / f"train_rfs{thr:g}.txt"
+        # abspath: 링크를 따라가지 않아야 ultralytics가 labels/ 폴더를 찾는다
+        list_file.write_text(
+            "\n".join(os.path.abspath(root / "images" / "train" / r["file_name"]) for r in repeated)
+            + "\n",
+            encoding="utf-8",
+        )
+        rf = repeat_factors(train_records, thr)
+        out_yaml = yolo_data_yaml(cfg)
+        save_yaml(
+            {
+                "path": str(root.resolve()),
+                "train": list_file.name,
+                "val": "images/val",
+                "names": dict(enumerate(label_names(class_map))),
+            },
+            out_yaml,
+        )
+        print(
+            f"오버샘플링(threshold={thr:g}): 학습 이미지{len(train_records)}장 →{len(repeated)}장 "
+            f"(반복된 이미지{sum(f > 1 for f in rf)}장, 최대{max(rf, default=1):.1f}배)"
+        )
+        print(f"저장:{out_yaml}")
 
 
 if __name__ == "__main__":

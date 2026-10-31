@@ -15,7 +15,7 @@ from pathlib import Path
 
 from src.interfaces import MAX_PILLS_PER_IMAGE, Prediction
 from src.models.base import BaseDetector
-from src.utils import get_device, image_id_from_name, resolve_path
+from src.utils import get_device, image_id_from_name, resolve_path,yolo_data_yaml
 
 
 class YoloDetector(BaseDetector):
@@ -33,9 +33,8 @@ class YoloDetector(BaseDetector):
         from ultralytics import YOLO
 
         m, t = self.cfg["model"], self.cfg["train"]
-        data_yaml = (
-            resolve_path(self.cfg["data"]["yolo_dir"]) / self.cfg["data"]["version"] / "data.yaml"
-        )
+        data_yaml = yolo_data_yaml(self.cfg)
+        
         if not data_yaml.exists():
             raise FileNotFoundError(
                 f"{data_yaml} 이 없습니다. 먼저 실행: uv run python scripts/export_yolo.py --config <config>"
