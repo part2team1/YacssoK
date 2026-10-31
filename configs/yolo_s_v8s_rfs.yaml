@@ -1,0 +1,6 @@
+base: yolo_s_v8s.yaml
+exp_name: 1029_pegstar_yolov8s_v0_rfs01
+owner: pegstar
+note: "YOLOv8s + 학습용 재표본화 repeat_threshold 0.1 (Repeat Factor Sampling), 나머지 yolo_s_v8s와 같음"
+data:
+  repeat_threshold: 0.1
