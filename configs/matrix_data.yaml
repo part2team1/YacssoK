@@ -21,6 +21,7 @@ bundles:                       # 데이터 실험 묶음 = run_train.py --set �
   D6A: [data.version=v3all, data.train_images=data/external/v3all/images,
         data.train_annotations=data/annotations/v3all.json, data.class_map=data/class_map_v3all.json]
   D9: [yolo_args.mixup=0.1, yolo_args.scale=0.5]          # D3과 같이 쓴다 (runs의 augmixup)
+  D6P: [data.version=v3p, data.train_images=data/synth/v3p/images, data.train_annotations=data/annotations/v3p.json]  # D6 위에 D2
   V3CP: [data.version=v3cp, data.train_images=data/synth/v3cp/images, data.train_annotations=data/annotations/v3cp.json]
 
 runs:                          # 실험 이름: 묶음 목록 (뒤에 쓴 묶음의 같은 키가 이김)
@@ -30,7 +31,12 @@ runs:                          # 실험 이름: 묶음 목록 (뒤에 쓴 묶음
   augsafe: [D3]
   img1024: [D4]
   clean: [D5]                  # 검증 정답이 바뀜 → base를 --val-config로 다시 채점해 비교
-  aihub: [D6]
+  aihub: [D6]                  # D6 단독 (참고용)
+  # D6은 외부 사진의 클래스 불균형이 커서 단독으로는 효과가 잘 안 보인다 → D1·D2와 결합한 판도 같이 돌린다.
+  # 자동 결합(run_pipeline combo)은 아래 4개 중 가장 좋은 판 하나를 AI Hub 대표로 쓴다 (D6 단독 결과와 무관).
+  aihub_rfs: [D6, D1]          # D6 + D1 (드문 클래스 이미지 반복)
+  aihub_cp: [D6P]              # D6 + D2 (v3 위에 모자란 알약 합성, v3p 필요)
+  aihub_cp_rfs: [D6P, D1]      # D6 + D2 + D1
   augmixup: [D3, D9]
   # aihuball: [D6A]            # 팀 결정 후. 검증보다 Kaggle 점수로 판단
   # combo: [V3CP, D1, D3, D4]  # 단일 결과를 보고 효과 있던 것만 남겨 결합

@@ -1,0 +1,9 @@
+# configs/data_v3p.yaml — 결합 데이터: AI Hub + 합성 (D6 + D2). 계획 파일의 D6P 묶음과 같은 데이터
+# 만들기: uv run python scripts/make_external.py --config configs/base.yaml --version v3 --classes known
+#         uv run python scripts/make_copy_paste.py --config configs/yolo_v3_aihub.yaml --version v3p
+# 점검:   uv run python scripts/review_labels.py --config configs/data_v3p.yaml --images synth --only-flagged
+base: base.yaml
+data:
+  train_images: data/synth/v3p/images
+  train_annotations: data/annotations/v3p.json
+  version: v3p
