@@ -3,10 +3,9 @@
 노트북(notebooks/01_eda.ipynb)은 이 함수들을 불러 결과를 보고 해석만 한다.
 모든 함수는 pandas DataFrame을 돌려주므로 그대로 표로 보거나 그래프로 그릴 수 있다.
 """
+
 from __future__ import annotations
 
-import json
-import re
 from pathlib import Path
 
 import pandas as pd

@@ -164,8 +164,9 @@ class RcnnDetector(BaseDetector):
             #             train_loss가 낮아도 val 성능은 떨어질 수 있으므로(과적합),
             #             대회/평가 지표와 같은 mAP로 판단하는 게 정확하다.
             #   predict()를 그대로 재사용: 실제 추론과 똑같은 경로(conf_thr, 라벨 -1 변환)로 평가된다.
-            score = compute_map(self.predict(val_paths), val_targets,
-                                self.cfg["eval"].get("iou_thresholds"))["map"]
+            score = compute_map(
+                self.predict(val_paths), val_targets, self.cfg["eval"].get("iou_thresholds")
+            )["map"]
             if score > best_score:  # 기록을 넘었을 때만 저장 → best.pt에는 항상 최고 epoch만 남는다
                 best_score = score
                 torch.save(self.model.state_dict(), out_dir / "best.pt")
@@ -229,9 +230,6 @@ class RcnnDetector(BaseDetector):
                     )
                 )
         return preds
-
-
-
 
 
 # **넣은 위치**
