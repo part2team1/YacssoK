@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-# configs/yolo_img1024.yaml
-base: yolo_baseline.yaml          # baseline 설정을 물려받고, 아래에 적은 값만 바뀜
-
-exp_name: 1024_sun_yolov26s_v0_img1024   # {날짜}_{이름}_{모델}_{데이터버전}_{바꾼 점}
-owner: sun
-note: "작은 알약 각인을 보기 위해 입력 해상도 640 → 1024 (실험 D6)"
-
-data:
-  img_size: 1024                  # 이번 실험에서 바꾸는 값
-
-train:
-  batch_size: 8                   # 해상도를 키우면 GPU 메모리를 더 쓰므로 16 → 8
-=======
 # configs/yolo_img1024.yaml  (실험 D6: 해상도)
 base: yolo_baseline.yaml                  # 모델 B는 rcnn_baseline.yaml
 exp_name: 1102_kim_yolov8s_v0_img1024     # {MMDD}_{이름}_{모델}_{데이터버전}_{메모}, 실험마다 다르게
@@ -21,4 +7,3 @@ data:
   img_size: 1024
 train:
   batch_size: 8                           # 해상도를 올리면 GPU 메모리 때문에 줄임
->>>>>>> origin/develop
