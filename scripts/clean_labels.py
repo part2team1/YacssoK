@@ -25,23 +25,36 @@ import csv
 import shutil
 
 from src.dataset import load_records
+from src.dataset import records_to_coco as to_coco
 from src.interfaces import MAX_PILLS_PER_IMAGE, Record
 from src.utils import load_config, resolve_path, save_json
 
 MIN_SIZE = 3  # 너비·높이가 이 픽셀보다 작으면 잘못된 박스로 본다
 
 
-def load_manual_drop(path) -> set[tuple[str, int]]:
+def load_manual_drop(path) -> set[tuple[str, int | None]]:
+    """(file_name, category_id) 목록. category_id를 all 로 적으면 그 이미지 전체를 뺀다
+    (라벨이 빠진 알약이 있는 이미지처럼 박스 하나로는 고칠 수 없는 경우)."""
     if not path.exists():
         return set()
+    out: set[tuple[str, int | None]] = set()
     with open(path, encoding="utf-8") as f:
-        return {(row["file_name"], int(row["category_id"])) for row in csv.DictReader(f)}
+        for row in csv.DictReader(f):
+            cid = (row.get("category_id") or "").strip()
+            out.add((row["file_name"].strip(), None if cid.lower() in ("", "all") else int(cid)))
+    return out
 
 
 def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[dict]]:
     """규칙대로 박스를 고치거나 빼고, 바꾼 내용을 log로 남긴다."""
     cleaned, log = [], []
     for r in records:
+        if (r["file_name"], None) in manual_drop:  # 이미지 전체 제외      ← 여기부터
+            log.append(
+                {"file_name": r["file_name"], "category_id": None, "action": "drop_image_manual"}
+            )
+            continue                                                          # ← 여기까지 추가
+        
         w, h = r["width"], r["height"]
         boxes, cats = [], []
         for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
@@ -76,33 +89,7 @@ def clean(records: list[Record], manual_drop: set) -> tuple[list[Record], list[d
     return cleaned, log
 
 
-def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
-    images, annotations = [], []
-    for r in records:
-        images.append(
-            {
-                "id": r["image_id"],
-                "file_name": r["file_name"],
-                "width": r["width"],
-                "height": r["height"],
-            }
-        )
-        for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
-            annotations.append(
-                {
-                    "id": len(annotations) + 1,
-                    "image_id": r["image_id"],
-                    "category_id": cid,
-                    "bbox": [round(x1, 1), round(y1, 1), round(x2 - x1, 1), round(y2 - y1, 1)],
-                    "area": round((x2 - x1) * (y2 - y1), 1),
-                    "iscrowd": 0,
-                }
-            )
-    cats = [
-        {"id": cid, "name": name, "supercategory": "pill"}
-        for cid, name in sorted(categories.items())
-    ]
-    return {"images": images, "annotations": annotations, "categories": cats}
+
 
 
 def main() -> None:
