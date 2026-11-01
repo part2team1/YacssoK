@@ -1,0 +1,13 @@
+# 학습용 재표본화(오버샘플링) 실험: YOLOv8m + Repeat Factor Sampling
+# 드문 알약이 든 이미지를 학습 목록에 여러 번 넣는다 (src/dataset.py repeat_factors).
+# 클래스 c가 학습 이미지의 f_c 비율에 나오면 배수 r_c = max(1, sqrt(threshold / f_c)).
+# threshold 0.1 → 학습 이미지의 10%보다 드물게 나오는 알약부터 반복된다.
+# 비교 대상: yolo_m_v8m.yaml (오버샘플링 없음), 같은 K-fold로 fold별 짝 비교
+base: yolo_m_v8m.yaml
+
+exp_name: 1028_pegstar_yolov8m_v0_rfs01
+owner: pegstar
+note: "학습용 재표본화: repeat_threshold 0.1 (Repeat Factor Sampling), 나머지 yolo_m_v8m과 같음"
+
+data:
+  repeat_threshold: 0.1

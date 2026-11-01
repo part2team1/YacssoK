@@ -1,0 +1,8 @@
+# configs/rcnn_balance.yaml
+# 실험 D1/T2 (R-CNN): 드문 클래스가 든 이미지를 더 자주 뽑는다 (rcnn.py _balanced_sampler)
+base: rcnn_baseline.yaml
+exp_name: 1026_modelB_frcnn_v0_balance05
+owner: modelB
+note: 드문 클래스 이미지 오버샘플링 power 0.5 (D1/T2)
+train:
+  balance_power: 0.5

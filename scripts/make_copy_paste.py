@@ -128,7 +128,7 @@ def main() -> None:
             if c in crops:
                 crops[c].append((r, box))
     backgrounds = [r for r in train if len(r["boxes"]) < MAX_PILLS_PER_IMAGE]
-    print(f"학습셋 클래스{len(counts)}개 중 박스{args.min_boxes}개 미만:{len(need)}개")
+    print(f"학습셋 클래스 {len(counts)}개 중 박스 {args.min_boxes}개 미만: {len(need)}개")
     if not need or not backgrounds:
         print("채울 클래스가 없거나 붙일 배경 이미지가 없습니다.")
         return
@@ -230,18 +230,18 @@ def main() -> None:
 
     after = Counter(c for r in train + synth for c in r["category_ids"])
     still = [c for c in counts if after[c] < args.min_boxes]
-    print(f"합성 이미지{len(synth)}장, 붙인 알약{len(log)}개")
-    print(f"드문 클래스 최소 박스 수:{min(counts.values())} →{min(after.values())}")
+    print(f"합성 이미지 {len(synth)}장, 붙인 알약 {len(log)}개")
+    print(f"드문 클래스 최소 박스 수: {min(counts.values())} → {min(after.values())}")
     if still:
         print(
-            f"목표를 다 못 채운 클래스{len(still)}개 (붙일 자리 부족). --per-image를 늘려 보세요."
+            f"목표를 다 못 채운 클래스 {len(still)}개 (붙일 자리 부족). --per-image를 늘려 보세요."
         )
-    print(f"저장:{out_dir},{ann_dir / (args.version + '.json')},{new_split}")
+    print(f"저장: {out_dir}, {ann_dir / (args.version + '.json')}, {new_split}")
     rel = data_root.relative_to(resolve_path(".")).as_posix()
     print("설정 파일 data 블록:")
-    print(f"  train_images:{rel}/synth/{args.version}/images")
-    print(f"  train_annotations:{rel}/annotations/{args.version}.json")
-    print(f"  version:{args.version}")
+    print(f"  train_images: {rel}/synth/{args.version}/images")
+    print(f"  train_annotations: {rel}/annotations/{args.version}.json")
+    print(f"  version: {args.version}")
 
 
 if __name__ == "__main__":

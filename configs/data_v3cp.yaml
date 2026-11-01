@@ -1,0 +1,6 @@
+# configs/data_v3cp.yaml — 결합 데이터: 정제 v1 + AI Hub + 합성 (D5·D10 + D6 + D2)
+base: base.yaml
+data:
+  train_images: data/synth/v3cp/images
+  train_annotations: data/annotations/v3cp.json
+  version: v3cp

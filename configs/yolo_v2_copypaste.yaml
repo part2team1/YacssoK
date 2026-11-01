@@ -2,10 +2,18 @@
 # 먼저: uv run python scripts/make_copy_paste.py --config configs/base.yaml --version v2
 #       uv run python scripts/export_yolo.py --config configs/yolo_v2_copypaste.yaml
 base: yolo_baseline.yaml
+<<<<<<< HEAD
 exp_name: 1027_dataB_yolov26s_v2_copypaste
+=======
+exp_name: 1027_dataB_yolov8s_v2_copypaste
+>>>>>>> origin/develop
 owner: dataB
 note: 학습셋 박스 10개 미만 클래스를 copy-paste로 보강 (D2)
 data:
   train_images: data/synth/v2/images
   train_annotations: data/annotations/v2.json
+<<<<<<< HEAD
   version: v2
+=======
+  version: v2
+>>>>>>> origin/develop
