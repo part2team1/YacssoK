@@ -17,7 +17,7 @@ import shutil
 
 import torch
 
-from src.dataset import load_records, load_split, oversample, repeat_factors 
+from src.dataset import load_records, load_split, oversample, repeat_factors
 from src.utils import (
     category_to_label,
     label_names,
@@ -54,6 +54,8 @@ def main() -> None:
 
     for split in ("train", "val"):
         split_records = load_split(records, f"{d['split_dir']}/{d['version']}/{split}.txt")
+        if split == "train":
+            train_records = split_records
         (root / "images" / split).mkdir(parents=True, exist_ok=True)
         (root / "labels" / split).mkdir(parents=True, exist_ok=True)
         for r in split_records:

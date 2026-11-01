@@ -23,11 +23,13 @@ from tqdm import tqdm
 
 from src.dataset import PillDataset, collate_fn, load_records, load_split, read_image_rgb
 from src.interfaces import MAX_PILLS_PER_IMAGE, Prediction
+
 # [추가] 검증 mAP를 계산하는 팀 공용 함수. best 선택 기준을 loss가 아니라
 #        실제 평가 지표(mAP)로 삼기 위해 가져온다.
 from src.metrics import compute_map
 from src.models.base import BaseDetector
 from src.transforms import get_transforms
+
 # [추가] resolve_path: 설정 파일의 상대 경로를 실제 경로로 바꿔 준다.
 #        predict()는 이미지 '경로 목록'을 받으므로, val 이미지의 전체 경로를 만드는 데 쓴다.
 #        새 줄을 만들지 않고 기존 src.utils import 줄에 이어 붙였다.

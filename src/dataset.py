@@ -8,6 +8,8 @@
 
 from __future__ import annotations
 
+import math
+import random
 from collections import defaultdict
 from pathlib import Path
 
@@ -15,9 +17,6 @@ import cv2
 import numpy as np
 import torch
 from torch.utils.data import Dataset
-import math
-import random
-from collections import defaultdict
 
 from src.interfaces import ClassInfo, Record, Target
 from src.utils import category_to_label, load_json, resolve_path

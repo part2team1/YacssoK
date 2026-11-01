@@ -174,8 +174,7 @@ def plot_experiments(exp_df: pd.DataFrame, metric: str = "map") -> None:
 #            여러 종류를 구분할 때만 파랑 → 주황 → 청록 순서로 씀
 # =====================================================================
 
-import matplotlib.pyplot as plt
-import pandas as pd
+
 
 BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"  # 계열 색 (이 순서로 씀)
 # 구분할 종류가 3개보다 많을 때 이어서 쓸 색 (노랑, 분홍, 초록, 보라, 빨강)

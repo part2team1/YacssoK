@@ -15,7 +15,7 @@ from pathlib import Path
 
 from src.interfaces import MAX_PILLS_PER_IMAGE, Prediction
 from src.models.base import BaseDetector
-from src.utils import get_device, image_id_from_name, resolve_path,yolo_data_yaml
+from src.utils import get_device, image_id_from_name, yolo_data_yaml
 
 
 class YoloDetector(BaseDetector):

@@ -46,3 +46,7 @@ kaggle.json
 .idea/
 .DS_Store
 Thumbs.db
+kfold_compare.ipynb
+kfold_overfit.ipynb
+results_compare.ipynb
+wandb.ipynb
