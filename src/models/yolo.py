@@ -12,8 +12,8 @@ from __future__ import annotations
 
 import shutil
 from pathlib import Path
-import wandb
 
+import wandb
 from src.interfaces import MAX_PILLS_PER_IMAGE, Prediction
 from src.models.base import BaseDetector
 
