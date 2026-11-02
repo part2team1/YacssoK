@@ -67,6 +67,23 @@ def load_config(path: str | Path) -> dict[str, Any]:
     return cfg
 
 
+def apply_overrides(cfg: dict, items: list[str] | None) -> dict:
+    """명령줄의 --set data.version=v0_f1 seed=7 처럼 설정 값 몇 개를 바꾼다 (실험 D7·T4).
+
+    값은 YAML로 읽으므로 숫자·true/false·리스트도 그대로 쓸 수 있다.
+    """
+    for item in items or []:
+        key, _, raw = item.partition("=")
+        if not key or not _:
+            raise ValueError(f"--set 형식은 키=값 입니다: {item}")
+        node = cfg
+        *parents, last = key.split(".")
+        for k in parents:
+            node = node.setdefault(k, {})
+        node[last] = yaml.safe_load(raw)
+    return cfg
+
+
 def save_yaml(data: dict, path: str | Path) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)

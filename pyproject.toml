@@ -34,6 +34,9 @@ packages = ["src"]
 demo = ["gradio>=4.44"]
 # 실험 기록을 W&B로 할 경우: uv sync --extra tracking
 tracking = ["wandb>=0.17"]
+ocr = [
+    "rapidocr-onnxruntime>=1.4.4",
+]
 
 [dependency-groups]
 # uv sync 시 기본으로 함께 설치되는 개발 도구
