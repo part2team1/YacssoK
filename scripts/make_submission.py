@@ -1,7 +1,7 @@
 """Kaggle 제출 파일 생성 (Experimentation Lead).
 
 실행:
-    uv run python scripts/make_submission.py --exp 1028_modelA_yolov8s_v0_baseline
+    uv run python scripts/make_submission.py --exp 1027_dataB_yolov26s_v2_copypaste
     uv run python scripts/make_submission.py --exp expA expB          # 두 모델 앙상블
 
 결과: submissions/{exp}.csv
@@ -21,8 +21,6 @@ from src.ensemble import ensemble_nms
 from src.infer import predict_test
 from src.interfaces import OUTPUT_DIR, PROJECT_ROOT
 from src.utils import (
-    label_to_category,
-    load_class_map,
     load_config,
     load_json,
     predictions_from_json,
@@ -57,7 +55,12 @@ def main() -> None:
     preds = pred_lists[0] if len(pred_lists) == 1 else ensemble_nms(pred_lists)
 
     cfg = load_config(OUTPUT_DIR / args.exp[0] / "config.yaml")
-    l2c = label_to_category(load_class_map(cfg["data"]["class_map"]))
+    import json
+
+    from ultralytics import YOLO
+    names = YOLO(str(OUTPUT_DIR / args.exp[0] / "best.pt")).names
+    name2cat = {d["name"]: d["category_id"] for d in json.load(open(cfg["data"]["class_map"]))}
+    l2c = {i: name2cat[nm] for i, nm in names.items() if nm in name2cat}
     conf_thr = cfg.get("submission", {}).get("conf_thr", 0.0)
 
     rows = []
@@ -66,6 +69,8 @@ def main() -> None:
         for box, score, label in zip(
             xyxy_to_xywh(p["boxes"][keep]), p["scores"][keep], p["labels"][keep], strict=True
         ):
+            if int(label) not in l2c:
+                continue
             x, y, w, h = (round(float(v), 2) for v in box)
             rows.append(
                 {
