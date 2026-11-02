@@ -65,6 +65,16 @@ def run_items(plan: dict, run: str) -> list[str]:
     return [str(v) for b in spec or [] for v in plan["bundles"][b]]
 
 
+def tune_done(tune_dir) -> int:
+    """끝난 하이퍼파라미터 탐색 횟수 (ultralytics 버전에 따라 ndjson 또는 csv에 한 줄씩)."""
+    nd, csv_ = tune_dir / "tune" / "tune_results.ndjson", tune_dir / "tune" / "tune_results.csv"
+    if nd.exists():
+        return sum(1 for line in nd.read_text("utf-8").splitlines() if line.strip())
+    if csv_.exists():
+        return max(0, len(csv_.read_text("utf-8").strip().splitlines()) - 1)
+    return 0
+
+
 def is_data_run(plan: dict, run: str) -> bool:
     return any(i.startswith("data.version=") for i in run_items(plan, run))
 
@@ -245,12 +255,14 @@ def main() -> None:
         tune_dir = OUTPUT_DIR / f"tune_{name(bm, br)}"
         best_yaml = tune_dir / "tune" / "best_hyperparameters.yaml"
         old = state.get("tuned", {})
-        same_leader = old.get("model") == bm and old.get("from") == br
-        if best_yaml.exists() and same_leader and not (br == "combo" and combo_changed):
-            print(f"[tune] {name(bm, br)} 탐색 결과가 이미 있어 다시 탐색하지 않습니다")
+        if br == "combo" and combo_changed and tune_dir.exists():
+            shutil.rmtree(tune_dir)  # 내용이 바뀐 combo의 예전 탐색 기록이 섞이지 않게
+        done = tune_done(tune_dir)
+        if done >= args.tune_iterations:
+            print(f"[tune] {name(bm, br)} 탐색 {done}회가 이미 끝나 다시 탐색하지 않습니다")
         else:
-            if tune_dir.exists():  # 내용이 바뀐 combo 등의 예전 탐색 결과가 섞이지 않게
-                shutil.rmtree(tune_dir)
+            if done:
+                print(f"[tune] {name(bm, br)} 탐색 {done}회까지 끝남 → {done + 1}회부터 이어서")
             sh(tune_cmd, log)
         if best_yaml.exists():
             hp = yaml.safe_load(best_yaml.read_text("utf-8")) or {}

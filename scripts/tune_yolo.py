@@ -50,6 +50,8 @@ def main() -> None:
         "plots": False,
         "save": False,
         "val": True,
+        # 같은 폴더에 이전 탐색 기록이 있으면 이어서 (중간에 멈췄을 때 끝난 반복은 다시 하지 않음)
+        "resume": (out / "tune").exists(),
     }
     tune_args.update(cfg.get("yolo_args") or {})  # 설정 파일의 yolo_args가 이긴다 (M0과 같은 방식)
     tune_args.update({"plots": False, "save": False})  # 반복마다 그림·가중치를 남기지 않음
