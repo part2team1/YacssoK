@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import shutil
 from pathlib import Path
+import wandb
 
 from src.interfaces import MAX_PILLS_PER_IMAGE, Prediction
 from src.models.base import BaseDetector
@@ -78,7 +79,23 @@ class YoloDetector(BaseDetector):
         }
         # ultralytics 고유 옵션은 configs의 yolo_args에. 같은 키(plots 등)는 yolo_args 값이 이긴다
         args.update(self.cfg.get("yolo_args") or {})
+
+        wandb.init(  # ★ 추가: wandb run 시작 (run 이름 = config의 exp_name)
+            entity="YacssoK",  # ★ 추가
+            project="pill-yolo",  # ★ 추가
+            name=self.cfg["exp_name"],  # ★ 추가
+            config=self.cfg,  # ★ 추가: 실험 설정 전체를 wandb에 기록
+        )  # ★ 추가
+
+        def log_map75_95(trainer):  # ★ 추가: epoch마다 val mAP@[0.75:0.95]를 wandb에 기록
+            ap = trainer.validator.metrics.box.all_ap  # ★ 추가: (클래스 수, IoU 0.50~0.95 10칸)
+            if len(ap):  # ★ 추가
+                wandb.log({"val/mAP75_95": float(ap[:, 5:].mean())}, step=trainer.epoch + 1)  # ★ 추가: 뒤 5칸 = IoU 0.75~0.95
+
+        self.model.add_callback("on_fit_epoch_end", log_map75_95)  # ★ 추가: 위 함수를 매 epoch 끝에 실행
+
         self.model.train(**args)
+        wandb.finish()  # ★ 추가: 학습이 끝나면 wandb 기록 닫기
 
         best = out_dir / "yolo_run" / "weights" / "best.pt"
         if not best.exists():
