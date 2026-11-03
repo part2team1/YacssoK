@@ -27,7 +27,7 @@ augment:
 
 model:
   family: yolo                # yolo / rcnn
-  weights: yolov8s.pt         # yolo: 사전학습 .pt 또는 처음부터 학습할 .yaml
+  weights: yolov26s.pt         # yolo: 사전학습 .pt 또는 처음부터 학습할 .yaml
   arch: fasterrcnn_resnet50_fpn_v2   # rcnn 전용
   pretrained: true            # rcnn 전용
 

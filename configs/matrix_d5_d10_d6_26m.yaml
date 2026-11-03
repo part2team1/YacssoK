@@ -1,0 +1,21 @@
+prefix: 1103_yolo26m0_d5_d10_d6_26m
+
+models:
+  yolo26m: configs/yolo26m.yaml
+
+bundles:
+  D5_D10: [data.version=v1, data.train_annotations=data/annotations/v1.json]
+  D6: [data.version=v3, data.train_images=data/external/v3/images, data.train_annotations=data/annotations/v3.json]
+  D6C: [data.version=v3c, data.train_images=data/external/v3c/images, data.train_annotations=data/annotations/v3c.json]
+  D6A: [data.version=v3all, data.train_images=data/external/v3all/images,
+        data.train_annotations=data/annotations/v3all.json, data.class_map=data/class_map_v3all.json]
+  D6AC: [data.version=v3allc, data.train_images=data/external/v3allc/images,
+         data.train_annotations=data/annotations/v3allc.json, data.class_map=data/class_map_v3all.json]
+
+runs:
+  v0_base: []
+  v1_base: [D5_D10]
+  v3_base: [D6]
+  v3c_base: [D6C]
+  v3all_base: [D6A]
+  v3allc_base: [D6AC]

@@ -3,7 +3,7 @@
 # 먼저: uv run python scripts/make_external.py --config configs/base.yaml --version v3 --classes known
 #       uv run python scripts/export_yolo.py --config configs/yolo_v3_aihub.yaml
 base: yolo_baseline.yaml
-exp_name: 1029_dataB_yolov8s_v3_aihub
+exp_name: 1103_dataB_yolov26s_v3_aihub
 owner: dataB
 note: AI Hub 조합 데이터(TL_2·TS_2 제외)로 학습셋 보강, 검증셋은 원본 그대로 (D6)
 data:

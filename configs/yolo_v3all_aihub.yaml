@@ -4,7 +4,7 @@
 #       uv run python scripts/export_yolo.py --config configs/yolo_v3all_aihub.yaml
 # class_map이 바뀌므로 이 설정으로 학습한 모델끼리만 앙상블할 수 있다.
 base: yolo_baseline.yaml
-exp_name: 1030_dataB_yolov8s_v3all_aihub
+exp_name: 1103_dataB_yolov26s_v3all_aihub
 owner: dataB
 note: AI Hub 조합 데이터로 새 알약 클래스 추가 (D6)
 data:

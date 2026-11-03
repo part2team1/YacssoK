@@ -1,0 +1,12 @@
+# configs/yolo_v3c_aihub.yaml
+# 실험 D5+D10+d6 (정제원본 데이터 + 외부데이터 clasees known)
+# 먼저: uv run python scripts/make_external.py --config configs/base.yaml --version v3 --classes known
+#       uv run python scripts/export_yolo.py --config configs/yolo_v3_aihub.yaml
+base: yolo_baseline.yaml
+exp_name: 1103_dataB_yolov26s_v3c_aihub
+owner: dataB
+note: AI Hub 조합 데이터(TL_2·TS_2 제외)로 학습셋 보강, 검증셋은 달라짐(d5, d10. 정제 실험했기 때문에)
+data:
+  train_images: data/external/v3c/images
+  train_annotations: data/annotations/v3c.json
+  version: v3c
