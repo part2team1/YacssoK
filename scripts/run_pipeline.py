@@ -30,6 +30,7 @@ import argparse
 import base64
 import html
 import json
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -62,6 +63,16 @@ def run_items(plan: dict, run: str) -> list[str]:
     if isinstance(spec, dict):
         return run_items(plan, spec["ocr"])
     return [str(v) for b in spec or [] for v in plan["bundles"][b]]
+
+
+def tune_done(tune_dir) -> int:
+    """끝난 하이퍼파라미터 탐색 횟수 (ultralytics 버전에 따라 ndjson 또는 csv에 한 줄씩)."""
+    nd, csv_ = tune_dir / "tune" / "tune_results.ndjson", tune_dir / "tune" / "tune_results.csv"
+    if nd.exists():
+        return sum(1 for line in nd.read_text("utf-8").splitlines() if line.strip())
+    if csv_.exists():
+        return max(0, len(csv_.read_text("utf-8").strip().splitlines()) - 1)
+    return 0
 
 
 def is_data_run(plan: dict, run: str) -> bool:
@@ -102,7 +113,8 @@ def main() -> None:
     def save_plan() -> None:
         plan_path.write_text(yaml.safe_dump(plan, allow_unicode=True, sort_keys=False), "utf-8")
 
-    def matrix(runs: list[str], only: list[str]) -> None:
+    def matrix(runs: list[str], only: list[str], force: bool = False) -> None:
+        """force: 이름은 같은데 내용(묶음)이 바뀐 실험(combo·tuned)을 다시 학습."""
         save_plan()
         cmd = [
             "scripts/run_matrix.py",
@@ -113,7 +125,8 @@ def main() -> None:
             "--runs",
             *runs,
         ]
-        sh(cmd + (["--epochs", str(args.epochs)] if args.epochs else []), log)
+        cmd += ["--epochs", str(args.epochs)] if args.epochs else []
+        sh(cmd + (["--force"] if force else []), log)
 
     def gains() -> dict[str, dict[str, float]]:
         """실험 → {모델: 기준 대비 변화}. v1처럼 검증 정답이 바뀐 실험은 다시 채점한 기준과 비교."""
@@ -133,6 +146,16 @@ def main() -> None:
     # 1) 데이터 실험
     if "data_exp" in args.stages:
         matrix(list(plan["runs"]), models)
+        for run in plan[
+            "runs"
+        ]:  # 학습은 끝났는데 점수가 없으면 그 데이터 버전의 검증 정답이 비어 있는 것
+            for m in models:
+                exp = name(m, run)
+                if (OUTPUT_DIR / exp / "metrics.json").exists() and metric(exp) is None:
+                    print(
+                        f"[주의] {exp}: 점수가 없습니다. 이 데이터 버전의 검증 정답(val)이 비어 있습니다."
+                    )
+                    log.append(f"- {exp}: 점수 없음 (검증 정답 비어 있음, 데이터 버전 확인 필요)")
         # 검증 정답이 바뀌는 실험(정제 v1)은 기준을 그 정답으로 다시 채점해 공정하게 비교
         for run in plan["runs"]:
             items = run_items(plan, run)
@@ -143,26 +166,45 @@ def main() -> None:
             val_cfg.write_text(yaml.safe_dump({"data": data}, allow_unicode=True), "utf-8")
             for m in models:
                 base_exp = name(m, "base")
-                if metric(base_exp) is None:
+                # 기준과 정제 실험이 둘 다 점수를 낸 경우에만 다시 채점 (정제 데이터가 없으면 건너뜀)
+                if metric(base_exp) is None or metric(name(m, run)) is None:
                     continue
                 if sh(
                     ["scripts/evaluate.py", "--exp", base_exp, "--val-config", str(val_cfg)], log
                 ):
                     evals = sorted((OUTPUT_DIR / base_exp).glob("eval_*_valv1.json"))
-                    if evals:
-                        state.setdefault("rescored", {})[f"{m}:{run}"] = load_json(evals[-1])["map"]
+                    score = load_json(evals[-1]).get("map") if evals else None
+                    if score is None:  # 검증 정답이 비어 있음: v1.json에 검증 이미지가 없음
+                        print(
+                            f"[주의] {run}: v1 검증 정답이 비어 있어 다시 채점하지 못했습니다. "
+                            "data/annotations/v1.json 과 data/splits/v1/val.txt 를 확인하세요."
+                        )
+                        log.append(f"- {run}: v1 검증 정답 비어 있음 (기준 다시 채점 실패)")
+                    else:
+                        state.setdefault("rescored", {})[f"{m}:{run}"] = score
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), "utf-8")
 
     # 2) 결합: 절반 이상 모델에서 +min_gain 이상인 실험만. 데이터 버전은 하나만 (가장 좋은 것)
+    #    실험마다 따로 판정한다. 그래서 계획 파일에 aihub_rfs [D6, D1]·aihub_cp_rfs [D6P, D1] 같은
+    #    결합 판을 넣어 두면 D6 단독이 탈락해도 결합 판이 통과하면 그 판이 데이터 대표로 들어간다.
+    combo_changed = False
     if "combo" in args.stages:
         g = gains()
         good = []
+        print(
+            f"\n[combo] 결합 후보 (통과: 모델 {args.min_share:.0%} 이상에서 +{args.min_gain} 이상)"
+        )
         for run, row in g.items():
             if not row or run.startswith(("combo", "tuned")) or changes_classes(plan, run):
                 continue
             share = sum(v >= args.min_gain for v in row.values()) / len(row)
             avg = sum(row.values()) / len(row)
-            if share >= args.min_share and avg >= args.min_gain:
+            ok = share >= args.min_share and avg >= args.min_gain
+            kind = "데이터" if is_data_run(plan, run) else "학습"
+            print(
+                f"  {'통과' if ok else '탈락'}  {run:16s} 평균 {avg:+.4f}  향상 모델 {share:.0%}  ({kind})"
+            )
+            if ok:
                 good.append((avg, run))
         good.sort(reverse=True)
         data_runs = [r for _, r in good if is_data_run(plan, r)]
@@ -170,10 +212,15 @@ def main() -> None:
         bundles: list[str] = []
         for r in chosen:
             bundles += [b for b in plan["runs"][r] if b not in bundles]
+        # 다시 실행했을 때 계획 파일이 바뀌어 결합 내용이 달라졌으면 예전 combo 결과를 쓰지 않고 다시 학습
+        prev = state.get("combo", {}).get("bundles")
+        combo_changed = prev is not None and prev != bundles
         state["combo"] = {"runs": chosen, "bundles": bundles, "gains": g}
         if len(chosen) >= 2:
             plan["runs"]["combo"] = bundles
-            matrix(["combo"], models)
+            if combo_changed:
+                print(f"[combo] 결합 내용이 바뀌어 다시 학습합니다: {prev} → {bundles}")
+            matrix(["combo"], models, force=combo_changed)
         else:
             print(f"\n[combo] 효과 있는 실험이 {len(chosen)}개라 결합 실험을 건너뜁니다: {chosen}")
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), "utf-8")
@@ -205,14 +252,29 @@ def main() -> None:
             str(args.tune_iterations),
         ]
         tune_cmd += ["--set", f"exp_name={name(bm, br)}", *items]
-        sh(tune_cmd, log)
-        best_yaml = OUTPUT_DIR / f"tune_{name(bm, br)}" / "tune" / "best_hyperparameters.yaml"
+        tune_dir = OUTPUT_DIR / f"tune_{name(bm, br)}"
+        best_yaml = tune_dir / "tune" / "best_hyperparameters.yaml"
+        old = state.get("tuned", {})
+        if br == "combo" and combo_changed and tune_dir.exists():
+            shutil.rmtree(tune_dir)  # 내용이 바뀐 combo의 예전 탐색 기록이 섞이지 않게
+        done = tune_done(tune_dir)
+        if done >= args.tune_iterations:
+            print(f"[tune] {name(bm, br)} 탐색 {done}회가 이미 끝나 다시 탐색하지 않습니다")
+        else:
+            if done:
+                print(f"[tune] {name(bm, br)} 탐색 {done}회까지 끝남 → {done + 1}회부터 이어서")
+            sh(tune_cmd, log)
         if best_yaml.exists():
             hp = yaml.safe_load(best_yaml.read_text("utf-8")) or {}
             plan["bundles"]["TUNED"] = [f"yolo_args.{k}={v}" for k, v in hp.items()]
             plan["runs"]["tuned"] = [*plan["runs"][br], "TUNED"]
-            state["tuned"] = {"model": bm, "from": br, "params": hp}
-            matrix(["tuned"], [bm])
+            new = {"model": bm, "from": br, "params": hp, "bundles": plan["runs"]["tuned"]}
+            # 1등이 바뀌었거나 탐색값·묶음이 달라졌으면 예전 tuned 결과를 쓰지 않고 다시 학습
+            tuned_changed = bool(old) and any(k in old and old[k] != new[k] for k in new)
+            state["tuned"] = new
+            if tuned_changed:
+                print(f"[tune] 1등 또는 탐색값이 바뀌어 tuned를 다시 학습합니다 ({bm}, {br})")
+            matrix(["tuned"], [bm], force=tuned_changed)
         else:
             print(f"[tune] {best_yaml} 이 없어 다시 학습을 건너뜁니다.")
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), "utf-8")

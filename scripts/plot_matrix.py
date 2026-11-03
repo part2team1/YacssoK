@@ -45,9 +45,14 @@ def load_curve(exp: str) -> pd.DataFrame | None:
         df = pd.read_csv(yolo)
         df.columns = df.columns.str.strip()
         out = pd.DataFrame({"epoch": df["epoch"]})
-        out["train_loss"] = df[["train/box_loss", "train/cls_loss", "train/dfl_loss"]].sum(axis=1)
-        out["val_loss"] = df[["val/box_loss", "val/cls_loss", "val/dfl_loss"]].sum(axis=1)
-        out["val_map"] = df["metrics/mAP50-95(B)"]
+        # 모델마다 loss 종류가 다르다 (YOLO26은 dfl_loss가 없음) → 있는 *_loss 칸을 모두 더한다
+        for split in ("train", "val"):
+            cols = [c for c in df.columns if c.startswith(f"{split}/") and c.endswith("_loss")]
+            if cols:
+                out[f"{split}_loss"] = df[cols].sum(axis=1)
+        map_cols = [c for c in df.columns if c.startswith("metrics/mAP50-95")]
+        if map_cols:
+            out["val_map"] = df[map_cols[0]]
         return out
     rcnn = OUTPUT_DIR / exp / "train_history.json"
     if rcnn.exists():
