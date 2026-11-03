@@ -235,10 +235,12 @@ def load_eda_context(config_path="configs/base.yaml"):
         boxes=boxes,
     )
 
+
 def filename_parts(name):
     """파일명 앞쪽 알약 코드와 나머지 토큰을 나눈다."""
     tokens = Path(name).stem.split("_")
     return [int(v) for v in tokens[0].removeprefix("K-").split("-") if v.isdigit()], tokens[1:]
+
 
 def eda_inventory(ctx):
     return pd.DataFrame(
@@ -252,6 +254,7 @@ def eda_inventory(ctx):
             ],
         }
     )
+
 
 def filename_token_table(ctx):
     _, tokens = filename_parts(ctx["paths"][0].name)
@@ -267,6 +270,7 @@ def filename_token_table(ctx):
     return pd.DataFrame(
         {"토큰 위치": range(1, len(tokens) + 1), "값": tokens, "대조 항목": fields[: len(tokens)]}
     )
+
 
 def filename_metadata(ctx):
     m = ctx["meta"]
@@ -285,6 +289,7 @@ def filename_metadata(ctx):
         if c in m
     ]
     return m.loc[m.file_name.eq(ctx["paths"][0].name), cols].drop_duplicates()
+
 
 def eda_class_counts(ctx):
     from collections import Counter
@@ -307,6 +312,7 @@ def eda_class_counts(ctx):
         .reset_index(drop=True)
     )
 
+
 def filename_missing_candidates(ctx):
     rows = []
     for r in ctx["records"]:
@@ -321,6 +327,7 @@ def filename_missing_candidates(ctx):
             )
     return pd.DataFrame(rows, columns=["file_name", "파일명 기준 누락 코드", "현재 박스"])
 
+
 def file_alignment(ctx):
     files = {p.name for p in ctx["paths"]}
     names = {r["file_name"] for r in ctx["records"]}
@@ -330,6 +337,7 @@ def file_alignment(ctx):
             "개수": [len(files - names), len(names - files)],
         }
     )
+
 
 def image_integrity(ctx):
     import hashlib
@@ -358,6 +366,7 @@ def image_integrity(ctx):
         }
     )
 
+
 def metadata_counts(ctx, field):
     if field not in ctx["meta"]:
         return pd.DataFrame(columns=[field, "고유 사진 수"])
@@ -369,11 +378,13 @@ def metadata_counts(ctx, field):
         .reset_index()
     )
 
+
 def pill_combinations(ctx):
     from collections import Counter
 
     counts = Counter(tuple(sorted(filename_parts(r["file_name"])[0])) for r in ctx["records"])
     return pd.DataFrame([{"원본 코드 조합": str(c), "사진 수": n} for c, n in counts.most_common()])
+
 
 def angle_alignment(ctx):
     rows = []
@@ -384,6 +395,7 @@ def angle_alignment(ctx):
         ok = len(parts) > 4 and len(values) > 0 and all(float(v) == float(parts[4]) for v in values)
         rows.append({"file_name": r["file_name"], "일치": ok})
     return pd.DataFrame(rows).groupby("일치").size().rename("사진 수").reset_index()
+
 
 def test_image_inventory(ctx):
     from collections import Counter
@@ -441,43 +453,58 @@ def load_quality_audit(ctx, config_path):
             references = []
             for cid in [category, replacement]:
                 ref = next(
-                    (r for r in sorted(ctx["records"], key=lambda r: r["file_name"])
-                     if r["file_name"] not in excluded and cid in r["category_ids"]),
+                    (
+                        r
+                        for r in sorted(ctx["records"], key=lambda r: r["file_name"])
+                        if r["file_name"] not in excluded and cid in r["category_ids"]
+                    ),
                     None,
                 )
                 if ref is None:
                     raise ValueError(f"참고 사진이 없습니다: {cid}")
                 i = ref["category_ids"].index(cid)
                 references.append({"file_name": ref["file_name"], "box": ref["boxes"][i]})
-            labels.append({
-                "file_name": name,
-                "old_name": classes[category]["name"],
-                "corrected_name": classes[replacement]["name"],
-                "old_category_id": category,
-                "new_category_id": replacement,
-                "box": rec["boxes"][indices[0]],
-                "references": references,
-            })
+            labels.append(
+                {
+                    "file_name": name,
+                    "old_name": classes[category]["name"],
+                    "corrected_name": classes[replacement]["name"],
+                    "old_category_id": category,
+                    "new_category_id": replacement,
+                    "box": rec["boxes"][indices[0]],
+                    "references": references,
+                }
+            )
         elif row["action"] == "add":
             box = [float(v) for v in row["new_value"].split()]
             if len(box) != 4:
                 raise ValueError(f"추가 박스는 xyxy 4개여야 합니다: {name}")
-            missing.append({
-                "file_name": name, "category_id": category,
-                "name": classes[category]["name"], "new_box_xyxy": box,
-                "existing_boxes": rec["boxes"],
-            })
+            missing.append(
+                {
+                    "file_name": name,
+                    "category_id": category,
+                    "name": classes[category]["name"],
+                    "new_box_xyxy": box,
+                    "existing_boxes": rec["boxes"],
+                }
+            )
     evaluation = json.loads(resolve_path(config["reevaluation"]).read_text(encoding="utf-8"))
-    return {"label_corrections": labels, "added_validation_boxes": missing,
-            "model_reference": evaluation["runs"], "evaluation_scope": evaluation["scope"]}
+    return {
+        "label_corrections": labels,
+        "added_validation_boxes": missing,
+        "model_reference": evaluation["runs"],
+        "evaluation_scope": evaluation["scope"],
+    }
 
 
 def quality_audit_table(audit, kind="labels"):
     """원시 박스·사진 참조와 요약 표를 분리한다."""
-    keys = {"labels": "label_corrections", "missing": "added_validation_boxes",
-            "models": "model_reference"}
+    keys = {
+        "labels": "label_corrections",
+        "missing": "added_validation_boxes",
+        "models": "model_reference",
+    }
     excluded = {"box", "references", "existing_boxes"}
-    return pd.DataFrame([
-        {k: v for k, v in row.items() if k not in excluded}
-        for row in audit[keys[kind]]
-    ])
+    return pd.DataFrame(
+        [{k: v for k, v in row.items() if k not in excluded} for row in audit[keys[kind]]]
+    )

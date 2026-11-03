@@ -178,6 +178,7 @@ def eda_grid(items, cols=5, rows=None, title=""):
     fig.tight_layout()
     plt.show()
 
+
 def plot_random_photos(folder, n=50, rows=None, seed=42):
     import random
     from pathlib import Path
@@ -194,6 +195,7 @@ def plot_random_photos(folder, n=50, rows=None, seed=42):
         title=f"무작위 사진 {len(chosen)}장 · seed {seed}",
     )
 
+
 def plot_eda_counts(table, x, y, title):
     import matplotlib.pyplot as plt
 
@@ -201,6 +203,7 @@ def plot_eda_counts(table, x, y, title):
     plt.title(title)
     plt.tight_layout()
     plt.show()
+
 
 def plot_class_crops(ctx):
     from PIL import Image
@@ -221,6 +224,7 @@ def plot_class_crops(ctx):
         )
     for start in range(0, len(crops), 20):
         eda_grid(crops[start : start + 20], title="클래스별 대표 알약 · 라벨 대조용")
+
 
 def plot_flip_example(ctx):
     from PIL import Image, ImageDraw, ImageOps
@@ -265,7 +269,8 @@ def plot_quality_audit(audit, ctx, kind="labels"):
         if kind == "labels":
             items = [(image.crop(tuple(row["box"])), "문제 사진 확대")]
             for ref, caption in zip(
-                row["references"], ["원래 정답 이름의 참고 사진", "교정 이름의 참고 사진"],
+                row["references"],
+                ["원래 정답 이름의 참고 사진", "교정 이름의 참고 사진"],
                 strict=True,
             ):
                 with Image.open(ctx["image_dir"] / ref["file_name"]) as source:
