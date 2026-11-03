@@ -45,8 +45,12 @@ def load_curve(exp: str) -> pd.DataFrame | None:
         df = pd.read_csv(yolo)
         df.columns = df.columns.str.strip()
         out = pd.DataFrame({"epoch": df["epoch"]})
-        out["train_loss"] = df[["train/box_loss", "train/cls_loss", "train/dfl_loss"]].sum(axis=1)
-        out["val_loss"] = df[["val/box_loss", "val/cls_loss", "val/dfl_loss"]].sum(axis=1)
+        cols = [
+            c for c in ["train/box_loss", "train/cls_loss", "train/dfl_loss"] if c in df.columns
+        ]
+        out["train_loss"] = df[cols].sum(axis=1)
+        cols = [c for c in ["val/box_loss", "val/cls_loss", "val/dfl_loss"] if c in df.columns]
+        out["val_loss"] = df[cols].sum(axis=1)
         out["val_map"] = df["metrics/mAP50-95(B)"]
         return out
     rcnn = OUTPUT_DIR / exp / "train_history.json"
