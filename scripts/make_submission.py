@@ -1,7 +1,11 @@
 """Kaggle 제출 파일 생성 (Experimentation Lead).
 
 실행:
+<<<<<<< Updated upstream
     uv run python scripts/make_submission.py --exp 1027_dataB_yolov26s_v2_copypaste
+=======
+    uv run python scripts/make_submission.py --exp 1102_yolo11s_v2_copypaste
+>>>>>>> Stashed changes
     uv run python scripts/make_submission.py --exp expA expB          # 두 모델 앙상블
 
 결과: submissions/{exp}.csv
