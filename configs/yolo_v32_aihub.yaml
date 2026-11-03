@@ -1,0 +1,14 @@
+# configs/yolo_v32_aihub.yaml
+# 실험 D6 (데이터): AI Hub 외부 데이터로 기존 클래스 보강 (class_map 그대로)
+#  기존 실험 D6(TL_1/TS_1 사용) 에 새 외부데이터(TL_3/TS_3) 추가한 버전
+
+# 먼저: uv run python scripts/make_external.py --config configs/base.yaml --version v32 --classes known
+#       uv run python scripts/export_yolo.py --config configs/yolo_v32_aihub.yaml
+base: yolo_baseline.yaml
+exp_name: 1101_dataB_yolov8s_v32_aihub
+owner: dataB
+note: AI Hub 조합 데이터(TL_2·TS_2 제외)로 학습셋 보강, 검증셋은 원본 그대로 (D6)
+data:
+  train_images: data/external/v32/images
+  train_annotations: data/annotations/v32.json
+  version: v32

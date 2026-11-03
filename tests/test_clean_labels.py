@@ -47,9 +47,10 @@ def test_box_fix_still_targets_original_class_after_relabel():
     assert result["boxes"] == [[1, 2, 21, 22], [30, 30, 50, 50]]
 
 
-def test_missing_target_raises():
-    with pytest.raises(ValueError, match="수정 대상 없음"):
-        apply_fixes(record(), [fix(99, "class", "10")], [])
+def test_missing_target_logs_fix_not_found():
+    cleaned, log = clean([record()], set(), [fix(999, "class", "30")])
+    assert any(e["action"] == "fix_not_found" for e in log)
+    assert len(cleaned) == 1
 
 
 def test_fix_restores_dropped_image_but_check_does_not():

@@ -88,8 +88,14 @@ def _same_photo(a: np.ndarray, b: np.ndarray) -> bool:
 
 
 def read_aihub(label_dirs: list[Path]) -> tuple[list[dict], Counter]:
-    """AI Hub 라벨 JSON(이미지 x 알약 하나당 한 개)을 읽어 알약 단위 목록으로."""
-    pills, skipped = [], Counter()
+    """AI Hub 라벨 JSON(이미지 x 알약 하나당 한 개)을 읽어 알약 단위 목록으로.
+
+    이미지 단위 strict: 같은 file_name의 JSON 중 하나라도 읽기 실패·bbox 이상이면
+    그 이미지의 알약 전체를 제외한다. 일부만 깨진 이미지를 2개짜리로 포함시키지 않기 위해서다.
+    """
+    pills_by_image: dict[str, list[dict]] = {}
+    bad_images: set[str] = set()
+    skipped = Counter()
     for root in label_dirs:
         if any(b in str(root) for b in BANNED):
             raise SystemExit(f"사용 금지 폴더입니다 (대회 원본): {root}")
@@ -98,16 +104,26 @@ def read_aihub(label_dirs: list[Path]) -> tuple[list[dict], Counter]:
                 data = load_json(jf)
                 img = data["images"][0]
                 ann = data["annotations"][0]
-            except Exception:  # 깨진 JSON
+                file_name = img["file_name"]
+            except Exception:  # 깨진 JSON: file_name을 알 수 없어 매핑 불가
                 skipped["JSON 읽기 실패"] += 1
+                # 깨진 파일에서도 file_name 문자열만 살려낼 수 있으면 그 이미지도 제외
+                try:
+                    text = jf.read_text(encoding="utf-8", errors="ignore")
+                    m = re.search(r'"file_name"\s*:\s*"([^"]+)"', text)
+                    if m:
+                        bad_images.add(m.group(1))
+                except Exception:
+                    pass
                 continue
             bbox = ann.get("bbox")
             if not isinstance(bbox, list) or len(bbox) != 4:
                 skipped["bbox가 4개 숫자가 아님"] += 1
+                bad_images.add(file_name)
                 continue
-            pills.append(
+            pills_by_image.setdefault(file_name, []).append(
                 {
-                    "file_name": img["file_name"],
+                    "file_name": file_name,
                     "width": int(img.get("width", 0)),
                     "height": int(img.get("height", 0)),
                     "bbox": [float(v) for v in bbox],
@@ -116,6 +132,17 @@ def read_aihub(label_dirs: list[Path]) -> tuple[list[dict], Counter]:
                     "dl_idx": _num(img.get("dl_idx")),
                 }
             )
+
+    # strict 제외: 실패가 있던 이미지의 정상 알약까지 통째로 버림
+    if bad_images:
+        n_pills_dropped = sum(len(pills_by_image.get(fn, [])) for fn in bad_images)
+        skipped["이미지 일부 실패로 전체 제외"] += len(bad_images)
+        print(
+            f"이미지 일부 실패로 전체 제외: 이미지 {len(bad_images)}장 "
+            f"(함께 버려진 정상 알약 {n_pills_dropped}개)"
+        )
+
+    pills = [p for fn, lst in pills_by_image.items() if fn not in bad_images for p in lst]
     return pills, skipped
 
 
