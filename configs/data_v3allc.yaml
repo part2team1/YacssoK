@@ -1,0 +1,6 @@
+base: base.yaml
+data:
+  train_images: data/external/v3allc/images
+  train_annotations: data/annotations/v3allc.json
+  class_map: data/class_map_v3allc.json
+  version: v3allc

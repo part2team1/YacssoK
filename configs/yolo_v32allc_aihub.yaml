@@ -1,0 +1,13 @@
+# configs/yolo_v32allc_aihub.yaml
+# 실험 D6 (외부데이터 추가 + known all) + D2 (기본 데이터 정제)
+#  기존 실험 D6(TL_1/TS_1 사용) 에 새 외부데이터(TL_3/TS_3) 추가한 버전
+
+base: yolo_v1_clean.yaml
+exp_name: 1104_yolo26m_v32allc_aihub
+owner: dataB
+note: TL_1+TL_3 외부데이터, all 클래스, v1 정제 기반
+data:
+  train_images: data/external/v32allc/images
+  train_annotations: data/annotations/v32allc.json
+  class_map: data/class_map_v3allc.json
+  version: v32allc

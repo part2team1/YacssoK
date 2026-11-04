@@ -1,0 +1,7 @@
+# configs/data_v3allcp.yaml — v3allc + 합성 (D5·D10 + D6 all + D2)
+base: base.yaml
+data:
+  train_images: data/synth/v3allcp/images
+  train_annotations: data/annotations/v3allcp.json
+  class_map: data/class_map_v3allc.json
+  version: v3allcp

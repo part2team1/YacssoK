@@ -1,0 +1,7 @@
+# configs/yolo26m.yaml
+base: yolo_baseline.yaml
+exp_name: 1103_modelA_yolo26m_v0_version
+owner: modelA
+note: YOLOv8s -> YOLO26m (M2)
+model:
+  weights: yolo26m.pt

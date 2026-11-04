@@ -1,0 +1,27 @@
+# v3allc 위에 D1 / D2 / D3만. 결합은 1차 결과 보고 추가.
+# D2는 학습 전에 버전을 먼저 만든다:
+# uv run python scripts/make_copy_paste.py --config configs/yolo_v3allc_aihub.yaml --version v3allcp
+# uv run python scripts/export_yolo.py --config configs/yolo_v3allcp.yaml
+prefix: 1103_yolo26s_v3allc_d123
+
+models:
+  yolo26s: configs/yolo26s.yaml
+
+bundles:
+  V3ALLC: [data.version=v3allc, data.train_images=data/external/v3allc/images,
+           data.train_annotations=data/annotations/v3allc.json,
+           data.class_map=data/class_map_v3allc.json]
+  D1: [data.repeat_threshold=0.1]
+  D2: [data.version=v3allcp, data.train_images=data/synth/v3allcp/images,
+       data.train_annotations=data/annotations/v3allcp.json,
+       data.class_map=data/class_map_v3allc.json]
+  D3: [yolo_args.fliplr=0.5, yolo_args.flipud=0.5, yolo_args.degrees=0.0, yolo_args.hsv_h=0.0,
+       yolo_args.hsv_s=0.4, yolo_args.hsv_v=0.3, yolo_args.scale=0.3, yolo_args.translate=0.1,
+       yolo_args.mosaic=1.0, yolo_args.close_mosaic=10]
+
+runs:
+  #base: [V3ALLC]
+  d1: [V3ALLC, D1]
+  d2: [D2]
+  d3: [V3ALLC, D3]
+  d12: [D2, D1]
