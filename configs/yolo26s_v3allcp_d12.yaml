@@ -1,0 +1,8 @@
+base: yolo26s.yaml
+exp_name: 1104_yolo26s_v3allcp_d12_kfold
+data:
+  version: v3allcp
+  train_images: data/synth/v3allcp/images
+  train_annotations: data/annotations/v3allcp.json
+  class_map: data/class_map_v3allc.json
+  repeat_threshold: 0.1

@@ -25,3 +25,4 @@ runs:
   d2: [D2]
   d3: [V3ALLC, D3]
   d12: [D2, D1]
+  d12_ocr: {ocr: d12}
