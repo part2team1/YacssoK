@@ -13,9 +13,11 @@
 
 ## 📄 결과물
 
-- [보고서 공동편집 원본](https://docs.google.com/document/d/1ZL_c3rD0sL2Lslt9RWjanWtDJ8rvv4DfaBbPmcRgebg/edit) — 최종 PDF는 확정 후 저장소에 추가합니다.
-- [발표자료 공동편집 원본](https://docs.google.com/presentation/d/1YsQXBAhZhR6VCR0wd_vWxnZuKSFb_5jVuiN48IO4LPo/edit) — PDF와 구분합니다.
-- 간트차트·협업일지·역할 세부 내용은 팀 공유 Notion에서 관리합니다.
+| 결과물 | 파일·링크 |
+| --- | --- |
+| 보고서 | [보고서 PDF 내려받기](reports/final_report.pdf) |
+| 발표자료(PPT) | 자료 수령 후 다운로드 링크 추가 예정 |
+| 협업일지 | [팀원별 협업일지](https://app.notion.com/p/4025f75fd48180bd9b77d4845f533309?v=a645f75fd4818335abc688aa952c140a) · [협업 자료 전체](https://app.notion.com/p/2_1-_-3d55f75fd4818056a2e5f70ca1f4ac4b) |
 
 ## 👥 팀 구성과 역할
 
