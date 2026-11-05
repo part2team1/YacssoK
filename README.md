@@ -9,24 +9,21 @@
 | 과제 | 객체 탐지 (Object Detection) |
 | 평가 | Kaggle Private Competition — 평가지표: **mAP@[0.75:0.95]** |
 | 데이터 | 학습 이미지 232장 (PNG, COCO 형식 JSON) · 테스트 이미지 842장 · 테스트에는 학습에 없는 클래스 포함 |
-| 최종 점수 | Public `TODO` / Private `TODO` |
+| 최종 점수 | 최종 모델·Public 점수 팀 확인 후 기입 · Private 점수는 대회 결과 발표 후 기입 |
 
 ## 📄 결과물
 
-- 보고서: [`reports/final_report.pdf`](reports/final_report.pdf) `TODO: 11/5 19:00 전 업로드`
-- 발표자료: [`reports/presentation.pdf`](reports/presentation.pdf)
-- 간트차트 · R&R · Source 작성 표준: `TODO: 링크`
+- [보고서 공동편집 원본](https://docs.google.com/document/d/1ZL_c3rD0sL2Lslt9RWjanWtDJ8rvv4DfaBbPmcRgebg/edit) — 최종 PDF는 확정 후 저장소에 추가합니다.
+- [발표자료 공동편집 원본](https://docs.google.com/presentation/d/1YsQXBAhZhR6VCR0wd_vWxnZuKSFb_5jVuiN48IO4LPo/edit) — PDF와 구분합니다.
+- 간트차트·협업일지·역할 세부 내용은 팀 공유 Notion에서 관리합니다.
 
 ## 👥 팀 구성과 역할
 
-| 이름 | 역할 | 담당 | 협업일지 |
-| --- | --- | --- | --- |
-| `TODO` | PM(X) | 일정·회의, Kaggle 제출, 보고서·발표, 데모 | [링크](TODO) |
-| `TODO` | Experimentation Lead | 환경·공통 코드, 학습·평가·제출 파이프라인, 실험 관리 | [링크](TODO) |
-| `TODO` | Data Engineer A | EDA, 시각화, 오분류 분석 | [링크](TODO) |
-| `TODO` | Data Engineer B | 데이터셋, 정제·분할, 증강 | [링크](TODO) |
-| `TODO` | Model Architect A | YOLO 베이스라인·튜닝 | [링크](TODO) |
-| `TODO` | Model Architect B | Faster R-CNN, 2단계 모델, 앙상블 | [링크](TODO) |
+| 담당 | 팀원 |
+| --- | --- |
+| PM | 권순우 · 김이연 |
+| 모델 | 박이결 · 배선영 |
+| 데이터 | 이충은 · 방두성 |
 
 ## 🗓️ 주요 일정
 
@@ -54,11 +51,11 @@ uv run python scripts/make_submission.py --exp <실험 이름>                # 
 
 데이터 준비, 전체 실행 순서, 협업 규칙은 **[DEVELOPMENT.md](DEVELOPMENT.md)** 에 있습니다.
 
-## 🏆 최고 점수 재현 (11/5 제출 전 확정)
+## 🏆 최종 모델 재현 안내 — 확정 대기
 
-```bash
-# TODO: 최종 모델의 config와 명령을 여기에 고정
-```
+최종 실험명·설정 파일·가중치 전달 위치는 팀 확정 후 기록합니다.
+위의 빠른 시작은 베이스라인 실행 방법입니다.
+모델 비교·결과 재사용 시에는 [검증 기준과 오류 방지 안내](docs/review_fixes.md)를 따릅니다.
 
 ## 📁 폴더 구조
 
@@ -79,9 +76,9 @@ pill-detection/
 
 ## 📊 실험 결과
 
-| 실험 | 모델 | 데이터 | 주요 변경 | mAP (검증) | Kaggle Public |
-| --- | --- | --- | --- | --- | --- |
-| 스켈레톤 | YOLOv8s | v0 | - | `TODO` | `TODO` |
+실험별 설정과 결과는 `outputs/<실험 이름>/config.yaml`, `metrics.json`에 저장합니다.
+모델을 비교할 때는 동일한 사진·정답·클래스 번호표·IoU로 평가한 점수를 사용합니다.
+최종 제출 모델과 점수는 팀 확인 후 이 문서에 반영합니다.
 
 ## 📚 문서
 
@@ -89,7 +86,9 @@ pill-detection/
 | --- | --- |
 | [DEVELOPMENT.md](DEVELOPMENT.md) | 환경설정, 데이터 준비, 실행 방법, 분석 노트북, 협업 규칙(브랜치·PR·pre-commit) |
 | [data/README.md](data/README.md) | 데이터 폴더 구조 |
-| [docs/web_demo.md](docs/web_demo.md) | 웹 데모 실행·공유 |
+| [docs/web_portal.md](docs/web_portal.md) | 앱 데모·테스트 통합 웹 실행·공유 |
+| [docs/web_demo.md](docs/web_demo.md) | 기존 웹 데모 실행 |
+| [docs/review_fixes.md](docs/review_fixes.md) | 분할 재생성·점수 비교·기존 결과 재사용·공유 인증 |
 | [docs/guides/](docs/guides/) | 역할별 실행 가이드 |
 | [docs/experiments/](docs/experiments/) | 실험 기록 |
 

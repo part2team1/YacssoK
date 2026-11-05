@@ -17,8 +17,9 @@ import argparse
 from src.infer import load_experiment
 from src.interfaces import OUTPUT_DIR
 from src.metrics import compute_map
+from src.provenance import checkpoint_signature, evaluation_signature
 from src.train import val_targets
-from src.utils import load_config, save_json
+from src.utils import label_to_category, load_class_map, load_config, save_json
 
 
 def main() -> None:
@@ -29,10 +30,20 @@ def main() -> None:
     ap.add_argument("--max-det", type=int, default=None, help="eval.max_det 대신 쓸 값")
     ap.add_argument("--class-metrics", action="store_true", help="클래스별 AP 계산 (느림)")
     ap.add_argument("--val-config", default=None, help="이 설정의 data 블록(검증셋·정답)으로 채점")
+    ap.add_argument(
+        "--for-selection", action="store_true", help="공통 검증을 위한 선택용 점수 저장"
+    )
 
     args = ap.parse_args()
 
+    initial_cfg = load_config(OUTPUT_DIR / args.exp / "config.yaml")
+    loaded_checkpoint = checkpoint_signature(initial_cfg, OUTPUT_DIR / args.exp / "best.pt")
     cfg, model = load_experiment(args.exp)
+    if (
+        cfg != initial_cfg
+        or checkpoint_signature(cfg, OUTPUT_DIR / args.exp / "best.pt") != loaded_checkpoint
+    ):
+        raise RuntimeError("모델을 불러오는 중 설정·가중치가 변경됐습니다. 다시 평가하세요.")
     ev = cfg["eval"]
     for key, value in (
         ("conf_thr", args.conf),
@@ -48,12 +59,23 @@ def main() -> None:
     data_cfg = cfg
     if args.val_config:  # 모델은 그대로, 채점할 검증 데이터만 바꾼다
         data_cfg = {**cfg, "data": {**cfg["data"], **load_config(args.val_config)["data"]}}
+    if label_to_category(load_class_map(cfg["data"]["class_map"])) != label_to_category(
+        load_class_map(data_cfg["data"]["class_map"])
+    ):
+        raise ValueError("모델과 검증 정답의 클래스 번호표가 다릅니다. 같은 번호표로 평가하세요.")
 
     paths, targets = val_targets(data_cfg)
+    evaluation_key = evaluation_signature(data_cfg)
+    checkpoint_key = checkpoint_signature(cfg, OUTPUT_DIR / args.exp / "best.pt")
     preds = model.predict(paths)
     metrics = compute_map(
         preds, targets, ev.get("iou_thresholds"), class_metrics=args.class_metrics
     )
+    if (
+        evaluation_signature(data_cfg) != evaluation_key
+        or checkpoint_signature(cfg, OUTPUT_DIR / args.exp / "best.pt") != checkpoint_key
+    ):
+        raise RuntimeError("평가 중 정답·사진·가중치가 변경되어 점수를 저장하지 않습니다.")
 
     tag = f"conf{ev['conf_thr']}_nms{ev.get('nms_iou')}_det{ev['max_det']}"
     if args.val_config:
@@ -61,6 +83,19 @@ def main() -> None:
     save_json(
         {"exp_name": args.exp, "eval": ev, **metrics}, OUTPUT_DIR / args.exp / f"eval_{tag}.json"
     )
+    if args.for_selection:
+        save_json(
+            {
+                "exp_name": args.exp,
+                **metrics,
+                "provenance": {
+                    "evaluation": evaluation_key,
+                    "weights": checkpoint_key,
+                    "inference_eval": ev,
+                },
+            },
+            OUTPUT_DIR / args.exp / "selection_metrics.json",
+        )
     print(f"[{args.exp}] {tag}")
     print(f"  mAP@[0.75:0.95] = {metrics.get('map')}   mAP75 = {metrics.get('map_75')}")
     print(f"  저장: outputs/{args.exp}/eval_{tag}.json")

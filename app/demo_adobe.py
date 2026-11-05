@@ -5,7 +5,6 @@ from __future__ import annotations
 import html
 import json
 import os
-import tempfile
 import threading
 import time
 from pathlib import Path
@@ -16,6 +15,8 @@ import pandas as pd
 from PIL import Image, ImageDraw, ImageFont
 
 from .drug_info import NAMES, PHOTO_DIRS, render
+from .result_files import ResultFiles
+from .review_state import current, invalidate
 from .usage_notice import NOTICE_CSS, NOTICE_HTML, NOTICE_JS
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -192,6 +193,7 @@ class Recognizer:
         self.names = {}
         self.lock = threading.Lock()
         self.prediction_runner = None
+        self.result_files = ResultFiles()
         if class_map:
             entries = json.loads(Path(class_map).read_text())
             self.names = {int(x["label_idx"]): x["name"] for x in entries}
@@ -218,7 +220,7 @@ class Recognizer:
     def empty(self, message, image=None):
         return image, pd.DataFrame(columns=COLUMNS), message, gr.update(value=None, visible=False)
 
-    def recognize(self, image, threshold=0.25):
+    def recognize(self, image, threshold=0.25, create_csv=True):
         if image is None:
             return self.empty("확인할 알약 사진을 먼저 올려주세요.")
         if not isinstance(image, np.ndarray) or image.ndim != 3 or image.shape[2] != 3:
@@ -279,17 +281,12 @@ class Recognizer:
                         f"알약을 찾지 못했습니다. 사진을 밝고 선명하게 다시 찍거나 표시 기준을 낮춰보세요. · 처리 {elapsed:.2f}초",
                         np.asarray(drawn),
                     )
-                handle = tempfile.NamedTemporaryFile(
-                    prefix="pill_result_", suffix=".csv", delete=False
-                )
-                csv_path = handle.name
-                handle.close()
-                df.to_csv(csv_path, index=False, encoding="utf-8-sig")
+                csv_path = self.result_files.save(df) if create_csv else None
                 return (
                     np.asarray(drawn),
                     df,
                     f"**찾은 알약 {len(rows)}개** · 처리 **{elapsed:.2f}초**",
-                    gr.update(value=csv_path, visible=True),
+                    gr.update(value=csv_path, visible=create_csv),
                 )
             except Exception:
                 return self.empty("인식 중 오류가 발생했습니다. 다른 사진으로 다시 시도해주세요.")
@@ -303,6 +300,7 @@ def build_app(weights, class_map, imgsz=640, model_label="기존 학습 모델 �
     with gr.Blocks(
         title="YacssoK · 알약 사진 확인", delete_cache=(3600, 3600), analytics_enabled=False
     ) as app:
+        flow = gr.State({"generation": 0, "input_key": (None, 0.25)})
         gr.HTML(NOTICE_HTML, css_template=NOTICE_CSS, js_on_load=NOTICE_JS, elem_id="usage-notice")
         gr.HTML(HERO, elem_id="brand-header")
         gr.HTML(INTRO, elem_id="intro")
@@ -399,7 +397,7 @@ def build_app(weights, class_map, imgsz=640, model_label="기존 학습 모델 �
             table.select(select_drug, table, [drug_choice, drug_card])
         gr.Markdown("학습용 알약 인식 데모입니다.", elem_id="notice")
 
-        def recognize(image, threshold):
+        def result_values(image, threshold):
             drawn, df, message, file = engine.recognize(image, threshold)
             name = df.iloc[0, 1] if len(df) else None
             return (
@@ -412,15 +410,40 @@ def build_app(weights, class_map, imgsz=640, model_label="기존 학습 모델 �
                 render(name),
             )
 
+        def recognize(image, threshold, flow_state):
+            generation = flow_state["generation"]
+            yield tuple(gr.skip() for _ in range(7))
+            if not current(flow_state, generation, image, threshold):
+                return
+            values = result_values(image, threshold)
+            if not current(flow_state, generation, image, threshold):
+                yield tuple(gr.skip() for _ in range(7))
+                return
+            yield values
+
         run.click(
             recognize,
+            [image, threshold, flow],
+            [output, table, summary, download, result_group, drug_choice, drug_card],
+            api_name=False,
+            concurrency_limit=1,
+        )
+
+        # 직접 API 호출에는 UI의 image.change 상태가 없으므로 기존 인자 두 개를 유지한다.
+        def recognize_api(image, threshold):
+            return result_values(image, threshold)
+
+        api_trigger = gr.Button(visible=False)
+        api_trigger.click(
+            recognize_api,
             [image, threshold],
             [output, table, summary, download, result_group, drug_choice, drug_card],
             api_name="recognize",
             concurrency_limit=1,
         )
 
-        def reset():
+        def reset(threshold, flow_state):
+            invalidate(flow_state, None, threshold)
             return (
                 None,
                 None,
@@ -434,11 +457,13 @@ def build_app(weights, class_map, imgsz=640, model_label="기존 학습 모델 �
 
         clear.click(
             reset,
-            [],
+            [threshold, flow],
             [image, output, table, summary, download, result_group, drug_choice, drug_card],
+            queue=False,
         )
 
-        def reset_result():
+        def reset_result(image, threshold, flow_state):
+            invalidate(flow_state, image, threshold)
             return (
                 None,
                 pd.DataFrame(columns=COLUMNS),
@@ -451,12 +476,14 @@ def build_app(weights, class_map, imgsz=640, model_label="기존 학습 모델 �
 
         image.change(
             reset_result,
-            [],
+            [image, threshold, flow],
             [output, table, summary, download, result_group, drug_choice, drug_card],
+            queue=False,
         )
-        threshold.release(
+        threshold.change(
             reset_result,
-            [],
+            [image, threshold, flow],
             [output, table, summary, download, result_group, drug_choice, drug_card],
+            queue=False,
         )
     return app, engine
