@@ -31,7 +31,7 @@ packages = ["src"]
 
 [project.optional-dependencies]
 # 데모 담당만 설치: uv sync --extra demo
-demo = ["gradio>=4.44"]
+demo = ["gradio==6.30.0"]
 # 실험 기록을 W&B로 할 경우: uv sync --extra tracking
 tracking = ["wandb>=0.17"]
 ocr = [

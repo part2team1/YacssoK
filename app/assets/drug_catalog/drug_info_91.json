@@ -1,0 +1,2296 @@
+{
+  "마그밀정(수산화마그네슘)": {
+    "name": "마그밀정(수산화마그네슘)",
+    "seq": "197400246",
+    "official": {
+      "ITEM_SEQ": "197400246",
+      "ITEM_NAME": "마그밀정(수산화마그네슘)",
+      "ENTP_NAME": "삼남제약(주)",
+      "CHART": "흰색의 원형정제",
+      "MATERIAL_NAME": "총량 : 1정(650.0mg) 중|성분명 : 수산화마그네슘|분량 : 500.0|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온(1～30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 250,
+    "catalog_label_idx": 0,
+    "image": {
+      "path": "assets/official_pills/197400246.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OZiugAPfPm",
+      "item_seq": "197400246",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "게보린정 300mg/PTP": {
+    "name": "게보린정 300mg/PTP",
+    "seq": "197900277",
+    "official": {
+      "ITEM_SEQ": "197900277",
+      "ITEM_NAME": "게보린정(수출명:돌로린정)",
+      "ENTP_NAME": "삼진제약(주)",
+      "CHART": "홍색의 정제",
+      "MATERIAL_NAME": "총량 : 1정589.3밀리그램|성분명 : 아세트아미노펜|분량 : 300|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1정589.3밀리그램|성분명 : 카페인무수물|분량 : 50|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정589.3밀리그램|성분명 : 이소프로필안티피린|분량 : 150|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온(1～30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 573,
+    "catalog_label_idx": 1,
+    "image": {
+      "path": "assets/official_pills/197900277.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1N5PLuAiUvi",
+      "item_seq": "197900277",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "알마겔정(알마게이트)(수출명:유한가스트라겔정)": {
+    "name": "알마겔정(알마게이트)(수출명:유한가스트라겔정)",
+    "seq": "198700430",
+    "official": {
+      "ITEM_SEQ": "198700430",
+      "ITEM_NAME": "알마겔정(알마게이트)(수출명:유한가스트라겔정)",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "백색의 원형 정제",
+      "MATERIAL_NAME": "총량 : 1정 (약 535mg) 중|성분명 : 알마게이트|분량 : 500|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온보관(1-30℃)\n",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 1866,
+    "catalog_label_idx": 2,
+    "image": {
+      "path": "assets/official_pills/198700430.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/148609556259100119",
+      "item_seq": "198700430",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "보령부스파정 5mg": {
+    "name": "보령부스파정 5mg",
+    "seq": "198700706",
+    "official": {
+      "ITEM_SEQ": "198700706",
+      "ITEM_NAME": "보령부스파정5밀리그램(부스피론염산염)",
+      "ENTP_NAME": "(주)보령",
+      "CHART": "이약은 양면볼록한 장방형의 흰색정제이다",
+      "MATERIAL_NAME": "총량 : 1정 (100mg) 중|성분명 : 부스피론염산염|분량 : 5|단위 : 밀리그램|규격 : USP|성분정보 :",
+      "STORAGE_METHOD": "차광기밀용기, 실온((1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/198700706.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Mxwka5v0lL",
+      "item_seq": "198700706",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 1900,
+    "catalog_label_idx": 3
+  },
+  "뮤테란캡슐 100mg": {
+    "name": "뮤테란캡슐 100mg",
+    "seq": "198801531",
+    "official": {
+      "ITEM_SEQ": "198801531",
+      "ITEM_NAME": "뮤테란캡슐100밀리그램(아세틸시스테인)",
+      "ENTP_NAME": "한화제약(주)",
+      "CHART": "흰색의 분말이 충진된 상하 녹색의 경질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐380밀리그램|성분명 : 아세틸시스테인|분량 : 100|단위 : 밀리그램|규격 : USP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1∼30°C)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/198801531.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1M_4NHfUrnp",
+      "item_seq": "198801531",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 2483,
+    "catalog_label_idx": 4
+  },
+  "일양하이트린정 2mg": {
+    "name": "일양하이트린정 2mg",
+    "seq": "199101125",
+    "official": {
+      "ITEM_SEQ": "199101125",
+      "ITEM_NAME": "일양하이트린정2밀리그램(테라조신염산염수화물)",
+      "ENTP_NAME": "일양약품(주)",
+      "CHART": "오랜지색 또는 노란색의 원형정제.",
+      "MATERIAL_NAME": "총량 : 1정(150mg) 중|성분명 : 테라조신염산염수화물|분량 : 2.374|단위 : 밀리그램|규격 : EP|성분정보 : 테라조신으로서 2.0mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/199101125.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Obcgp6vnwD",
+      "item_seq": "199101125",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 3351,
+    "catalog_label_idx": 5
+  },
+  "기넥신에프정(은행엽엑스)(수출용)": {
+    "name": "기넥신에프정(은행엽엑스)(수출용)",
+    "seq": "199102014",
+    "official": {
+      "ITEM_SEQ": "199102014",
+      "ITEM_NAME": "기넥신에프정40밀리그램(은행엽건조엑스)",
+      "ENTP_NAME": "에스케이케미칼(주)",
+      "CHART": "진녹색의 타원형 필름 코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(253.13 mg) 중|성분명 : 은행엽건조엑스|분량 : 40.0|단위 : 밀리그램|규격 : 생규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1℃ ~ 30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/199102014.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1ODWhLtN6K3",
+      "item_seq": "199102014",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 3483,
+    "catalog_label_idx": 6
+  },
+  "무코스타정(레바미피드)(비매품)": {
+    "name": "무코스타정(레바미피드)(비매품)",
+    "seq": "199102825",
+    "official": {
+      "ITEM_SEQ": "199102825",
+      "ITEM_NAME": "무코스타정(레바미피드)",
+      "ENTP_NAME": "한국오츠카제약(주)",
+      "CHART": "백색의 원형필름코팅정",
+      "MATERIAL_NAME": "총량 : 본 품 1정(175밀리그램) 중|성분명 : 레바미피드|분량 : 100.0|단위 : 밀리그램|규격 : JP|성분정보 :",
+      "STORAGE_METHOD": "차광밀폐용기, 실온보관(1~30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/199102825.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1N1ddmFmE2M",
+      "item_seq": "199102825",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 3544,
+    "catalog_label_idx": 7
+  },
+  "동아오팔몬정(리마프로스트알파-시클로덱스트린포접화합물)": {
+    "name": "동아오팔몬정(리마프로스트알파-시클로덱스트린포접화합물)",
+    "seq": "199200261",
+    "official": {
+      "ITEM_SEQ": "199200261",
+      "ITEM_NAME": "동아오팔몬정(리마프로스트알파-시클로덱스트린포접화합물)",
+      "ENTP_NAME": "동아에스티(주)",
+      "CHART": "이 약은 백색의 원형정제이다",
+      "MATERIAL_NAME": "총량 : 이 약 1정(100mg)중|성분명 : 리마프로스트 α-시클로덱스트린포접화합물|분량 : 166.67|단위 : 마이크로그램|규격 : JP|성분정보 : 리마프로스트로서 5마이크로그램",
+      "STORAGE_METHOD": "기밀용기, 실온보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 3614,
+    "catalog_label_idx": 8,
+    "image": {
+      "path": "assets/official_pills/199200261.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn4v0yLw9",
+      "item_seq": "199200261",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "알드린정": {
+    "name": "알드린정",
+    "seq": "199201106",
+    "official": {
+      "ITEM_SEQ": "199201106",
+      "ITEM_NAME": "알드린정(알마게이트)",
+      "ENTP_NAME": "일양약품(주)",
+      "CHART": "이 약은 흰색의 원형 정제이다.",
+      "MATERIAL_NAME": "총량 : 전과 동일(1정(530mg) 중)|성분명 : 알마게이트|분량 : 500|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온(1-30도)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/199201106.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1PdlZWhD6PV",
+      "item_seq": "199201106",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 3743,
+    "catalog_label_idx": 9
+  },
+  "뉴로메드정(옥시라세탐)": {
+    "name": "뉴로메드정(옥시라세탐)",
+    "seq": "199201807",
+    "official": null,
+    "historic": {
+      "item_seq": "199201807",
+      "name": "뉴로메드정(옥시라세탐)",
+      "status": "유효기간만료",
+      "status_date": "2023-10-01",
+      "chart": "이 약은 백색의 장방형 정제이다",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=199201807"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 3832,
+    "catalog_label_idx": 10
+  },
+  "타이레놀정500mg": {
+    "name": "타이레놀정500mg",
+    "seq": "199303108",
+    "official": null,
+    "historic": {
+      "item_seq": "199303108",
+      "name": "타이레놀정500mg",
+      "status": "취하",
+      "status_date": "2021-12-10",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=199303108"
+    },
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 4378,
+    "catalog_label_idx": 11
+  },
+  "에어탈정(아세클로페낙)": {
+    "name": "에어탈정(아세클로페낙)",
+    "seq": "199400486",
+    "official": {
+      "ITEM_SEQ": "199400486",
+      "ITEM_NAME": "에어탈정(아세클로페낙)",
+      "ENTP_NAME": "(주)대웅제약",
+      "CHART": "흰색의 원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정(214밀리그램) 중|성분명 : 아세클로페낙|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "실온, 기밀보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/199400486.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OdaTZpEPlW",
+      "item_seq": "199400486",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 4543,
+    "catalog_label_idx": 12
+  },
+  "비유피-4정 20mg": {
+    "name": "비유피-4정 20mg",
+    "seq": "199500420",
+    "official": {
+      "ITEM_SEQ": "199500420",
+      "ITEM_NAME": "비유피-4정20밀리그램(프로피베린염산염)",
+      "ENTP_NAME": "제일약품(주)",
+      "CHART": "이 약은 백색의 편평구형의 필름코팅정으로 냄새는 없다.",
+      "MATERIAL_NAME": "총량 : 이 약 1정(125mg) 중|성분명 : 프로피베린염산염|분량 : 20.0|단위 : 밀리그램|규격 : JP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기 실온보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 5000,
+    "catalog_label_idx": 13,
+    "image": {
+      "path": "assets/official_pills/199500420.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn4v0yMJT",
+      "item_seq": "199500420",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "엘도스캡슐(에르도스테인)(수출용)": {
+    "name": "엘도스캡슐(에르도스테인)(수출용)",
+    "seq": "199500435",
+    "official": {
+      "ITEM_SEQ": "199500435",
+      "ITEM_NAME": "엘도스캡슐(에르도스테인)",
+      "ENTP_NAME": "(주)대웅제약",
+      "CHART": "내수용 - 백색의 분말이 들어있는 상부 초록색, 하부 황색의 경질캡슐제\r\n수출용 - 백색의 분말이 들어있는 상부 초록색, 하부 미황색의 경질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(397 밀리그램) 중|성분명 : 에르도스테인|분량 : 300.00|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 5002,
+    "catalog_label_idx": 14,
+    "image": {
+      "path": "assets/official_pills/199500435.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Og9J5dfYp3",
+      "item_seq": "199500435",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "삼남건조수산화알루미늄겔정": {
+    "name": "삼남건조수산화알루미늄겔정",
+    "seq": "199501099",
+    "official": {
+      "ITEM_SEQ": "199501099",
+      "ITEM_NAME": "게루삼엠정(건조수산화알루미늄겔)",
+      "ENTP_NAME": "삼남제약(주)",
+      "CHART": "백색의 원형 정제",
+      "MATERIAL_NAME": "총량 : 1정(450mg) 중|성분명 : 건조수산화알루미늄 겔|분량 : 392.0|단위 : 밀리그램|규격 : KP|성분정보 : 수산화알루미늄으로서 300밀리그램",
+      "STORAGE_METHOD": "기밀용기, 실온(1∼30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 5094,
+    "catalog_label_idx": 15,
+    "image": {
+      "path": "assets/official_pills/199501099.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn3im1ckr",
+      "item_seq": "199501099",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "프로스카정": {
+    "name": "프로스카정",
+    "seq": "199504272",
+    "official": {
+      "ITEM_SEQ": "199504272",
+      "ITEM_NAME": "프로스카정(피나스테리드)",
+      "ENTP_NAME": "한국오가논(주)",
+      "CHART": "청색으로 한 면에는 MSD72가 다른 면에는 Proscar 가 새겨진 사과모양의 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정(153.8밀리그램) 중,|성분명 : 피나스테리드|분량 : 5.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "30℃ 이하 실온보관, 차광기밀용기",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 5391,
+    "catalog_label_idx": 16,
+    "image": {
+      "path": "assets/official_pills/199504272.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oqy0vxcEQH",
+      "item_seq": "199504272",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "타이레놀이알서방정(아세트아미노펜)(수출용)": {
+    "name": "타이레놀이알서방정(아세트아미노펜)(수출용)",
+    "seq": "199603003",
+    "official": null,
+    "historic": {
+      "item_seq": "199603003",
+      "name": "타이레놀이알서방정(아세트아미노펜)(수출용)",
+      "status": "취하",
+      "status_date": "2022-01-11",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=199603003"
+    },
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 5886,
+    "catalog_label_idx": 17
+  },
+  "삐콤씨에프정 618.6mg/병": {
+    "name": "삐콤씨에프정 618.6mg/병",
+    "seq": "199700756",
+    "official": {
+      "ITEM_SEQ": "199700756",
+      "ITEM_NAME": "삐콤씨에프정(수출명:유한삐콤씨에프정)",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "적갈색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정 (약 1,055mg) 중|성분명 : 아스코르브산과립97%|분량 : 618.6|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 아스코르브산으로서 600mg;총량 : 1정 (약 1,055mg) 중|성분명 : d-비오틴1%|분량 : 4.5|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 비오틴으로서 45마이크로그램;총량 : 1정 (약 1,055mg) 중|성분명 : 푸마르산철|분량 : 27|단위 : 밀리그램|규격 : KP|성분정보 : 철로서 8.8mg;총량 : 1정 (약 1,055mg) 중|성분명 : 티아민질산염|분량 : 15.0|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정 (약 1,055mg) 중|성분명 : 피리독신염산염|분량 : 5|단위 : 밀리그램|규격 : KP|성분정보 : 피리독신염산염으로서 5mg;총량 : 1정 (약 1,055mg) 중|성분명 : 리보플라빈|분량 : 15|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정 (약 1,055mg) 중|성분명 : 판토텐산칼슘|분량 : 20|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정 (약 1,055mg) 중|성분명 : 니코틴산아미드|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정 (약 1,055mg) 중|성분명 : 토코페롤아세테이트 2배산|분량 : 60|단위 : 밀리그램|규격 : KP|성분정보 : 토코페롤아세테이트로서 30mg;총량 : 1정 (약 1,055mg) 중|성분명 : 폴산|분량 : 0.4|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1정 (약 1,055mg) 중|성분명 : 시아노코발라민100배산|분량 : 1.2|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 시아노코발라민으로서 12마이크로그램",
+      "STORAGE_METHOD": "차광,기밀용기",
+      "CANCEL_NAME": "취하",
+      "CANCEL_DATE": "20261102"
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 6192,
+    "catalog_label_idx": 18,
+    "image": {
+      "path": "assets/official_pills/199700756.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/151853655168900008",
+      "item_seq": "199700756",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "조인스정 200mg": {
+    "name": "조인스정 200mg",
+    "seq": "199702182",
+    "official": {
+      "ITEM_SEQ": "199702182",
+      "ITEM_NAME": "조인스정200밀리그램(위령선·괄루근·하고초30%에탄올건조엑스(40→1))(수출명:카라스론)",
+      "ENTP_NAME": "에스케이케미칼(주)",
+      "CHART": "타원형의 황갈색 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정(429.19밀리그램) 중|성분명 : 위령선·괄루근·하고초30%에탄올건조엑스(40→1)|분량 : 200|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 6563,
+    "catalog_label_idx": 19,
+    "image": {
+      "path": "assets/official_pills/199702182.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NrIK7Z3HWW",
+      "item_seq": "199702182",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "넥시움정 40mg": {
+    "name": "넥시움정 40mg",
+    "seq": "200009026",
+    "official": {
+      "ITEM_SEQ": "200009026",
+      "ITEM_NAME": "넥시움정40밀리그램(에스오메프라졸마그네슘)",
+      "ENTP_NAME": "한국아스트라제네카(주)",
+      "CHART": "분홍색 장방형 필름코팅정",
+      "MATERIAL_NAME": "총량 : |성분명 : 에스오메프라졸마그네슘삼수화물|분량 : 44.5|단위 : 밀리그램|규격 : 별규|성분정보 : 에스오메프라졸로서 40밀리그램",
+      "STORAGE_METHOD": "기밀용기,실온보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 10224,
+    "catalog_label_idx": 20,
+    "image": {
+      "path": "assets/official_pills/200009026.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OrAg2v1dVi",
+      "item_seq": "200009026",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "리렉스펜정 300mg/PTP": {
+    "name": "리렉스펜정 300mg/PTP",
+    "seq": "200202194",
+    "official": null,
+    "historic": {
+      "item_seq": "200202194",
+      "name": "리렉스펜정",
+      "status": "취하",
+      "status_date": "2023-07-24",
+      "chart": "연한 파란색의 타원형 필름코팅정제",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=200202194"
+    },
+    "image": {
+      "path": "assets/official_pills/200202194.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1MdYV-PxYWm",
+      "item_seq": "200202194",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 12081,
+    "catalog_label_idx": 21
+  },
+  "아빌리파이정 10mg": {
+    "name": "아빌리파이정 10mg",
+    "seq": "200202889",
+    "official": {
+      "ITEM_SEQ": "200202889",
+      "ITEM_NAME": "아빌리파이정10밀리그램(아리피프라졸)",
+      "ENTP_NAME": "한국오츠카제약(주)",
+      "CHART": "분홍색의 장방형 정제(각인 A-008 10)",
+      "MATERIAL_NAME": "총량 : 1정95.0밀리그램|성분명 : 아리피프라졸|분량 : 10|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200202889.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/151317985218500137",
+      "item_seq": "200202889",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 12247,
+    "catalog_label_idx": 22
+  },
+  "자이프렉사정 2.5mg": {
+    "name": "자이프렉사정 2.5mg",
+    "seq": "200209622",
+    "official": {
+      "ITEM_SEQ": "200209622",
+      "ITEM_NAME": "자이프렉사정2.5밀리그램(올란자핀)",
+      "ENTP_NAME": "(주)보령",
+      "CHART": "필름코팅된 백색의 원형정제",
+      "MATERIAL_NAME": "총량 : 1정137.90밀리그램|성분명 : 올란자핀|분량 : 2.50|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, (15-30℃)보관",
+      "CANCEL_NAME": "취하",
+      "CANCEL_DATE": "20240327"
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 12420,
+    "catalog_label_idx": 23
+  },
+  "다보타민큐정 10mg/병": {
+    "name": "다보타민큐정 10mg/병",
+    "seq": "200300416",
+    "official": {
+      "ITEM_SEQ": "200300416",
+      "ITEM_NAME": "다보타민큐정",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "적갈색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정(약 1,100mg) 중|성분명 : β-카로틴20%과립|분량 : 9.0|단위 : 밀리그램|규격 : 별규|성분정보 : 베타카로틴으로서 1.8mg;총량 : 1정(약 1,100mg) 중|성분명 : 판토텐산칼슘|분량 : 32.6|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(약 1,100mg) 중|성분명 : 시아노코발라민100배산|분량 : 2.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 시아노코발라민으로서 20㎍;총량 : 1정(약 1,100mg) 중|성분명 : d-비오틴1%|분량 : 10.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 비오틴으로서 100㎍;총량 : 1정(약 1,100mg) 중|성분명 : 요오드화칼륨|분량 : 196|단위 : 마이크로그램|규격 : KP|성분정보 : 요오드로서 150㎍, 칼륨으로서 46㎍;총량 : 1정(약 1,100mg) 중|성분명 : 푸마르산철|분량 : 91.3|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 철로서 30mg;총량 : 1정(약 1,100mg) 중|성분명 : 산화마그네슘|분량 : 165.8|단위 : 밀리그램|규격 : KP|성분정보 : 마그네슘으로서 100mg;총량 : 1정(약 1,100mg) 중|성분명 : 산화제이구리|분량 : 3.8|단위 : 밀리그램|규격 : KP|성분정보 : 구리로서 3mg;총량 : 1정(약 1,100mg) 중|성분명 : 황산아연수화물|분량 : 41.2|단위 : 밀리그램|규격 : USP|성분정보 : 아연으로서 15mg;총량 : 1정(약 1,100mg) 중|성분명 : 황산망간수화물|분량 : 23.1|단위 : 밀리그램|규격 : EP|성분정보 : 망간으로서 7.5mg;총량 : 1정(약 1,100mg) 중|성분명 : 인산수소칼슘수화물|분량 : 300.4|단위 : 밀리그램|규격 : KP|성분정보 : 칼슘으로서 70mg(총 칼슘으로서 72.74mg), 인으로서 54mg;총량 : 1정(약 1,100mg) 중|성분명 : 에르고칼시페롤과립|분량 : 177|단위 : 마이크로그램|규격 : 별첨규격(전과동)|성분정보 : 비타민D로서 150IU;총량 : 1정(약 1,100mg) 중|성분명 : 염화칼륨|분량 : 15.3|단위 : 밀리그램|규격 : KP|성분정보 : 칼륨으로서 8mg(총 칼륨으로서 8.05mg);총량 : 1정(약 1,100mg) 중|성분명 : 셀레늄함유건조효모|분량 : 27.8|단위 : 밀리그램|규격 : KP|성분정보 : 셀레늄으로서 15㎍;총량 : 1정(약 1,100mg) 중|성분명 : 몰리브덴함유건조효모|분량 : 7.5|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 몰리브덴으로서 15㎍;총량 : 1정(약 1,100mg) 중|성분명 : 토코페롤아세테이트 2배산|분량 : 60.0|단위 : 밀리그램|규격 : KP|성분정보 : 비타민E로서 30IU;총량 : 1정(약 1,100mg) 중|성분명 : 아스코르브산과립97%|분량 : 92.8|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 아스코르브산으로서 90mg;총량 : 1정(약 1,100mg) 중|성분명 : 폴산|분량 : 333|단위 : 마이크로그램|규격 : USP|성분정보 : ;총량 : 1정(약 1,100mg) 중|성분명 : 티아민질산염3배산|분량 : 27.0|단위 : 밀리그램|규격 : KP|성분정보 : 티아민질산염으로서 9mg;총량 : 1정(약 1,100mg) 중|성분명 : 리보플라빈|분량 : 9.0|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(약 1,100mg) 중|성분명 : 피리독신염산염|분량 : 9|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(약 1,100mg) 중|성분명 : 니코틴산아미드|분량 : 13.2|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "실온(1~30℃)보관, 밀폐용기",
+      "CANCEL_NAME": "취하",
+      "CANCEL_DATE": "20260209"
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200300416.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Q5boXF4xbx",
+      "item_seq": "200300416",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 12778,
+    "catalog_label_idx": 24
+  },
+  "엘스테인캡슐(에르도스테인)": {
+    "name": "엘스테인캡슐(에르도스테인)",
+    "seq": "200301252",
+    "official": {
+      "ITEM_SEQ": "200301252",
+      "ITEM_NAME": "엘스테인캡슐(에르도스테인)",
+      "ENTP_NAME": "대원제약(주)",
+      "CHART": "흰색 내지 미백색의 가루 또는 과립이 충전된 상부 초록색, 하부 미황색의 경질캡슐",
+      "MATERIAL_NAME": "총량 : 1캡슐(405mg) 중|성분명 : 에르도스테인|분량 : 300.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1∼30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 13161,
+    "catalog_label_idx": 25,
+    "image": {
+      "path": "assets/official_pills/200301252.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Mxwka5v1Ov",
+      "item_seq": "200301252",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "써스펜8시간이알서방정 650mg": {
+    "name": "써스펜8시간이알서방정 650mg",
+    "seq": "200301818",
+    "official": {
+      "ITEM_SEQ": "200301818",
+      "ITEM_NAME": "써스펜8시간이알서방정650밀리그램(아세트아미노펜)",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "흰색의 장방형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정786.0밀리그램|성분명 : 아세트아미노펜|분량 : 325|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정786.0밀리그램|성분명 : 아세트아미노펜|분량 : 325|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기,실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200301818.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oikd3yeYQ3",
+      "item_seq": "200301818",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 13395,
+    "catalog_label_idx": 26
+  },
+  "에빅사정(메만틴염산염)(비매품)": {
+    "name": "에빅사정(메만틴염산염)(비매품)",
+    "seq": "200308324",
+    "official": {
+      "ITEM_SEQ": "200308324",
+      "ITEM_NAME": "에빅사정(메만틴염산염)",
+      "ENTP_NAME": "한국룬드벡(주)",
+      "CHART": "양쪽 면에 분할선이 있고, 한쪽 면에는 M이, 다른 쪽 면에는 1, 0이 새겨진 연한 노랑에서 노란색의 타원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정 (156 밀리그램) 중|성분명 : 메만틴염산염|분량 : 10|단위 : 밀리그램|규격 : 별규|성분정보 : 메만틴으로서 8.31 밀리그램",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200308324.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OOrhdcAxec",
+      "item_seq": "200308324",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 13900,
+    "catalog_label_idx": 27
+  },
+  "한미탐스캡슐 0.2mg": {
+    "name": "한미탐스캡슐 0.2mg",
+    "seq": "200402674",
+    "official": {
+      "ITEM_SEQ": "200402674",
+      "ITEM_NAME": "한미탐스캡슐0.2밀리그램(탐스로신염산염)",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "연한 노란색의 장용 서방과립이 든 상부 연한 주황색, 하부 흰색의 경질 캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(205.28mg)중|성분명 : 탐스로신염산염|분량 : 0.2|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1-30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 15280,
+    "catalog_label_idx": 28,
+    "image": {
+      "path": "assets/official_pills/200402674.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oa2BrqwGWo",
+      "item_seq": "200402674",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "아보다트연질캡슐 0.5mg": {
+    "name": "아보다트연질캡슐 0.5mg",
+    "seq": "200409982",
+    "official": {
+      "ITEM_SEQ": "200409982",
+      "ITEM_NAME": "아보다트연질캡슐0.5밀리그램(두타스테리드)",
+      "ENTP_NAME": "(주)글락소스미스클라인",
+      "CHART": "투명하고 균일한 액이 든 미황색의 장방형 연질캡슐\r\n",
+      "MATERIAL_NAME": "총량 : 이 약 1캡슐(568mg) 중|성분명 : 두타스테리드|분량 : 0.5|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 30℃이하 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 16206,
+    "catalog_label_idx": 29,
+    "image": {
+      "path": "assets/official_pills/200409982.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oi0vWfEyP7",
+      "item_seq": "200409982",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "리피토정 20mg": {
+    "name": "리피토정 20mg",
+    "seq": "200410085",
+    "official": {
+      "ITEM_SEQ": "200410085",
+      "ITEM_NAME": "리피토정20밀리그램(아토르바스타틴칼슘삼수화물)",
+      "ENTP_NAME": "비아트리스코리아(주)",
+      "CHART": "흰색의 원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정 (206.00 mg) 중|성분명 : 아토르바스타틴칼슘삼수화물|분량 : 21.70|단위 : 밀리그램|규격 : EP|성분정보 : 아토르바스타틴으로서 20 mg",
+      "STORAGE_METHOD": "기밀용기, 실온보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200410085.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1O0bxj5Fj_X",
+      "item_seq": "200410085",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 16232,
+    "catalog_label_idx": 30
+  },
+  "크레스토정 20mg": {
+    "name": "크레스토정 20mg",
+    "seq": "200410326",
+    "official": {
+      "ITEM_SEQ": "200410326",
+      "ITEM_NAME": "크레스토정20밀리그램(로수바스타틴칼슘)",
+      "ENTP_NAME": "한국아스트라제네카(주)",
+      "CHART": "분홍색 원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정 (309.0mg 중)|성분명 : 로수바스타틴칼슘|분량 : 20.80|단위 : 밀리그램|규격 : 별규|성분정보 : 로수바스타틴으로서 20 mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200410326.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/151317963768200047",
+      "item_seq": "200410326",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 16262,
+    "catalog_label_idx": 31
+  },
+  "가바토파정 100mg": {
+    "name": "가바토파정 100mg",
+    "seq": "200500251",
+    "official": null,
+    "historic": {
+      "item_seq": "200500251",
+      "name": "가바토파정100밀리그람(토피라메이트)",
+      "status": "취하",
+      "status_date": "2021-02-09",
+      "chart": "이 약은 황색의 원형 필름코팅정제이다.",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=200500251"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 16548,
+    "catalog_label_idx": 32
+  },
+  "동아가바펜틴정 800mg": {
+    "name": "동아가바펜틴정 800mg",
+    "seq": "200500254",
+    "official": {
+      "ITEM_SEQ": "200500254",
+      "ITEM_NAME": "동아가바펜틴정800밀리그램(가바펜틴)",
+      "ENTP_NAME": "동아에스티(주)",
+      "CHART": "흰색의 타원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(1098.6mg) 중|성분명 : 가바펜틴|분량 : 800.0|단위 : 밀리그램|규격 : USP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 25℃이하보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200500254.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oen3FBnXbX",
+      "item_seq": "200500254",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 16551,
+    "catalog_label_idx": 33
+  },
+  "오마코연질캡슐(오메가-3-산에틸에스테르90)": {
+    "name": "오마코연질캡슐(오메가-3-산에틸에스테르90)",
+    "seq": "200500497",
+    "official": {
+      "ITEM_SEQ": "200500497",
+      "ITEM_NAME": "오마코연질캡슐(오메가-3-산에틸에스테르90)",
+      "ENTP_NAME": "건일제약(주)",
+      "CHART": "미황색의 유성물질이 충전된 투명한 장방형 연질캡슐",
+      "MATERIAL_NAME": "총량 : 1캡슐1,428밀리그램|성분명 : 오메가-3-산에틸에스테르90|분량 : 1000|단위 : 밀리그램|규격 : EP|성분정보 : (에이코사펜타엔산(EPA) 에틸에스테르로서 460.0mg, 도코사헥사엔산(DHA)에틸에스테르로서380mg) (항산화제로서 알파토코페롤 4.0mg)",
+      "STORAGE_METHOD": "기밀용기, 25℃이하 보관, 얼리지말 것.",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200500497.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147428171237500005",
+      "item_seq": "200500497",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 16688,
+    "catalog_label_idx": 34
+  },
+  "란스톤엘에프디티정 30mg": {
+    "name": "란스톤엘에프디티정 30mg",
+    "seq": "200510974",
+    "official": {
+      "ITEM_SEQ": "200510974",
+      "ITEM_NAME": "란스톤엘에프디티정30밀리그램(란소프라졸)",
+      "ENTP_NAME": "한국다케다제약(주)",
+      "CHART": "이 약은 적색～암갈색 반점이 있는 백색～황백색의 정제이다",
+      "MATERIAL_NAME": "총량 : 이 약 1정(570mg) 중|성분명 : 란소프라졸|분량 : 30.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1～30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 18110,
+    "catalog_label_idx": 35,
+    "image": {
+      "path": "assets/official_pills/200510974.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn3im1j-I",
+      "item_seq": "200510974",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "리리카캡슐 150mg": {
+    "name": "리리카캡슐 150mg",
+    "seq": "200511058",
+    "official": {
+      "ITEM_SEQ": "200511058",
+      "ITEM_NAME": "리리카캡슐150밀리그램(프레가발린)",
+      "ENTP_NAME": "비아트리스코리아(주)",
+      "CHART": "흰색 또는 연한 노란색을 띄는 흰색의 분말이 든 상부 흰색,하부 흰색의 경질 캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐 중 200밀리그램|성분명 : 프레가발린|분량 : 150.00|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(15-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200511058.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1PW_-aIS9uV",
+      "item_seq": "200511058",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 18147,
+    "catalog_label_idx": 36
+  },
+  "종근당글리아티린연질캡슐(콜린알포세레이트) ": {
+    "name": "종근당글리아티린연질캡슐(콜린알포세레이트) ",
+    "seq": "200600026",
+    "official": {
+      "ITEM_SEQ": "200600026",
+      "ITEM_NAME": "종근당글리아티린연질캡슐(콜린알포세레이트)",
+      "ENTP_NAME": "(주)종근당",
+      "CHART": "무색투명의 점조한 액을 넣은 담황색을 띤 타원형의 연질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(780mg 중)|성분명 : 콜린알포세레이트|분량 : 400|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200600026.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1ONpCOpRcvC",
+      "item_seq": "200600026",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 18357,
+    "catalog_label_idx": 37
+  },
+  "콜리네이트연질캡슐 400mg": {
+    "name": "콜리네이트연질캡슐 400mg",
+    "seq": "200605445",
+    "official": {
+      "ITEM_SEQ": "200605445",
+      "ITEM_NAME": "콜리네이트연질캡슐400밀리그램(콜린알포세레이트)",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "무색투명의 액을 넣은 연한 노란색을 띤 타원형의 연질캡슐",
+      "MATERIAL_NAME": "총량 : 1캡슐752.4밀리그램|성분명 : 콜린알포세레이트|분량 : 400.0|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200605445.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Q2Do242kuD",
+      "item_seq": "200605445",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 19232,
+    "catalog_label_idx": 38
+  },
+  "트루비타정 60mg/병": {
+    "name": "트루비타정 60mg/병",
+    "seq": "200607734",
+    "official": {
+      "ITEM_SEQ": "200607734",
+      "ITEM_NAME": "트루비타정",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "적갈색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정(1,110mg) 중|성분명 : 레티놀아세테이트 과립|분량 : 6.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 레티놀아세테이트로서 3,000 IU;총량 : 1정(1,110mg) 중|성분명 : 판토텐산칼슘|분량 : 32.6|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(1,110mg) 중|성분명 : 시아노코발라민100배산|분량 : 2.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 시아노코발라민으로서 20㎍;총량 : 1정(1,110mg) 중|성분명 : d-비오틴1%|분량 : 10.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : d-비오틴으로서 100㎍;총량 : 1정(1,110mg) 중|성분명 : 푸마르산철|분량 : 76.1|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 철로서 25mg;총량 : 1정(1,110mg) 중|성분명 : 산화마그네슘|분량 : 165.8|단위 : 밀리그램|규격 : KP|성분정보 : 마그네슘으로서 100mg;총량 : 1정(1,110mg) 중|성분명 : 산화제이구리|분량 : 3.75|단위 : 밀리그램|규격 : KP|성분정보 : 구리로서 3mg;총량 : 1정(1,110mg) 중|성분명 : 황산아연수화물|분량 : 41.2|단위 : 밀리그램|규격 : USP|성분정보 : 아연으로서 15mg;총량 : 1정(1,110mg) 중|성분명 : 황산망간수화물|분량 : 23.1|단위 : 밀리그램|규격 : EP|성분정보 : 망간으로서 7.5mg;총량 : 1정(1,110mg) 중|성분명 : 인산수소칼슘수화물|분량 : 300.4|단위 : 밀리그램|규격 : KP|성분정보 : 칼슘으로서 70mg(총칼슘으로서 72.74mg),\r\n인으로서 54mg;총량 : 1정(1,110mg) 중|성분명 : 염화칼륨|분량 : 15.3|단위 : 밀리그램|규격 : KP|성분정보 : 칼륨으로서 8mg;총량 : 1정(1,110mg) 중|성분명 : 에르고칼시페롤과립|분량 : 0.47|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 에르고칼시페롤로서 400 IU;총량 : 1정(1,110mg) 중|성분명 : 셀레늄함유건조효모|분량 : 55.6|단위 : 밀리그램|규격 : KP|성분정보 : 셀레늄으로서 30㎍;총량 : 1정(1,110mg) 중|성분명 : 몰리브덴함유건조효모|분량 : 7.5|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 몰리브덴으로서 15㎍;총량 : 1정(1,110mg) 중|성분명 : 토코페롤아세테이트 2배산|분량 : 60.0|단위 : 밀리그램|규격 : KP|성분정보 : 토코페롤아세테이트로서 30 IU;총량 : 1정(1,110mg) 중|성분명 : 아스코르브산과립97%|분량 : 92.8|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 아스코르브산으로서 90mg;총량 : 1정(1,110mg) 중|성분명 : 폴산|분량 : 0.4|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1정(1,110mg) 중|성분명 : 티아민질산염3배산|분량 : 27.0|단위 : 밀리그램|규격 : KP|성분정보 : 티아민질산염으로서 9mg;총량 : 1정(1,110mg) 중|성분명 : 리보플라빈|분량 : 9.0|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(1,110mg) 중|성분명 : 피리독신염산염|분량 : 9|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(1,110mg) 중|성분명 : 니코틴산아미드|분량 : 13.2|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200607734.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427795990100174",
+      "item_seq": "200607734",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 19552,
+    "catalog_label_idx": 39
+  },
+  "스토가정 10mg": {
+    "name": "스토가정 10mg",
+    "seq": "200607849",
+    "official": {
+      "ITEM_SEQ": "200607849",
+      "ITEM_NAME": "스토가정10밀리그램(라푸티딘)",
+      "ENTP_NAME": "(주)보령",
+      "CHART": "흰색의 원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정80.66밀리그램|성분명 : 라푸티딘|분량 : 10.00|단위 : 밀리그램|규격 : JP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200607849.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1MrFeLzYHjR",
+      "item_seq": "200607849",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 19607,
+    "catalog_label_idx": 40
+  },
+  "노바스크정 5mg": {
+    "name": "노바스크정 5mg",
+    "seq": "200610660",
+    "official": {
+      "ITEM_SEQ": "200610660",
+      "ITEM_NAME": "노바스크정5밀리그람(암로디핀베실산염)",
+      "ENTP_NAME": "비아트리스코리아(주)",
+      "CHART": "흰색의 팔각형 정제",
+      "MATERIAL_NAME": "총량 : 1정 (200 밀리그램) 중|성분명 : 암로디핀베실산염|분량 : 6.944|단위 : 밀리그램|규격 : EP|성분정보 : 암로디핀으로서 5 mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200610660.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pm1vy6QK2x",
+      "item_seq": "200610660",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 19861,
+    "catalog_label_idx": 41
+  },
+  "마도파정": {
+    "name": "마도파정",
+    "seq": "200611524",
+    "official": null,
+    "historic": {
+      "item_seq": "200611524",
+      "name": "마도파정",
+      "status": "취하",
+      "status_date": "2023-01-06",
+      "chart": "십자눈금이 새겨져 있는 양면이 볼록한 분홍색의 원형정제이다",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=200611524"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 20014,
+    "catalog_label_idx": 42
+  },
+  "플라빅스정 75mg": {
+    "name": "플라빅스정 75mg",
+    "seq": "200700907",
+    "official": {
+      "ITEM_SEQ": "200700907",
+      "ITEM_NAME": "플라빅스정75밀리그램(클로피도그렐황산염)",
+      "ENTP_NAME": "(주)한독",
+      "CHART": "분홍색의 원형필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정 (255.5mg) 중|성분명 : 클로피도그렐황산염|분량 : 97.875|단위 : 밀리그램|규격 : 별규|성분정보 : 클로피도그렐로서 75mg",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1~30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200700907.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/149883724889500122",
+      "item_seq": "200700907",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 20238,
+    "catalog_label_idx": 43
+  },
+  "자트랄엑스엘정 10mg": {
+    "name": "자트랄엑스엘정 10mg",
+    "seq": "200701034",
+    "official": {
+      "ITEM_SEQ": "200701034",
+      "ITEM_NAME": "자트랄엑스엘정10밀리그램(알푸조신염산염)",
+      "ENTP_NAME": "(주)한독",
+      "CHART": "이 약은 2개의 황색층 사이에 1개의 흰색층이 삽입되어 있는 총 3층으로 이루어진 양쪽이 볼록한 원형정제이다.",
+      "MATERIAL_NAME": "총량 : 이 약 1정(350.45mg) 중|성분명 : 알푸조신염산염|분량 : 10.00|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "30℃ 이하 기밀용기",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 20259,
+    "catalog_label_idx": 44,
+    "image": {
+      "path": "assets/official_pills/200701034.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OXogawhIvn",
+      "item_seq": "200701034",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "베시케어정 10mg": {
+    "name": "베시케어정 10mg",
+    "seq": "200703673",
+    "official": {
+      "ITEM_SEQ": "200703673",
+      "ITEM_NAME": "베시케어정10밀리그램(솔리페나신숙신산염)",
+      "ENTP_NAME": "한국아스텔라스제약(주)",
+      "CHART": "밝은 분홍색의 원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정154밀리그램|성분명 : 솔리페나신숙신산염|분량 : 10.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1～30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 20852,
+    "catalog_label_idx": 45,
+    "image": {
+      "path": "assets/official_pills/200703673.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NB2DoAuQyZ",
+      "item_seq": "200703673",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "엑스포지정 5/160mg": {
+    "name": "엑스포지정 5/160mg",
+    "seq": "200703803",
+    "official": {
+      "ITEM_SEQ": "200703803",
+      "ITEM_NAME": "엑스포지정 5/160밀리그램(암로디핀베실산염, 발사르탄)",
+      "ENTP_NAME": "한국노바티스(주)",
+      "CHART": "어두운 황색의 달걀형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정 (341mg) 중|성분명 : 발사르탄|분량 : 160|단위 : 밀리그램|규격 : 별규|성분정보 : ;총량 : 이 약 1정 (341mg) 중|성분명 : 암로디핀베실산염|분량 : 6.94|단위 : 밀리그램|규격 : 별규|성분정보 : 암로디핀으로서 5mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200703803.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn3im1dku",
+      "item_seq": "200703803",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 20877,
+    "catalog_label_idx": 46
+  },
+  "펠루비정(펠루비프로펜)": {
+    "name": "펠루비정(펠루비프로펜)",
+    "seq": "200704590",
+    "official": {
+      "ITEM_SEQ": "200704590",
+      "ITEM_NAME": "펠루비정(펠루비프로펜)",
+      "ENTP_NAME": "대원제약(주)",
+      "CHART": "담황색 원형정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(110mg) 중|성분명 : 펠루비프로펜|분량 : 30.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "차광기밀용기, 실온보관(1-30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 21026,
+    "catalog_label_idx": 47,
+    "image": {
+      "path": "assets/official_pills/200704590.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427824984200145",
+      "item_seq": "200704590",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "아토르바정 10mg": {
+    "name": "아토르바정 10mg",
+    "seq": "200705992",
+    "official": {
+      "ITEM_SEQ": "200705992",
+      "ITEM_NAME": "아토르바정10밀리그램(아토르바스타틴칼슘삼수화물)",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "흰색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(약 144.2 mg) 중|성분명 : 아토르바스타틴칼슘삼수화물|분량 : 10.85|단위 : 밀리그램|규격 : USP|성분정보 : 아토르바스타틴으로서 10mg",
+      "STORAGE_METHOD": "기밀용기, 실온보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200705992.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/152035092098100027",
+      "item_seq": "200705992",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 21325,
+    "catalog_label_idx": 48
+  },
+  "라비에트정 20mg": {
+    "name": "라비에트정 20mg",
+    "seq": "200708376",
+    "official": {
+      "ITEM_SEQ": "200708376",
+      "ITEM_NAME": "라비에트정20밀리그램(라베프라졸나트륨)",
+      "ENTP_NAME": "일동제약(주)",
+      "CHART": "담황색의 원형 장용 \n필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정163.0밀리그램|성분명 : 라베프라졸나트륨|분량 : 20.0|단위 : 밀리그램|규격 : JP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온 (1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200708376.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147428282917500179",
+      "item_seq": "200708376",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 21771,
+    "catalog_label_idx": 49
+  },
+  "리피로우정 20mg": {
+    "name": "리피로우정 20mg",
+    "seq": "200709390",
+    "official": {
+      "ITEM_SEQ": "200709390",
+      "ITEM_NAME": "리피로우정20밀리그램(아토르바스타틴칼슘삼수화물)",
+      "ENTP_NAME": "(주)종근당",
+      "CHART": "흰색의 달걀형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정159밀리그램|성분명 : 아토르바스타틴칼슘삼수화물|분량 : 21.70|단위 : 밀리그램|규격 : 별규|성분정보 : 아토르바스타틴(으)로서 20 밀리그램",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200709390.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oe8SX1Eisx",
+      "item_seq": "200709390",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 22074,
+    "catalog_label_idx": 50
+  },
+  "자누비아정 50mg": {
+    "name": "자누비아정 50mg",
+    "seq": "200710758",
+    "official": {
+      "ITEM_SEQ": "200710758",
+      "ITEM_NAME": "자누비아정50밀리그램(시타글립틴인산염수화물)",
+      "ENTP_NAME": "(주)종근당",
+      "CHART": "밝은 베이지색으로 한면에 112가 새겨진 원형의 양면이 볼록한 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정 (208.0 mg) 중|성분명 : 시타글립틴인산염수화물|분량 : 64.44|단위 : 밀리그램|규격 : 별규|성분정보 : 시타글립틴으로서50 mg",
+      "STORAGE_METHOD": "밀폐용기, 실온(1-25℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200710758.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1PHso-WYTMs",
+      "item_seq": "200710758",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 22347,
+    "catalog_label_idx": 51
+  },
+  "맥시부펜이알정 300mg": {
+    "name": "맥시부펜이알정 300mg",
+    "seq": "200710817",
+    "official": {
+      "ITEM_SEQ": "200710817",
+      "ITEM_NAME": "맥시부펜이알정300밀리그램(덱시부프로펜) ",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "흰색의 장방형 필름코팅 서방정",
+      "MATERIAL_NAME": "총량 : 1정715.80밀리그램|성분명 : 덱시부프로펜|분량 : 300.00|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200710817.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NOwp2F6Dtt",
+      "item_seq": "200710817",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 22362,
+    "catalog_label_idx": 52
+  },
+  "메가파워정 90mg/병": {
+    "name": "메가파워정 90mg/병",
+    "seq": "200712481",
+    "official": {
+      "ITEM_SEQ": "200712481",
+      "ITEM_NAME": "메가파워정",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "적색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정(약 1,140mg) 중|성분명 : 레티놀아세테이트 과립|분량 : 6.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 비타민A로서 3,000IU;총량 : 1정(약 1,140mg) 중|성분명 : 시아노코발라민100배산|분량 : 2.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 시아노코발라민으로서 20μg;총량 : 1정(약 1,140mg) 중|성분명 : 푸마르산철|분량 : 76.1|단위 : 밀리그램|규격 : KP|성분정보 : 철로서 25mg;총량 : 1정(약 1,140mg) 중|성분명 : 산화마그네슘|분량 : 165.8|단위 : 밀리그램|규격 : KP|성분정보 : 마그네슘으로서 100mg;총량 : 1정(약 1,140mg) 중|성분명 : 황산아연수화물|분량 : 41.2|단위 : 밀리그램|규격 : USP|성분정보 : 아연으로서 15mg;총량 : 1정(약 1,140mg) 중|성분명 : 황산망간수화물|분량 : 23.1|단위 : 밀리그램|규격 : EP|성분정보 : 망간으로서 7.5mg;총량 : 1정(약 1,140mg) 중|성분명 : 인산수소칼슘수화물|분량 : 300.4|단위 : 밀리그램|규격 : KP|성분정보 : 칼슘으로서 70mg(총칼슘으로서 72.9mg), 인으로서 54mg;총량 : 1정(약 1,140mg) 중|성분명 : 염화칼륨|분량 : 15.3|단위 : 밀리그램|규격 : KP|성분정보 : 칼륨으로서 8mg;총량 : 1정(약 1,140mg) 중|성분명 : 셀레늄함유건조효모|분량 : 55.5|단위 : 밀리그램|규격 : KP|성분정보 : 셀레늄으로서 30μg;총량 : 1정(약 1,140mg) 중|성분명 : 몰리브덴함유건조효모|분량 : 7.5|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 몰리브덴으로서 15μg;총량 : 1정(약 1,140mg) 중|성분명 : 에르고칼시페롤과립|분량 : 0.47|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 비타민D로서 400IU;총량 : 1정(약 1,140mg) 중|성분명 : 토코페롤아세테이트 2배산|분량 : 90.0|단위 : 밀리그램|규격 : KP|성분정보 : 비타민E로서 45IU;총량 : 1정(약 1,140mg) 중|성분명 : 아스코르브산과립97%|분량 : 92.8|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 아스코르브산으로서 90mg;총량 : 1정(약 1,140mg) 중|성분명 : 티아민질산염3배산|분량 : 27.6|단위 : 밀리그램|규격 : KP|성분정보 : 티아민질산염으로서 9mg;총량 : 1정(약 1,140mg) 중|성분명 : 리보플라빈|분량 : 10.0|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(약 1,140mg) 중|성분명 : 피리독신염산염|분량 : 5|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(약 1,140mg) 중|성분명 : 니코틴산아미드|분량 : 19.8|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정(약 1,140mg) 중|성분명 : 판토텐산칼슘|분량 : 35.0|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온(1~30℃)",
+      "CANCEL_NAME": "취하",
+      "CANCEL_DATE": "20260209"
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 22627,
+    "catalog_label_idx": 53,
+    "image": {
+      "path": "assets/official_pills/200712481.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Q5boXF4xLC",
+      "item_seq": "200712481",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "쿠에타핀정 25mg": {
+    "name": "쿠에타핀정 25mg",
+    "seq": "200802023",
+    "official": {
+      "ITEM_SEQ": "200802023",
+      "ITEM_NAME": "쿠에타핀정25밀리그램(쿠에티아핀푸마르산염)",
+      "ENTP_NAME": "환인제약(주)",
+      "CHART": "주황색의 원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1 정 (64.06 mg) 중|성분명 : 쿠에티아핀푸마르산염|분량 : 28.78|단위 : 밀리그램|규격 : 별규|성분정보 : 쿠에티아핀으로서25mg",
+      "STORAGE_METHOD": "기밀용기, 30℃ 이하 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 23203,
+    "catalog_label_idx": 54,
+    "image": {
+      "path": "assets/official_pills/200802023.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/148662249018600171",
+      "item_seq": "200802023",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "비타비백정 100mg/병": {
+    "name": "비타비백정 100mg/병",
+    "seq": "200802213",
+    "official": {
+      "ITEM_SEQ": "200802213",
+      "ITEM_NAME": "비타비백정",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "분홍색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정960밀리그램|성분명 : 니코틴산아미드|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정960밀리그램|성분명 : 피리독신염산염97%과립|분량 : 103.1|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 피리독신염산염으로서 100mg;총량 : 1정960밀리그램|성분명 : 리보플라빈|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정960밀리그램|성분명 : 티아민질산염|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정960밀리그램|성분명 : 판토텐산칼슘|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 1정960밀리그램|성분명 : 폴산|분량 : 0.4|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1정960밀리그램|성분명 : d-비오틴1%|분량 : 10|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 비오틴으로서 100㎍;총량 : 1정960밀리그램|성분명 : 시아노코발라민100배산|분량 : 10|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 시아노코발라민으로서 100㎍;총량 : 1정960밀리그램|성분명 : 우르소데옥시콜산|분량 : 30|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 23223,
+    "catalog_label_idx": 55,
+    "image": {
+      "path": "assets/official_pills/200802213.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/152035096572400005",
+      "item_seq": "200802213",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "토비애즈서방정 4mg": {
+    "name": "토비애즈서방정 4mg",
+    "seq": "200810113",
+    "official": {
+      "ITEM_SEQ": "200810113",
+      "ITEM_NAME": "토비애즈서방정4밀리그람(페소테로딘푸마르산염)",
+      "ENTP_NAME": "한국화이자제약(주)",
+      "CHART": "엷은 파란색의 양면이 볼록한 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정335.0밀리그램|성분명 : 페소테로딘푸마르산염|분량 : 4.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 25℃ 이하에서 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 24752,
+    "catalog_label_idx": 56,
+    "image": {
+      "path": "assets/official_pills/200810113.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn3im1ht_",
+      "item_seq": "200810113",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "놀텍정 10mg": {
+    "name": "놀텍정 10mg",
+    "seq": "200810688",
+    "official": {
+      "ITEM_SEQ": "200810688",
+      "ITEM_NAME": "놀텍정10밀리그램(일라프라졸)",
+      "ENTP_NAME": "일양약품(주)",
+      "CHART": "주황색의 타원형 장용성 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(222.5mg) 중|성분명 : 일라프라졸|분량 : 10|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200810688.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oo7XeTdjxO",
+      "item_seq": "200810688",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 24850,
+    "catalog_label_idx": 57
+  },
+  "자누메트정 50/850mg": {
+    "name": "자누메트정 50/850mg",
+    "seq": "200901817",
+    "official": {
+      "ITEM_SEQ": "200901817",
+      "ITEM_NAME": "자누메트정50/850밀리그램",
+      "ENTP_NAME": "(주)종근당",
+      "CHART": "분홍색으로 한면에 515가 새겨진 타원형의 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정 (1145 mg) 중,|성분명 : 시타글립틴인산염수화물|분량 : 64.25|단위 : 밀리그램|규격 : 별규|성분정보 : 시타글립틴으로서 50 mg;총량 : 이 약 1정 (1145 mg) 중,|성분명 : 메트포르민염산염|분량 : 850.0|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "밀폐용기, 실온(1-30℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200901817.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1POdHuQ5Zvl",
+      "item_seq": "200901817",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 25367,
+    "catalog_label_idx": 58
+  },
+  "큐시드정 31.5mg/PTP": {
+    "name": "큐시드정 31.5mg/PTP",
+    "seq": "200902214",
+    "official": {
+      "ITEM_SEQ": "200902214",
+      "ITEM_NAME": "큐시드정",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "연녹색의 원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정 (370mg) 중,|성분명 : 라니티딘염산염|분량 : 31.5|단위 : 밀리그램|규격 : USP|성분정보 : 라니티딘으로서 28.227mg;총량 : 이 약 1정 (370mg) 중,|성분명 : 산화마그네슘|분량 : 50|단위 : 밀리그램|규격 : KP|성분정보 : ;총량 : 이 약 1정 (370mg) 중,|성분명 : 규산알루민산마그네슘|분량 : 125|단위 : 밀리그램|규격 : NF|성분정보 : ;총량 : 이 약 1정 (370mg) 중,|성분명 : 수산화알루민산마그네슘|분량 : 100|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "유효기간만료",
+      "CANCEL_DATE": "20250701"
+    },
+    "historic": null,
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 25438,
+    "catalog_label_idx": 59
+  },
+  "아모잘탄정 5/100mg": {
+    "name": "아모잘탄정 5/100mg",
+    "seq": "200902349",
+    "official": {
+      "ITEM_SEQ": "200902349",
+      "ITEM_NAME": "아모잘탄정5/100밀리그램",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "연분홍색의 장방형 필름코팅 정제",
+      "MATERIAL_NAME": "총량 : 1정511.09밀리그램|성분명 : 로사르탄칼륨|분량 : 100.00|단위 : 밀리그램|규격 : EP|성분정보 : ;총량 : 1정511.09밀리그램|성분명 : 암로디핀캄실산염|분량 : 7.84|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 암로디핀으로서 5mg;총량 : 1정618.13밀리그램|성분명 : 로사르탄칼륨|분량 : 100.00|단위 : 밀리그램|규격 : EP|성분정보 : ;총량 : 1정618.13밀리그램|성분명 : 암로디핀캄실산염|분량 : 7.84|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 암로디핀으로서 5mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/200902349.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427809486700196",
+      "item_seq": "200902349",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 25469,
+    "catalog_label_idx": 60
+  },
+  "세비카정 10/40mg": {
+    "name": "세비카정 10/40mg",
+    "seq": "201004570",
+    "official": {
+      "ITEM_SEQ": "201004570",
+      "ITEM_NAME": "세비카정 10/40밀리그램",
+      "ENTP_NAME": "한국다이이찌산쿄(주)",
+      "CHART": "적갈색의 원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정(208밀리그램) 중|성분명 : 올메사르탄메독소밀|분량 : 40.000|단위 : 밀리그램|규격 : 별규|성분정보 : ;총량 : 1정(208밀리그램) 중|성분명 : 암로디핀베실산염|분량 : 13.888|단위 : 밀리그램|규격 : EP|성분정보 : 암로디핀으로 10mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 27653,
+    "catalog_label_idx": 61,
+    "image": {
+      "path": "assets/official_pills/201004570.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426502377200196",
+      "item_seq": "201004570",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "트윈스타정 40/5mg": {
+    "name": "트윈스타정 40/5mg",
+    "seq": "201005081",
+    "official": {
+      "ITEM_SEQ": "201005081",
+      "ITEM_NAME": "트윈스타정40/5밀리그램",
+      "ENTP_NAME": "한국베링거인겔하임(주)",
+      "CHART": "흰색과 연한 파란색의 양면이 볼록한 타원형 이중정이다.",
+      "MATERIAL_NAME": "총량 : 1정(440mg) 중|성분명 : 텔미사르탄|분량 : 40.000|단위 : 밀리그램|규격 : 별규|성분정보 : ;총량 : 1정(440mg) 중|성분명 : 암로디핀베실산염|분량 : 6.935|단위 : 밀리그램|규격 : EP|성분정보 : 암로디핀으로서 5.0밀리그램",
+      "STORAGE_METHOD": "차광기밀용기, 실온보관(1-30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201005081.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Pvn3im1ken",
+      "item_seq": "201005081",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 27733,
+    "catalog_label_idx": 62
+  },
+  "카나브정 60mg": {
+    "name": "카나브정 60mg",
+    "seq": "201005501",
+    "official": {
+      "ITEM_SEQ": "201005501",
+      "ITEM_NAME": "카나브정60밀리그램(피마사르탄칼륨삼수화물)",
+      "ENTP_NAME": "(주)보령",
+      "CHART": "노란색의 한 면에 분할선이 있고 각 모서리가 둥근 육각형의 볼록한 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1정154밀리그램|성분명 : 피마사르탄칼륨삼수화물|분량 : 66.01|단위 : 밀리그램|규격 : 별규|성분정보 : 피마사르탄칼륨으로서 60mg",
+      "STORAGE_METHOD": "차광기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201005501.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/154333320801300056",
+      "item_seq": "201005501",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 27777,
+    "catalog_label_idx": 63
+  },
+  "울트라셋이알서방정": {
+    "name": "울트라셋이알서방정",
+    "seq": "201006967",
+    "official": null,
+    "historic": {
+      "item_seq": "201006967",
+      "name": "울트라셋이알서방정",
+      "status": "폐업",
+      "status_date": "2022-03-21",
+      "chart": "노란색의 장방형 필름코팅 서방정제",
+      "source": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=201006967"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 27926,
+    "catalog_label_idx": 64
+  },
+  "졸로푸트정 100mg": {
+    "name": "졸로푸트정 100mg",
+    "seq": "201007672",
+    "official": {
+      "ITEM_SEQ": "201007672",
+      "ITEM_NAME": "졸로푸트정100밀리그램(설트랄린염산염)",
+      "ENTP_NAME": "비아트리스코리아(주)",
+      "CHART": "장방형의 흰색 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정309.00밀리그램|성분명 : 설트랄린염산염|분량 : 111.900|단위 : 밀리그램|규격 : 별규|성분정보 : 설트랄린으로서 100mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201007672.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1PSKKNO66w6",
+      "item_seq": "201007672",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 27993,
+    "catalog_label_idx": 65
+  },
+  "플리바스정 50mg": {
+    "name": "플리바스정 50mg",
+    "seq": "201102769",
+    "official": {
+      "ITEM_SEQ": "201102769",
+      "ITEM_NAME": "플리바스정50mg(나프토피딜)",
+      "ENTP_NAME": "동아에스티(주)",
+      "CHART": "흰색의 원형 정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(약 320.0mg) 중|성분명 : 나프토피딜|분량 : 50.0|단위 : 밀리그램|규격 : JP|성분정보 :",
+      "STORAGE_METHOD": "차광밀폐용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 28424,
+    "catalog_label_idx": 66,
+    "image": {
+      "path": "assets/official_pills/201102769.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NOwp2F66rQ",
+      "item_seq": "201102769",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "트라젠타정(리나글립틴)": {
+    "name": "트라젠타정(리나글립틴)",
+    "seq": "201106367",
+    "official": {
+      "ITEM_SEQ": "201106367",
+      "ITEM_NAME": "트라젠타정(리나글립틴)",
+      "ENTP_NAME": "한국베링거인겔하임(주)",
+      "CHART": "양쪽이 볼록하고 사각면이 날이 선 밝은 빨강색의 원형 필름코팅정. 한쪽 면에는 베링거인겔하임 표식, 다른 한쪽 면에는 ‘D5’가 새겨져 있다.",
+      "MATERIAL_NAME": "총량 : 1정 (약 185 mg) 중|성분명 : 리나글립틴|분량 : 5.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1~30℃)\n",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201106367.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1MnfO1MVz3z",
+      "item_seq": "201106367",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 28763,
+    "catalog_label_idx": 67
+  },
+  "비모보정 500/20mg": {
+    "name": "비모보정 500/20mg",
+    "seq": "201200417",
+    "official": {
+      "ITEM_SEQ": "201200417",
+      "ITEM_NAME": "비모보정 500/20밀리그램",
+      "ENTP_NAME": "(주)엘지화학",
+      "CHART": "핵정과 외핵으로 이루어진 양면이 볼록한 타원형의 노란색 필름코팅 정제    ",
+      "MATERIAL_NAME": "총량 : 1정(745mg) 중|성분명 : 나프록센|분량 : 500|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1정(745mg) 중|성분명 : 에스오메프라졸마그네슘삼수화물|분량 : 22.3|단위 : 밀리그램|규격 : 별규|성분정보 : 에스오메프라졸로서 20mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201200417.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OgmtypWWTu",
+      "item_seq": "201200417",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 29345,
+    "catalog_label_idx": 68
+  },
+  "레일라정": {
+    "name": "레일라정",
+    "seq": "201201587",
+    "official": {
+      "ITEM_SEQ": "201201587",
+      "ITEM_NAME": "레일라정",
+      "ENTP_NAME": "(주)한국피엠지제약",
+      "CHART": "황색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정616.6밀리그램|성분명 : 당귀·모과·방풍·속단·오가피·우슬·위령선·육계·진교·천궁·천마·홍화25%에탄올연조엑스(3.5→1)|분량 : 405.4|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1 ~ 30 ℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201201587.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1OnUY_VtDev",
+      "item_seq": "201201587",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 29451,
+    "catalog_label_idx": 69
+  },
+  "리바로정 4mg": {
+    "name": "리바로정 4mg",
+    "seq": "201205253",
+    "official": {
+      "ITEM_SEQ": "201205253",
+      "ITEM_NAME": "리바로정4밀리그램(피타바스타틴칼슘수화물)",
+      "ENTP_NAME": "제이더블유중외제약(주)",
+      "CHART": "중앙에 선이 있는  담황색의 원형필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정(249.059mg) 중|성분명 : 피타바스타틴칼슘수화물|분량 : 4.409|단위 : 밀리그램|규격 : JP|성분정보 : 피타바스타틴칼슘으로서 4mg",
+      "STORAGE_METHOD": "차광기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201205253.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426609286000173",
+      "item_seq": "201205253",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 29667,
+    "catalog_label_idx": 70
+  },
+  "렉사프로정 15mg": {
+    "name": "렉사프로정 15mg",
+    "seq": "201206335",
+    "official": {
+      "ITEM_SEQ": "201206335",
+      "ITEM_NAME": "렉사프로정15밀리그램(에스시탈로프람옥살산염)",
+      "ENTP_NAME": "한국룬드벡(주)",
+      "CHART": "한쪽 면에 분할선과 E, M이 새겨진 흰색의 타원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 1 정 (191.25mg) 중|성분명 : 에스시탈로프람옥살산염|분량 : 19.16|단위 : 밀리그램|규격 : 별규|성분정보 : 에스시탈로프람으로서 15밀리그램",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 29871,
+    "catalog_label_idx": 71,
+    "image": {
+      "path": "assets/official_pills/201206335.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/154601164159700155",
+      "item_seq": "201206335",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "트라젠타듀오정 2.5/850mg": {
+    "name": "트라젠타듀오정 2.5/850mg",
+    "seq": "201208291",
+    "official": {
+      "ITEM_SEQ": "201208291",
+      "ITEM_NAME": "트라젠타듀오정2.5/850밀리그램",
+      "ENTP_NAME": "한국베링거인겔하임(주)",
+      "CHART": "밝은 오렌지색의 양면이 볼록한 타원형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(1016 밀리그램) 중|성분명 : 리나글립틴|분량 : 2.500|단위 : 밀리그램|규격 : 별규|성분정보 : ;총량 : 이 약 1정(1016 밀리그램) 중|성분명 : 메트포르민염산염|분량 : 850.000|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 습기를 피하여 실온(1~30℃)보관\n",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201208291.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426633330100199",
+      "item_seq": "201208291",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 30308,
+    "catalog_label_idx": 72
+  },
+  "낙소졸정 500/20mg": {
+    "name": "낙소졸정 500/20mg",
+    "seq": "201308928",
+    "official": {
+      "ITEM_SEQ": "201308928",
+      "ITEM_NAME": "낙소졸정500/20밀리그램(나프록센,에스오메프라졸)",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "연한 노란색의 장방형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정788.0밀리그램|성분명 : 나프록센|분량 : 500.00|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1정788.0밀리그램|성분명 : 에스오메프라졸스트론튬사수화물|분량 : 24.60|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 에스오메프라졸로서 20.00mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 31705,
+    "catalog_label_idx": 73,
+    "image": {
+      "path": "assets/official_pills/201308928.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/154597931877100021",
+      "item_seq": "201308928",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "아질렉트정(라사길린메실산염)": {
+    "name": "아질렉트정(라사길린메실산염)",
+    "seq": "201309347",
+    "official": {
+      "ITEM_SEQ": "201309347",
+      "ITEM_NAME": "아질렉트정(라사길린메실산염)",
+      "ENTP_NAME": "한국룬드벡(주)",
+      "CHART": "한쪽 면의 위쪽에 “GIL\", 아래쪽에 ”1“이 새겨진 흰색 또는 거의 흰색의 모서리가 있는 편평한 원형 정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(210밀리그램) 중|성분명 : 라사길린메실산염|분량 : 1.56|단위 : 밀리그램|규격 : 별규|성분정보 : 라사길린으로서 1mg",
+      "STORAGE_METHOD": "기밀용기, 1-25℃ 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201309347.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426780832600177",
+      "item_seq": "201309347",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 31863,
+    "catalog_label_idx": 74
+  },
+  "자누메트엑스알서방정 100/1000mg": {
+    "name": "자누메트엑스알서방정 100/1000mg",
+    "seq": "201309418",
+    "official": {
+      "ITEM_SEQ": "201309418",
+      "ITEM_NAME": "자누메트엑스알서방정100/1000밀리그램",
+      "ENTP_NAME": "(주)종근당",
+      "CHART": "밝은 파랑색으로 한 면에 81이 새겨진 양면이 볼록한 타원형의 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정 (1721 mg) 중,|성분명 : 메트포르민염산염|분량 : 1000|단위 : 밀리그램|규격 : EP|성분정보 : ;총량 : 1정 (1721 mg) 중,|성분명 : 시타글립틴인산염수화물|분량 : 128.5|단위 : 밀리그램|규격 : 별규|성분정보 : 시타글립틴으로서 100 mg",
+      "STORAGE_METHOD": "기밀용기, 습기를 피하여 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201309418.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Ppkc5HUMc9",
+      "item_seq": "201309418",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 31885,
+    "catalog_label_idx": 75
+  },
+  "글리아타민연질캡슐": {
+    "name": "글리아타민연질캡슐",
+    "seq": "201310719",
+    "official": {
+      "ITEM_SEQ": "201310719",
+      "ITEM_NAME": "글리아타민연질캡슐(콜린알포세레이트)",
+      "ENTP_NAME": "대웅바이오(주)",
+      "CHART": "무색투명의 점조한 액을 넣은 담황색을 띤 타원형의 연질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(780mg) 중|성분명 : 콜린알포세레이트|분량 : 400.0|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201310719.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/154039561327900002",
+      "item_seq": "201310719",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 32310,
+    "catalog_label_idx": 76
+  },
+  "신바로정": {
+    "name": "신바로정",
+    "seq": "201401963",
+    "official": {
+      "ITEM_SEQ": "201401963",
+      "ITEM_NAME": "신바로정",
+      "ENTP_NAME": "대원제약(주)",
+      "CHART": "갈색의 장방형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1 정 (545 밀리그램) 중|성분명 : 자오가·우슬·방풍·두충·구척·흑두건조엑스(20→1)|분량 : 300|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1∼30℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201401963.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Q2NzWKn4oM",
+      "item_seq": "201401963",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 33009,
+    "catalog_label_idx": 77
+  },
+  "트루패스정 4mg": {
+    "name": "트루패스정 4mg",
+    "seq": "201401986",
+    "official": {
+      "ITEM_SEQ": "201401986",
+      "ITEM_NAME": "트루패스정4밀리그램(실로도신)",
+      "ENTP_NAME": "제이더블유중외제약(주)",
+      "CHART": "흰색 또는 미황색의 타원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(208mg)중|성분명 : 실로도신|분량 : 4.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "차광기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 33026,
+    "catalog_label_idx": 78,
+    "image": {
+      "path": "assets/official_pills/201401986.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426857383000087",
+      "item_seq": "201401986",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "에스원엠프정 20mg": {
+    "name": "에스원엠프정 20mg",
+    "seq": "201402463",
+    "official": {
+      "ITEM_SEQ": "201402463",
+      "ITEM_NAME": "에스원엠프정20mg(에스오메프라졸마그네슘삼수화물)",
+      "ENTP_NAME": "대원제약(주)",
+      "CHART": "연분홍색의 원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정(185.02mg) 중|성분명 : 에스오메프라졸마그네슘삼수화물|분량 : 22.3|단위 : 밀리그램|규격 : 별규|성분정보 : 에스오메프라졸로서 20밀리그램",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201402463.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1MYTX0L3Ktb",
+      "item_seq": "201402463",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 33208,
+    "catalog_label_idx": 79
+  },
+  "브린텔릭스정 20mg": {
+    "name": "브린텔릭스정 20mg",
+    "seq": "201403837",
+    "official": {
+      "ITEM_SEQ": "201403837",
+      "ITEM_NAME": "브린텔릭스정20밀리그램(보티옥세틴브롬화수소산염)",
+      "ENTP_NAME": "한국룬드벡(주)",
+      "CHART": "한쪽 면에 “TL” 다른쪽 면에 “20”가 새겨진 빨간색의 달걀형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(153mg) 중|성분명 : 보티옥세틴브롬화수소산염|분량 : 25.420|단위 : 밀리그램|규격 : 별규|성분정보 : 보티옥세틴으로서 20mg",
+      "STORAGE_METHOD": "기밀용기, 실온(1-30℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 33878,
+    "catalog_label_idx": 80,
+    "image": {
+      "path": "assets/official_pills/201403837.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426906991700162",
+      "item_seq": "201403837",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "글리틴정(콜린알포세레이트)": {
+    "name": "글리틴정(콜린알포세레이트)",
+    "seq": "201403839",
+    "official": {
+      "ITEM_SEQ": "201403839",
+      "ITEM_NAME": "글리틴정(콜린알포세레이트)",
+      "ENTP_NAME": "제일약품(주)",
+      "CHART": "담황색의 달걀형 필름코팅정제",
+      "MATERIAL_NAME": "총량 : 이 약 1정(약 790mg) 중|성분명 : 콜린알포세레이트|분량 : 400|단위 : 밀리그램|규격 : KP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201403839.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1Oln5d5U9re",
+      "item_seq": "201403839",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 33880,
+    "catalog_label_idx": 81
+  },
+  "제미메트서방정 50/1000mg": {
+    "name": "제미메트서방정 50/1000mg",
+    "seq": "201405223",
+    "official": {
+      "ITEM_SEQ": "201405223",
+      "ITEM_NAME": "제미메트서방정50/1000밀리그램",
+      "ENTP_NAME": "(주)엘지화학",
+      "CHART": "갈색 장방형의 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(1,560.0 밀리그램) 중|성분명 : 제미글립틴타르타르산염1.5수화물|분량 : 68.9|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 제미글립틴으로서50밀리그램;총량 : 이 약 1정(1,560.0 밀리그램) 중|성분명 : 메트포르민염산염|분량 : 1000.0|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201405223.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147426964205900067",
+      "item_seq": "201405223",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 34597,
+    "catalog_label_idx": 82
+  },
+  "아토젯정 10/40mg": {
+    "name": "아토젯정 10/40mg",
+    "seq": "201500365",
+    "official": {
+      "ITEM_SEQ": "201500365",
+      "ITEM_NAME": "아토젯정10/40밀리그램",
+      "ENTP_NAME": "한국오가논(주)",
+      "CHART": "백색 내지 미백색의 한 면에 337이 새겨진 양면이 볼록한 캡슐모양의 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정(625.7 mg) 중,|성분명 : 에제티미브|분량 : 10.0|단위 : 밀리그램|규격 : 별규|성분정보 : ;총량 : 1정(625.7 mg) 중,|성분명 : 아토르바스타틴칼슘삼수화물|분량 : 43.4|단위 : 밀리그램|규격 : 별규|성분정보 : 아토르바스타틴으로서 40 mg",
+      "STORAGE_METHOD": "기밀용기, 30℃ 이하에서 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201500365.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NVzhGcz6U5",
+      "item_seq": "201500365",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 35206,
+    "catalog_label_idx": 83
+  },
+  "로수젯정10/5밀리그램": {
+    "name": "로수젯정10/5밀리그램",
+    "seq": "201503658",
+    "official": {
+      "ITEM_SEQ": "201503658",
+      "ITEM_NAME": "로수젯정10/5밀리그램",
+      "ENTP_NAME": "한미약품(주)",
+      "CHART": "이 약은 연한 노란색의 장방형 필름코팅정제이다.",
+      "MATERIAL_NAME": "총량 : 1 정 (약 222.45 mg) 중|성분명 : 로수바스타틴칼슘|분량 : 5.2|단위 : 밀리그램|규격 : EP|성분정보 : 로수바스타틴으로서 5mg;총량 : 1 정 (약 222.45 mg) 중|성분명 : 에제티미브|분량 : 10.0|단위 : 밀리그램|규격 : USP|성분정보 : ;총량 : 1 정 (약 222.45 mg) 중|성분명 : 로수바스타틴칼슘|분량 : 5.2|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 : 로수바스타틴으로서 5mg;총량 : 1 정 (약 222.45 mg) 중|성분명 : 에제티미브|분량 : 10.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 습기를 피하여 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201503658.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427082737900159",
+      "item_seq": "201503658",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 36637,
+    "catalog_label_idx": 84
+  },
+  "알바스테인캡슐(에르도스테인)": {
+    "name": "알바스테인캡슐(에르도스테인)",
+    "seq": "201507696",
+    "official": {
+      "ITEM_SEQ": "201507696",
+      "ITEM_NAME": "알바스테인캡슐(에르도스테인)",
+      "ENTP_NAME": "한국휴텍스제약(주)",
+      "CHART": "흰색의 분말이 들어있는 상부 초록색, 하부 미황색의 경질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(400mg) 중|성분명 : 에르도스테인|분량 : 300.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1~30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 37777,
+    "catalog_label_idx": 85,
+    "image": {
+      "path": "assets/official_pills/201507696.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427135487800121",
+      "item_seq": "201507696",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "로수바미브정 10/20mg": {
+    "name": "로수바미브정 10/20mg",
+    "seq": "201600318",
+    "official": {
+      "ITEM_SEQ": "201600318",
+      "ITEM_NAME": "로수바미브정10/20밀리그램",
+      "ENTP_NAME": "(주)유한양행",
+      "CHART": "분홍색의 달걀형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(333mg) 중|성분명 : 로수바스타틴칼슘|분량 : 20.8|단위 : 밀리그램|규격 : EP|성분정보 : 로수바스타틴으로서 20mg;총량 : 이 약 1정(333mg) 중|성분명 : 에제티미브|분량 : 10.0|단위 : 밀리그램|규격 : USP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201600318.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427180466400018",
+      "item_seq": "201600318",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 38162,
+    "catalog_label_idx": 86
+  },
+  "뮤코원캡슐(에르도스테인)": {
+    "name": "뮤코원캡슐(에르도스테인)",
+    "seq": "201602679",
+    "official": {
+      "ITEM_SEQ": "201602679",
+      "ITEM_NAME": "뮤코원캡슐(에르도스테인)",
+      "ENTP_NAME": "(주)보령",
+      "CHART": "흰색의 가루가 들어있는 상부 초록색, 하부 미황색의 경질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(399mg) 중|성분명 : 에르도스테인|분량 : 300.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온보관(1-30℃)",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 38954,
+    "catalog_label_idx": 87,
+    "image": {
+      "path": "assets/official_pills/201602679.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/147427240969100056",
+      "item_seq": "201602679",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "카발린캡슐 25mg": {
+    "name": "카발린캡슐 25mg",
+    "seq": "201702674",
+    "official": {
+      "ITEM_SEQ": "201702674",
+      "ITEM_NAME": "카발린캡슐25밀리그램(프레가발린)",
+      "ENTP_NAME": "에이치케이이노엔(주)",
+      "CHART": "흰색 또는 회백색의 분말이 든 상부 미황색, 하부 흰색의 경질캡슐제",
+      "MATERIAL_NAME": "총량 : 1캡슐(73.33밀리그램) 중|성분명 : 프레가발린|분량 : 25.00|단위 : 밀리그램|규격 : EP|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 15~30℃보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "image": {
+      "path": "assets/official_pills/201702674.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NvwvvpEt2C",
+      "item_seq": "201702674",
+      "retrieved": "2026-11-02",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    },
+    "lookup_date": "2026-11-02",
+    "image_lookup_date": "2026-11-02",
+    "category_id": 41768,
+    "catalog_label_idx": 88
+  },
+  "케이캡정 50mg": {
+    "name": "케이캡정 50mg",
+    "seq": "201802815",
+    "official": {
+      "ITEM_SEQ": "201802815",
+      "ITEM_NAME": "케이캡정50밀리그램(테고프라잔)",
+      "ENTP_NAME": "에이치케이이노엔(주)",
+      "CHART": "연한 분홍색의 장방형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 이 약 1정(206mg) 중,|성분명 : 테고프라잔|분량 : 50.0|단위 : 밀리그램|규격 : 별규|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃)보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 44199,
+    "catalog_label_idx": 89,
+    "image": {
+      "path": "assets/official_pills/201802815.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1NdI1kwNhiL",
+      "item_seq": "201802815",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  },
+  "엘스테인정(에르도스테인)": {
+    "name": "엘스테인정(에르도스테인)",
+    "seq": "201804394",
+    "official": {
+      "ITEM_SEQ": "201804394",
+      "ITEM_NAME": "엘스테인정(에르도스테인)",
+      "ENTP_NAME": "대원제약(주)",
+      "CHART": "흰색의 원형 필름코팅정",
+      "MATERIAL_NAME": "총량 : 1정480밀리그램|성분명 : 에르도스테인|분량 : 300.0|단위 : 밀리그램|규격 : 별첨규격(전과동)|성분정보 :",
+      "STORAGE_METHOD": "기밀용기, 실온(1~30℃) 보관",
+      "CANCEL_NAME": "정상",
+      "CANCEL_DATE": null
+    },
+    "historic": null,
+    "lookup_date": "2026-11-03",
+    "image_lookup_date": "2026-11-03",
+    "category_id": 44834,
+    "catalog_label_idx": 90,
+    "image": {
+      "path": "assets/official_pills/201804394.png",
+      "source_url": "https://nedrug.mfds.go.kr/pbp/cmn/itemImageDownload/1MYTX0L3KPy",
+      "item_seq": "201804394",
+      "retrieved": "2026-11-03",
+      "license_url": "https://www.data.go.kr/data/15057639/openapi.do"
+    }
+  }
+}

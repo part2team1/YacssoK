@@ -1,0 +1,10 @@
+# 모델과 클래스 목록을 한 쌍으로 교체합니다. 가중치는 Git에 올리지 않습니다.
+id: baseline-56
+label: 기존 학습 모델 · YOLOv8s
+weights: outputs/1028_dataB_yolov8s_v1_clean/yolo_run/weights/best.pt
+class_map: data/class_map.json
+expected_classes: 56
+imgsz: 640
+catalog_dir: app/assets/drug_catalog
+host: 127.0.0.1
+port: 7871
