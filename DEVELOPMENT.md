@@ -128,6 +128,8 @@ uv run python app/demo.py --exp 1028_modelA_yolov8s_v0_baseline
 
 ## 🌐 웹 데모
 
+앱 데모·테스트 화면 전환과 로그아웃이 있는 최신 화면은 [통합 웹 실행 안내](docs/web_portal.md)를 참고하세요. 실행 명령은 `uv run --locked python -m app.demo_portal --config configs/web_portal.yaml`입니다.
+
 새 Gradio 화면의 모델 설정·로컬 실행·비밀번호 보호 공유 방법은 [웹 실행 안내](docs/web_demo.md)를 참고하세요.
 기존 데모는 유지하며 새 화면은 `uv run python -m app.demo_web --config configs/web_demo.yaml`로 실행합니다.
 
