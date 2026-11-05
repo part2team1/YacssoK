@@ -1,0 +1,12 @@
+# 26m + v3allcp (정제 v1 + AI Hub 새 클래스 + copy-paste 합성 + RFS 0.1)
+# 팀원 모델 1103_yolo26m_v3allc_d123_yolo26m_d12_e50 과 같은 데이터 구성. 8GB GPU라 batch만 8
+# K-fold: scripts/run_kfold_synth.py --config configs/yolo_m_26m_v3allcp.yaml (fold마다 합성을 다시 만듦)
+base: yolo_m_26m_v3allc.yaml
+exp_name: 1104_pegstar_yolo26m_v3allcp
+note: 26m v3allcp (v1+AIHub all+copy-paste) rfs0.1, batch 8
+
+data:
+  train_images: data/synth/v3allcp/images
+  train_annotations: data/annotations/v3allcp.json
+  version: v3allcp
+  repeat_threshold: 0.1
