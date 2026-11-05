@@ -67,6 +67,23 @@ def load_config(path: str | Path) -> dict[str, Any]:
     return cfg
 
 
+def apply_overrides(cfg: dict, items: list[str] | None) -> dict:
+    """명령줄의 --set data.version=v0_f1 seed=7 처럼 설정 값 몇 개를 바꾼다 (실험 D7·T4).
+
+    값은 YAML로 읽으므로 숫자·true/false·리스트도 그대로 쓸 수 있다.
+    """
+    for item in items or []:
+        key, _, raw = item.partition("=")
+        if not key or not _:
+            raise ValueError(f"--set 형식은 키=값 입니다: {item}")
+        node = cfg
+        *parents, last = key.split(".")
+        for k in parents:
+            node = node.setdefault(k, {})
+        node[last] = yaml.safe_load(raw)
+    return cfg
+
+
 def save_yaml(data: dict, path: str | Path) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -78,6 +95,17 @@ def resolve_path(path: str | Path) -> Path:
     """설정 파일의 상대 경로는 레포 루트 기준으로 해석한다 (개인 PC 절대 경로 금지)."""
     path = Path(path)
     return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+def yolo_data_yaml(cfg: dict) -> Path:
+    """YOLO 학습에 쓸 data.yaml 경로. 오버샘플링(data.repeat_threshold)을 켜면 별도 파일을 쓴다.
+
+    같은 데이터 버전을 쓰는 baseline 실험의 data.yaml을 덮어쓰지 않기 위해서다.
+    """
+    d = cfg["data"]
+    root = resolve_path(d["yolo_dir"]) / d["version"]
+    thr = float(d.get("repeat_threshold", 0) or 0)
+    return root / ("data.yaml" if thr <= 0 else f"data_rfs{thr:g}.yaml")
 
 
 # ── JSON ─────────────────────────────────────────────────────

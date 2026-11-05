@@ -3,6 +3,7 @@ data/*
 !data/.gitkeep
 !data/README.md
 !data/class_map.json
+!data/class_map_*.json
 !data/splits/
 outputs/*
 !outputs/.gitkeep

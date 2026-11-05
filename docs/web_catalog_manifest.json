@@ -1,0 +1,444 @@
+{
+  "source": "식품의약품안전처 공공데이터 및 의약품안전나라 공식 품목 기록",
+  "product_count": 91,
+  "official_product_count": 84,
+  "official_photo_count": 83,
+  "api_key_included": false,
+  "training_images_included": false,
+  "source_urls": [
+    "https://www.data.go.kr/data/15057639/openapi.do",
+    "https://nedrug.mfds.go.kr/"
+  ],
+  "files": [
+    {
+      "file": "app/assets/drug_catalog/drug_info_91.json",
+      "bytes": 111674,
+      "sha256": "c1a793c9055d2ef60ecae9f7b9828bfb750974e4c4cfd327d20d136e626e9545"
+    },
+    {
+      "file": "app/assets/drug_catalog/drug_simple_91.json",
+      "bytes": 60871,
+      "sha256": "59274d74211e7f495e913af2c2ccb03710d4169126d2bf463b2098bd3e80129d"
+    },
+    {
+      "file": "app/assets/drug_catalog/drug_supplement_7.json",
+      "bytes": 7112,
+      "sha256": "46fb7901f1289af1a2e54355662c209d30064e87fe14038daea20165af9d7e6c"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/197400246.png",
+      "bytes": 120224,
+      "sha256": "17b59e6733e6e59deb0652378b043f2bdcc9f1a919a77754f4481ca961b5e761"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/197900277.png",
+      "bytes": 203036,
+      "sha256": "d9687cf3b03533a662a2de646205e8092b4c6517e7e0ac3ea70d1751131b40f1"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/198700430.png",
+      "bytes": 192116,
+      "sha256": "fd8a42dd247bb55547533bb50aae499128250a828b337d049d86e8ff6ba5fc19"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/198700706.png",
+      "bytes": 115544,
+      "sha256": "ff009684f94fd3f5aae9d83fbc8ccf0cad51fa66f5b7bac825505f45bc6463d4"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/198801531.png",
+      "bytes": 139649,
+      "sha256": "fb16831b9ab145ff6db967429fdf6358ebbc407bfd4854ddd80786d1de247ecf"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199101125.png",
+      "bytes": 229991,
+      "sha256": "d7c56570a9637610825a0761c8008c9256e02d236bcc087eb61aa4c77f58eae3"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199102014.png",
+      "bytes": 225258,
+      "sha256": "13f11b4d95a2bbdf5fef9647e15bc467731065c56c9e469d207a48ec00bbf55f"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199102825.png",
+      "bytes": 77713,
+      "sha256": "10b7b06f4c9aed05025595a36374f183dff3d86260bb63a535d270a9057f0ccc"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199200261.png",
+      "bytes": 130246,
+      "sha256": "5a1f5df23781a8b5ff86d35418c488878deb42fed0f68d2a2115c8bdd4e9478b"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199201106.png",
+      "bytes": 123646,
+      "sha256": "583025263d7332f404d24c8272c1e94c6c3a26b0ae04cd88b5d42c3cb01782e3"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199400486.png",
+      "bytes": 180266,
+      "sha256": "69d2af3918cf2073ccaf84d3438aa4c828deebf5977f23cf7d6354277287ad6a"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199500420.png",
+      "bytes": 103069,
+      "sha256": "c8b926eef44ec38de531fff4a02ed473ebf07e7e44564e37b1ad44e095e857af"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199500435.png",
+      "bytes": 181394,
+      "sha256": "a56a449cc3a6188b69cba6ff2959e45cd968aca6ce959c4a7bc8b38764883ebb"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199501099.png",
+      "bytes": 114521,
+      "sha256": "bfc6b7a39166315b6da8e16253317cd37ba8c7c9515d55b4678f765f63dd726f"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199504272.png",
+      "bytes": 235356,
+      "sha256": "e3e805b86c632d6c6e9c79e30e33b3ac8d6b5e47fa7f1ea6727ac9db39f3e481"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199700756.png",
+      "bytes": 257758,
+      "sha256": "95d25b1df90b89b0c70467bdbec78c8ef213921a1775bdfa46ca5275d8d97490"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/199702182.png",
+      "bytes": 197763,
+      "sha256": "e42bd58641fbd7c6a96bb3430bf1d5cca075812337154d5bb5c5b8dff8a46d51"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200009026.png",
+      "bytes": 200134,
+      "sha256": "5c0c0d8c319b60fe106de72f3459c851ada9dc25a823600d2412007653d726ed"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200202194.png",
+      "bytes": 86766,
+      "sha256": "facfce7ebd4fdfdb4c2d6082a895485e66ae29fd0f13437a0e574401e81940c4"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200202889.png",
+      "bytes": 122108,
+      "sha256": "6365c1bbc9f068110de106665bed5e511d7246ab8c8a4864bfc440d909a9add8"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200300416.png",
+      "bytes": 199155,
+      "sha256": "e3f89fa5aacb5598c2ada00ba0720c9dca0a60e13d96dbcc27ef0d5e04091280"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200301252.png",
+      "bytes": 188527,
+      "sha256": "774f5feb3e14f39b23b5189534ea98e85706cb23afb97a791835747a74a2325b"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200301818.png",
+      "bytes": 113849,
+      "sha256": "0a3d4806c65ab031dc115bd15d482ced71c25357fe9ec7e2e1dffb28057e6b45"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200308324.png",
+      "bytes": 159649,
+      "sha256": "ab7e7038b003640a3e48e4597294e6120ac646f343ac75900d75bebcd20ae62a"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200402674.png",
+      "bytes": 155230,
+      "sha256": "96a89b12b12cd809b969d264f9fd93f2eb9f205b12e7e26824d404c0f1d358c2"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200409982.png",
+      "bytes": 154351,
+      "sha256": "59fcfe0e4af2a6e67f558b3fb6f341a41cfc11cc9f10d1e02b36316eeedeaf60"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200410085.png",
+      "bytes": 151880,
+      "sha256": "38eda44602f29e5821a629c76f0be02eab0038ba5ddc83e3940ef39908dbf5fe"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200410326.png",
+      "bytes": 179740,
+      "sha256": "3ef9fa50bb446453441ccf5f182d353aa0603ce17d649eed86bd386337381674"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200500254.png",
+      "bytes": 112367,
+      "sha256": "034c893e47d5d5371e3b0d8c12f8a5637001c988a149b815bd2c22a3c6e9b0f8"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200500497.png",
+      "bytes": 343400,
+      "sha256": "a81ba467ba69060b66b7bdb8f980c8a31e5604368a9cb133a20435be29cb4a07"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200510974.png",
+      "bytes": 237824,
+      "sha256": "e6289e89ee1c367dce916032461bfe21c2f8d8aa0f0e3204389847308316183a"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200511058.png",
+      "bytes": 283939,
+      "sha256": "da46f3a1e6c39807073c03f6c856e819647164f0cf5501a1ddc7897b1dcec9ca"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200600026.png",
+      "bytes": 204502,
+      "sha256": "e5614ef9b1d12889af48cf6617a6d8007a1024e06e7f8c5d1bc02a4a90fd65ca"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200605445.png",
+      "bytes": 128263,
+      "sha256": "26b2f1de4d6c429338cf5d5a80cad9942f6c78aac5e2e4da75723e0fce9d4972"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200607734.png",
+      "bytes": 250809,
+      "sha256": "7bec71a3bf67f5fca8078523f87f6528f896ec8b60f0039e6efba38ff90db60c"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200607849.png",
+      "bytes": 122053,
+      "sha256": "cbf82b2712555f76f91753d2c8218bcbb4091b149c56a6390d8fa3ba0030ba64"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200610660.png",
+      "bytes": 235048,
+      "sha256": "87f7a84c1d9dc6544cddc31d374b1b027a56ae63fffe860fe361d8142a4cc47b"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200700907.png",
+      "bytes": 170324,
+      "sha256": "0246ae8df70ea604bb3489eb883ecdf26fdd4a5b6d1f43e6482a3cef7f7b4a3e"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200701034.png",
+      "bytes": 193183,
+      "sha256": "2187b415ea04165daaf027a276a9c59a52befc53bb729be1d35e24af5ae91657"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200703673.png",
+      "bytes": 139113,
+      "sha256": "091645b18000dd88103c7e7b511996b531cbcb1b996e93953284781f682b5efc"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200703803.png",
+      "bytes": 189319,
+      "sha256": "b6f722960595a83f9a2c76be5a977d69d3d2a1658d3be08e00cdebe34ea36076"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200704590.png",
+      "bytes": 115808,
+      "sha256": "f9a571e85e6551a934d57840f1808f0fe0754cee8abcc22ec081c8b1215e8534"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200705992.png",
+      "bytes": 108883,
+      "sha256": "9e9cfab0bd7df5f26c5e53eb02b9ded59b15cfed0054d6c4d69bb25c8fb3d6fe"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200708376.png",
+      "bytes": 132429,
+      "sha256": "6886d1cbe4f68e178d7f867f5f7a8ed299162a8234e977887b335a280876a39c"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200709390.png",
+      "bytes": 132203,
+      "sha256": "8f77924c30bda5b42a3de03dfd7c16f31fd5dd743f6b0b94641bef4588da25ed"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200710758.png",
+      "bytes": 211048,
+      "sha256": "8a4a5f67b6333f6628610e8da2d41baf81e9ea1ecd30102bbcbe402d94413bbc"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200710817.png",
+      "bytes": 142083,
+      "sha256": "9de2bd4919728c7d97236cfc7aace1f37476610af1dae93ad46e37b2d9aa65db"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200712481.png",
+      "bytes": 186151,
+      "sha256": "883265b70e0e45f9f18efdb791fc2a5bf70c9bcab2541881bd77ecec765dd6c0"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200802023.png",
+      "bytes": 97568,
+      "sha256": "bb540dfc2cf653d3b1697a310dc61613478d6174a22acc5dca25ec548825fcb8"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200802213.png",
+      "bytes": 261243,
+      "sha256": "325ad5863a18fe99ef486b9cdab0f0d68ea264a5f330b262536d0dd82722ed89"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200810113.png",
+      "bytes": 175957,
+      "sha256": "3bb37d8cedacb14eccb189ead310c899246b0f50af3cb7a96e2bc9c18784569c"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200810688.png",
+      "bytes": 480274,
+      "sha256": "fb58c02fb74c5c8ec9179d44ddf924f01124c3074f62569f04e48c47298d8490"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200901817.png",
+      "bytes": 210314,
+      "sha256": "5939889bde6aa3bac0de3e0c696f76e947cc09f2c714e437b6b3cce026bc069c"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/200902349.png",
+      "bytes": 201573,
+      "sha256": "95176bd92def07829813480eea26bad7f577b6f4c2ab2a4151a1379d35bc4f1b"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201004570.png",
+      "bytes": 151496,
+      "sha256": "903c92497ca93b2bc20b723a59b41d1ac3fbd95f2946991bde29cb8aa19ba2a5"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201005081.png",
+      "bytes": 131237,
+      "sha256": "8de55015ebea64862a5ee48a55cc2e1fc46b9925249b5c798f605119e7e73ae7"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201005501.png",
+      "bytes": 135172,
+      "sha256": "32144958d6459cc51c8169fd8348115c8e7fbc3042b033329af6c9e928056e31"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201007672.png",
+      "bytes": 254107,
+      "sha256": "c49124b0fbe00d67b2fbbd73a5e7f2de63efc1f2ada2746a0f0f40a47002a507"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201102769.png",
+      "bytes": 114533,
+      "sha256": "cb1c17bd3bcdb54369b921c75a7b22cbcd3d7c25882dce2264985b735b9b88c4"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201106367.png",
+      "bytes": 136929,
+      "sha256": "e69c50782293abfd3b6bb431ae33b0368cb197e7acd6a4cb7b1ad511844412ed"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201200417.png",
+      "bytes": 140827,
+      "sha256": "49da49d6b59ba1324915731d4cc7f0b14bfd38dbcc555c605306daa6da3babe8"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201201587.png",
+      "bytes": 468767,
+      "sha256": "9c143b852eeeb4c78845d13bb1c70e3ad7f2db784b6878f993942590a8b27397"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201205253.png",
+      "bytes": 148447,
+      "sha256": "5a9f80d978e64d23cd7298c7d0e6c95868fbda00943417af3ab27dae5f02b808"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201206335.png",
+      "bytes": 121771,
+      "sha256": "fdb940049712c142cb3584aa1a1f054ca3753f762464dc4e759f7e602515f8ea"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201208291.png",
+      "bytes": 233657,
+      "sha256": "3b61b466eed2df2cde3908425b9a2ed1ca89ec613d1fede38334e585fa09c55d"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201308928.png",
+      "bytes": 267427,
+      "sha256": "3cff173719a688a132b34286737d9e8ecd31104cb06c22448ae3792585e11bb2"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201309347.png",
+      "bytes": 113089,
+      "sha256": "f16abd074a4f79d589b43470980e040cde97a197a53f35c106c78bf6183135de"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201309418.png",
+      "bytes": 180365,
+      "sha256": "84e4d9ba66e094c58898c435b7aae2dc73270a8e14b471edd1a91b2b2f2f4fba"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201310719.png",
+      "bytes": 225160,
+      "sha256": "843820b87e3321a0271858aded9426683120f6cc25f2b951803fda0b8008371d"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201401963.png",
+      "bytes": 434225,
+      "sha256": "881c41ddc2d0efbcdb3f605e4543258b11de47a5fd5329062fe6cda88e03ca39"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201401986.png",
+      "bytes": 124816,
+      "sha256": "e1e6fee8ba3df09a826c76ed357cf2161c48145f7d865e3052ea1aa3d5278a1b"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201402463.png",
+      "bytes": 239953,
+      "sha256": "83b533795cf620b4e0c327348c62a1dd82ccdfa8288514fcf29f109094185ee3"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201403837.png",
+      "bytes": 138760,
+      "sha256": "2f1c03e76567f66bf9c907c65943c81a097a73ec61f0aed2a5e2a5030d5c5ad4"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201403839.png",
+      "bytes": 202080,
+      "sha256": "c9f2eda97fd6aa0a8a5507b973cce3909bf1325d047248bcfacf01e8feb33695"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201405223.png",
+      "bytes": 318616,
+      "sha256": "c4972ba3cb722230496f4cfa38e02c9a33861bd9e0cbb08ef93cc7f7b0ab51d4"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201500365.png",
+      "bytes": 158260,
+      "sha256": "0cfefd9a219db5ad1cc423e3a19ea2238552a2efdcebc491b368e850691dfc83"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201503658.png",
+      "bytes": 153401,
+      "sha256": "532574b571ed79175e28eddc346e7447b92bd34bd97dbd38802aa8716a24bb70"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201507696.png",
+      "bytes": 223455,
+      "sha256": "216d34236cc6d2edee266505dc2e4e350d28d0da3501c58dc65e581bf3db0d5a"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201600318.png",
+      "bytes": 166436,
+      "sha256": "262bb6dabd064cb93cdaf5ad11df22d85cdd54b1c60889a599e8508db93421d0"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201602679.png",
+      "bytes": 200900,
+      "sha256": "2dba62c9c366a9010f96c328706e0fa40e4a6776b4c55885d43a5ff4342043c4"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201702674.png",
+      "bytes": 92044,
+      "sha256": "472b6b0249c8a97c450088a4badee2ebbbe8268f3e34807e93350e4b5388a4c9"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201802815.png",
+      "bytes": 172755,
+      "sha256": "2712df7f6d59d2a4574b9a41da43e33a363222110804ea155c315b3a036d5237"
+    },
+    {
+      "file": "app/assets/drug_catalog/official_pills/201804394.png",
+      "bytes": 152477,
+      "sha256": "c55b59f1e2a768c63b2a2a39bb9aa6df1c23ceef2e10469c108d9e1b338d3883"
+    }
+  ]
+}

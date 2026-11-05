@@ -1,0 +1,10 @@
+# configs/yolo_v8m.yaml
+# 실험 M1 (모델): 모델 크기 s → m
+base: yolo_baseline.yaml
+exp_name: 1027_modelA_yolov8m_v0_size
+owner: modelA
+note: 모델 크기 small → medium (M1)
+model:
+  weights: yolov8m.pt
+train:
+  batch_size: 8

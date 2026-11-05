@@ -1,0 +1,17 @@
+# medium 크기 YOLO 버전 비교: YOLOv8m
+# 모든 medium 비교 실험은 weights만 다르고 나머지 조건은 같다.
+# 8GB GPU(RTX 5060)에서 medium 모델은 batch 16이 부족할 수 있어 8로 통일한다.
+base: base.yaml
+
+exp_name: 1027_pegstar_yolov8m_v0_mcompare
+owner: pegstar
+note: "medium 버전 비교 (YOLOv8m), img 640, batch 8, epoch 50, 나머지 base 기본값"
+
+model:
+  family: yolo
+  weights: yolov8m.pt
+
+train:
+  epochs: 50
+  batch_size: 8
+  lr: 0.01

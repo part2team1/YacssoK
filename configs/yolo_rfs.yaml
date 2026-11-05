@@ -1,0 +1,8 @@
+# 실험 D1 (데이터): 드문 클래스가 든 이미지를 학습 목록에 더 자주 넣는다 (Repeat Factor Sampling)
+# 먼저: uv run python scripts/export_yolo.py --config configs/yolo_rfs.yaml  (data_rfs0.1.yaml 생성)
+base: yolo_baseline.yaml
+exp_name: 1026_dataB_yolov8s_v0_rfs01
+owner: dataB
+note: 이미지의 10%보다 드물게 나오는 클래스를 sqrt 배수로 반복 (D1)
+data:
+  repeat_threshold: 0.1

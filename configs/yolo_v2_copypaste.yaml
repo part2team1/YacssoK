@@ -1,0 +1,11 @@
+# 실험 D2 (데이터): 드문 클래스 알약을 잘라 다른 학습 이미지에 붙인 데이터 v2로 학습
+# 먼저: uv run python scripts/make_copy_paste.py --config configs/base.yaml --version v2
+#       uv run python scripts/export_yolo.py --config configs/yolo_v2_copypaste.yaml
+base: yolo_baseline.yaml
+exp_name: 1027_dataB_yolov8s_v2_copypaste
+owner: dataB
+note: 학습셋 박스 10개 미만 클래스를 copy-paste로 보강 (D2)
+data:
+  train_images: data/synth/v2/images
+  train_annotations: data/annotations/v2.json
+  version: v2

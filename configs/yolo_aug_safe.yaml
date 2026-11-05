@@ -1,0 +1,18 @@
+# 실험 D3 (데이터, YOLO): 박스를 헐겁게 만들지 않는 증강 조합
+# 임의 각도 회전(degrees)은 박스가 커져서 mAP@[0.75:0.95]에 불리할 수 있어 0으로 둔다.
+base: yolo_baseline.yaml
+exp_name: 1026_dataA_yolov8s_v0_augsafe
+owner: dataA
+note: 상하·좌우 뒤집기, 색상(hue) 고정, 채도·명도·크기만 변화 (D3)
+yolo_args:
+  fliplr: 0.5
+  flipud: 0.5
+  degrees: 0.0
+  hsv_h: 0.0       # 알약 색은 구분 단서라 바꾸지 않음
+  hsv_s: 0.4
+  hsv_v: 0.3
+  scale: 0.3
+  translate: 0.1
+  mosaic: 1.0
+  close_mosaic: 10
+  plots: true      # outputs/<실험>/yolo_run/train_batch*.jpg 로 증강 결과 확인 (커밋 금지)
