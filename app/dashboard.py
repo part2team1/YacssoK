@@ -44,7 +44,7 @@ def build_dashboard(config_path):
                 korean_info(None),
                 gr.update(visible=False),
             )
-        drawn, table, message, _ = engine.recognize(image, 0.25)
+        drawn, table, message, _ = engine.recognize(image, 0.25, create_csv=False)
         if table.empty:
             no_pills = "알약을 찾지 못했습니다" in message
             text = (

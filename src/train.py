@@ -14,6 +14,7 @@ from src.dataset import PillDataset, load_records, load_split
 from src.interfaces import OUTPUT_DIR, Target
 from src.metrics import compute_map
 from src.models import build_model
+from src.provenance import checkpoint_signature, evaluation_signature, experiment_signature
 from src.utils import (
     load_class_map,
     predictions_to_json,
@@ -46,6 +47,7 @@ def evaluate(model, cfg: dict) -> tuple[dict, list]:
 
 
 def run(cfg: dict) -> dict:
+    input_signature = experiment_signature(cfg)
     set_seed(cfg.get("seed", 42))
     exp_name = cfg["exp_name"]
     out_dir = OUTPUT_DIR / exp_name
@@ -61,6 +63,8 @@ def run(cfg: dict) -> dict:
 
     model.load(weights)
     metrics, preds = evaluate(model, cfg)
+    if experiment_signature(cfg) != input_signature:
+        raise RuntimeError("학습 중 설정·데이터·코드가 변경되어 완료 점수를 저장하지 않습니다.")
     save_json(predictions_to_json(preds), out_dir / "preds_val.json")
 
     summary = {
@@ -68,7 +72,7 @@ def run(cfg: dict) -> dict:
         "owner": cfg.get("owner", ""),
         "model": f"yolo:{cfg['model']['weights']}"
         if cfg["model"]["family"] == "yolo"
-        else f"rcnn:{cfg['model']['arch']}",
+        else f"{cfg['model']['family']}:{cfg['model'].get('arch', cfg['model'].get('detector_exp', ''))}",
         "data_version": cfg["data"]["version"],
         "augment": (cfg.get("augment") or {}).get("name", "none"),
         "epochs": cfg["train"]["epochs"],
@@ -76,6 +80,11 @@ def run(cfg: dict) -> dict:
         "train_min": train_min,
         "finished_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "note": cfg.get("note", ""),
+        "provenance": {
+            "experiment": input_signature,
+            "evaluation": evaluation_signature(cfg),
+            "weights": checkpoint_signature(cfg, out_dir / "best.pt"),
+        },
         **metrics,
     }
     save_json(summary, out_dir / "metrics.json")

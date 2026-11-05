@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import tempfile
 from pathlib import Path
 
@@ -85,7 +86,7 @@ def make_recognizer(exp_name: str):
 
 # ── 3. 화면 배치 ─────────────────────────────────────────────
 def build_app(exp_name: str) -> gr.Blocks:
-    cfg, recognize = make_recognizer(exp_name)
+    _, recognize = make_recognizer(exp_name)
 
     with gr.Blocks(title=TITLE) as app:
         gr.Markdown(f"## {TITLE}\n{DESCRIPTION}\n\n모델: `{exp_name}`")
@@ -102,10 +103,7 @@ def build_app(exp_name: str) -> gr.Blocks:
         gr.Markdown(NOTICE)
         btn.click(recognize, [inp, conf], [out_img, out_tbl])
 
-        test_dir = resolve_path(cfg["data"]["test_images"])
-        examples = sorted(test_dir.glob("*.png"))[:4] if test_dir.exists() else []
-        if examples:
-            gr.Examples([[str(p)] for p in examples], inputs=[inp], label="예시 사진")
+        # 대회 테스트 사진을 공유 앱의 예시 파일로 자동 노출하지 않는다.
     return app
 
 
@@ -115,7 +113,19 @@ def main() -> None:
     ap.add_argument("--share", action="store_true", help="외부 공유 링크 생성 (발표용, 72시간)")
     ap.add_argument("--port", type=int, default=7860)
     args = ap.parse_args()
-    build_app(args.exp).launch(server_port=args.port, share=args.share, theme=THEME, css=CSS)
+    auth = share_credentials() if args.share else None
+    build_app(args.exp).launch(
+        server_port=args.port, share=args.share, auth=auth, theme=THEME, css=CSS
+    )
+
+
+def share_credentials():
+    """기존 공유 실행법에도 포털과 같은 필수 인증을 적용한다."""
+    user = os.environ.get("PILL_USERNAME", "")
+    password = os.environ.get("PILL_PASSWORD", "")
+    if not user.strip() or not password.strip():
+        raise ValueError("--share requires PILL_USERNAME and PILL_PASSWORD")
+    return user, password
 
 
 if __name__ == "__main__":
