@@ -1,0 +1,9 @@
+# 검증 채점 전용: v3allc 계열 모델(클래스 맵 v3allc)을 v1 검증셋으로 채점한다.
+# v3allc/v3allcp의 val.txt는 v1 val을 그대로 복사한 것이라 점수가 같다.
+# AI Hub·합성 데이터가 없는 PC에서도 채점·OCR 실험을 할 수 있게 하려는 설정.
+# 사용: uv run python scripts/evaluate.py --exp <실험> --val-config configs/val_v1_v3allc.yaml
+data:
+  train_images: data/raw/train_images
+  train_annotations: data/annotations/v1.json
+  class_map: data/class_map_v3allc.json
+  version: v1
