@@ -1,0 +1,21 @@
+# pegstar 추가 데이터 실험 (YOLO26m): 1위 조합에서 하나씩 빼기 + D11 OCR
+# matrix_pegstar.yaml과 같은 prefix라 base·v2c_rfs01 결과를 그대로 이어서 쓴다
+#   uv run python scripts/run_matrix.py --plan configs/matrix_pegstar_next.yaml --runs base clean_rfs01 copypaste_rfs01
+#   uv run python scripts/run_matrix.py --plan configs/matrix_pegstar_next.yaml --runs base v2c_rfs01_ocr
+prefix: 1102_pegstar
+
+models:
+  yolo26m: configs/yolo_m_26m.yaml
+
+bundles:
+  D1: [data.repeat_threshold=0.1]
+  D2: [data.version=v2, data.train_images=data/synth/v2/images, data.train_annotations=data/annotations/v2.json]
+  D5: [data.version=v1, data.train_annotations=data/annotations/v1.json]
+  V2C: [data.version=v2c, data.train_images=data/synth/v2c/images, data.train_annotations=data/annotations/v2c.json]
+
+runs:
+  base: []
+  v2c_rfs01: [V2C, D1]           # 1위 (이미 학습됨 → 건너뜀)
+  clean_rfs01: [D5, D1]          # 정제 + 재표본화 (합성 뺌)
+  copypaste_rfs01: [D2, D1]      # 합성 + 재표본화 (정제 뺌)
+  v2c_rfs01_ocr: {ocr: v2c_rfs01}  # D11 각인 OCR 재분류 (학습 없음)
