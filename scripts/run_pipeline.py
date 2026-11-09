@@ -38,6 +38,7 @@ from datetime import datetime
 import yaml
 
 from src.interfaces import OUTPUT_DIR, PROJECT_ROOT
+from src.provenance import checkpoint_signature, evaluation_signature, experiment_signature
 from src.utils import apply_overrides, load_config, load_json, resolve_path
 
 STAGES = ["data_exp", "combo", "tune", "ocr", "plot", "submit", "report"]
@@ -56,6 +57,12 @@ def sh(cmd: list[str], log: list[str]) -> bool:
 def metric(exp: str, key: str = "map"):
     p = OUTPUT_DIR / exp / "metrics.json"
     return load_json(p).get(key) if p.exists() else None
+
+
+def selection_result(exp: str) -> dict:
+    folder = OUTPUT_DIR / exp
+    path = folder / "selection_metrics.json"
+    return load_json(path if path.exists() else folder / "metrics.json")
 
 
 def run_items(plan: dict, run: str) -> list[str]:
@@ -83,6 +90,48 @@ def changes_classes(plan: dict, run: str) -> bool:
     return any(i.startswith("data.class_map=") for i in run_items(plan, run))
 
 
+def comparable_leaderboard(experiments: list[tuple[str, str, str]]) -> list[tuple[float, str, str]]:
+    """정답·사진·번호표·IoU가 일치한다고 기록된 점수만 자동 순위에 사용한다.
+
+    과거 실험은 evaluate.py --val-config <공통설정> --for-selection으로
+    다시 평가할 수 있다. 학습이나 과거 metrics.json 덮어쓰기는 필요하지 않다.
+    """
+    rows, keys = [], set()
+    for exp, model, run in experiments:
+        folder = OUTPUT_DIR / exp
+        path = folder / "selection_metrics.json"
+        if not path.exists():
+            path = folder / "metrics.json"
+        if not path.exists():
+            continue
+        result = load_json(path)
+        if result.get("map") is None:
+            continue
+        if not math.isfinite(float(result["map"])):
+            raise ValueError(f"{exp}: 유효한 숫자가 아닌 검증 점수입니다.")
+        provenance = result.get("provenance", {})
+        key = provenance.get("evaluation")
+        weights = folder / "best.pt"
+        cfg = load_config(folder / "config.yaml")
+        if (
+            not key
+            or not weights.is_file()
+            or provenance.get("weights") != checkpoint_signature(cfg, weights)
+        ):
+            raise ValueError(
+                f"{exp}: 검증 입력 또는 가중치 지문이 없습니다/달라졌습니다. "
+                "evaluate.py --val-config <공통설정> --for-selection으로 다시 평가하세요."
+            )
+        keys.add(key)
+        rows.append((float(result["map"]), model, run))
+    if len(keys) > 1:
+        raise ValueError(
+            "서로 다른 검증 사진·정답·클래스 번호·IoU의 점수로 1등을 정할 수 없습니다. "
+            "모든 후보를 같은 --val-config로 --for-selection 평가한 뒤 다시 실행하세요."
+        )
+    return sorted(rows, reverse=True)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan", default="configs/matrix_data.yaml", help="모델·데이터 실험 계획 파일")
@@ -96,6 +145,7 @@ def main() -> None:
     ap.add_argument("--tune-iterations", type=int, default=20, help="하이퍼파라미터 시도 횟수")
     ap.add_argument("--tune-epochs", type=int, default=15, help="시도 한 번의 epoch")
     ap.add_argument("--demo", action="store_true", help="마지막에 웹 데모 실행 (Ctrl+C로 종료)")
+    ap.add_argument("--selection-config", help="모든 후보를 다시 평가할 공통 검증 data 설정")
     args = ap.parse_args()
 
     plan = load_config(args.plan)
@@ -130,16 +180,23 @@ def main() -> None:
 
     def gains() -> dict[str, dict[str, float]]:
         """실험 → {모델: 기준 대비 변화}. v1처럼 검증 정답이 바뀐 실험은 다시 채점한 기준과 비교."""
+        validate_plan_results()
         out = {}
         for run in plan["runs"]:
             if run == "base":
                 continue
             row = {}
             for m in models:
-                v, b = metric(name(m, run)), metric(name(m, "base"))
-                rescored = state.get("rescored", {}).get(f"{m}:{run}")
-                if v is not None and b is not None:
-                    row[m] = v - (rescored if rescored is not None else b)
+                try:
+                    scored = comparable_leaderboard(
+                        [(name(m, run), m, run), (name(m, "base"), m, "base")]
+                    )
+                except ValueError as error:
+                    print(f"[비교 보류] {error}")
+                    continue
+                values = {r: score for score, _, r in scored}
+                if run in values and "base" in values:
+                    row[m] = values[run] - values["base"]
             out[run] = row
         return out
 
@@ -183,6 +240,7 @@ def main() -> None:
                     else:
                         state.setdefault("rescored", {})[f"{m}:{run}"] = score
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1), "utf-8")
+    selection_scores()
 
     # 2) 결합: 절반 이상 모델에서 +min_gain 이상인 실험만. 데이터 버전은 하나만 (가장 좋은 것)
     #    실험마다 따로 판정한다. 그래서 계획 파일에 aihub_rfs [D6, D1]·aihub_cp_rfs [D6P, D1] 같은
@@ -228,20 +286,31 @@ def main() -> None:
         plan["runs"]["combo"] = state["combo"]["bundles"]
 
     def leaderboard() -> list[tuple[float, str, str]]:
-        rows = [(metric(name(m, r)), m, r) for m in models for r in plan["runs"]]
-        return sorted([x for x in rows if x[0] is not None], reverse=True)
+        try:
+            validate_plan_results()
+            selection_scores()
+            return comparable_leaderboard(
+                [(name(m, r), m, r) for m in models for r in plan["runs"]]
+            )
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
 
     # 3) 하이퍼파라미터 탐색: 1등 (모델, 실험) 설정으로 tune → 찾은 값으로 다시 학습
     if "tune" in args.stages and leaderboard():
-        _, bm, br = next(x for x in leaderboard() if not x[2].startswith("tuned"))
+        untuned = [x for x in leaderboard() if not x[2].startswith("tuned")]
+        if not untuned:
+            raise SystemExit("튜닝할 기준 실험이 없습니다. 원본 실험 결과를 확인하세요.")
+        _, bm, br = untuned[0]
         items = run_items(plan, br)
         cfg_path = plan["models"][bm]
-        sh(
+        exported = sh(
             ["scripts/export_yolo.py", "--config", cfg_path, "--set", *items]
             if items
             else ["scripts/export_yolo.py", "--config", cfg_path],
             log,
         )
+        if not exported:
+            raise SystemExit("튜닝용 데이터 내보내기에 실패했습니다.")
         tune_cmd = [
             "scripts/tune_yolo.py",
             "--config",
@@ -305,7 +374,14 @@ def main() -> None:
         if has_ocr:
             plan["runs"][f"{best_run}_ocr"] = {"ocr": best_run}
             matrix([f"{best_run}_ocr"], [best_model])
-            v = metric(name(best_model, f"{best_run}_ocr"))
+            selection_scores()
+            ocr_board = comparable_leaderboard(
+                [
+                    (best, best_model, best_run),
+                    (name(best_model, f"{best_run}_ocr"), best_model, f"{best_run}_ocr"),
+                ]
+            )
+            v = next((score for score, _, run in ocr_board if run.endswith("_ocr")), None)
             if v is not None and v > best_map:
                 best = name(best_model, f"{best_run}_ocr")
                 state["best"] = {
@@ -325,13 +401,19 @@ def main() -> None:
     # 5) 그래프
     if "plot" in args.stages:
         cmd = ["scripts/plot_matrix.py", "--plan", str(plan_path), "--models", *models]
-        sh(cmd + (["--epochs", str(args.epochs)] if args.epochs else []), log)
+        if not sh(cmd + (["--epochs", str(args.epochs)] if args.epochs else []), log):
+            raise SystemExit("그래프 생성이 실패했습니다. 후속 단계를 중단합니다.")
 
     # 6) 제출 파일
     sub = PROJECT_ROOT / "submissions" / f"{best}.csv"
     if "submit" in args.stages:
-        sh(["scripts/make_submission.py", "--exp", best], log)
-        sh(["scripts/evaluate.py", "--exp", best, "--class-metrics"], log)
+        if not sh(["scripts/make_submission.py", "--exp", best], log):
+            raise SystemExit("제출 CSV 생성이 실패했습니다.")
+        eval_cmd = ["scripts/evaluate.py", "--exp", best, "--class-metrics"]
+        if args.selection_config:
+            eval_cmd += ["--val-config", args.selection_config, "--for-selection"]
+        if not sh(eval_cmd, log):
+            raise SystemExit("선택 모델의 상세 평가가 실패했습니다.")
 
     # 7) 보고서
     if "report" in args.stages:
@@ -349,7 +431,7 @@ def main() -> None:
 
 
 def write_report(out_dir, plan, state, models, name, sub, log, args) -> None:
-    """한 페이지 HTML 보고서. 그림은 plot_matrix 결과를 넣고, 표는 metrics.json에서 만든다."""
+    """최종 선택에 쓴 점수와 같은 평가 결과로 표·보조 지표를 만든다."""
     best = state["best"]
     tag = f"{plan['prefix']}{f'_e{args.epochs}' if args.epochs else ''}"
     fig_dir = OUTPUT_DIR / f"compare_{tag}"
@@ -364,12 +446,26 @@ def write_report(out_dir, plan, state, models, name, sub, log, args) -> None:
     for r in plan["runs"]:
         cells = []
         for m in models:
-            v = metric(name(m, r))
-            b = metric(name(m, "base"))
+            folder = OUTPUT_DIR / name(m, r)
+            if not (folder / "metrics.json").exists():
+                cells.append("<td>-</td>")
+                continue
+            result = selection_result(name(m, r))
+            base_folder = OUTPUT_DIR / name(m, "base")
+            base_result = (
+                selection_result(name(m, "base")) if (base_folder / "metrics.json").exists() else {}
+            )
+            v, b = result.get("map"), base_result.get("map")
             if v is None:
                 cells.append("<td>-</td>")
                 continue
-            d = "" if r == "base" or b is None else f" <small>({v - b:+.4f})</small>"
+            exam = result.get("provenance", {}).get("evaluation")
+            same_exam = bool(exam) and exam == base_result.get("provenance", {}).get("evaluation")
+            d = (
+                ""
+                if r == "base" or b is None or not same_exam
+                else f" <small>({v - b:+.4f})</small>"
+            )
             mark = " class='best'" if name(m, r) == best["exp"] else ""
             cells.append(f"<td{mark}>{v:.4f}{d}</td>")
         spec = plan["runs"][r]
@@ -380,13 +476,19 @@ def write_report(out_dir, plan, state, models, name, sub, log, args) -> None:
             f"<tr><th>{html.escape(r)}</th><td>{html.escape(label)}</td>{''.join(cells)}</tr>"
         )
     head = "".join(f"<th>{html.escape(m)}</th>" for m in models)
-    m_best = load_json(OUTPUT_DIR / best["exp"] / "metrics.json")
+    m_best = selection_result(best["exp"])
+    training = load_json(OUTPUT_DIR / best["exp"] / "metrics.json")
+    rescored = (OUTPUT_DIR / best["exp"] / "selection_metrics.json").exists()
+
+    def score_text(key):
+        value = m_best.get(key)
+        return "미측정" if value is None else f"{value:.4f}"
+
     combo = state.get("combo", {})
     tuned = state.get("tuned")
-    ev = sorted((OUTPUT_DIR / best["exp"]).glob("eval_*.json"))
     class_rows = ""
-    if ev:
-        e = load_json(ev[-1])
+    if m_best:
+        e = m_best
         if "classes" in e:
             cfg = load_config(OUTPUT_DIR / best["exp"] / "config.yaml")
             from src.utils import load_class_map
@@ -410,8 +512,8 @@ def write_report(out_dir, plan, state, models, name, sub, log, args) -> None:
         f"모델 {len(models)}개 · 지표 mAP@[0.75:0.95] (검증셋)</p>",
         f"<h2>결론</h2><p><b>최종 1등: <code>{html.escape(best['exp'])}</code></b> "
         f"(모델 {html.escape(best['model'])}, 실험 {html.escape(best['run'])}) — map "
-        f"<b>{best['map']:.4f}</b>, map_75 {m_best.get('map_75', 0):.4f}, "
-        f"재현율 mar_100 {m_best.get('mar_100', 0):.4f}, 학습 {m_best.get('train_min', '-')}분.</p>",
+        f"<b>{best['map']:.4f}</b>, map_75 {score_text('map_75')}, "
+        f"재현율 mar_100 {score_text('mar_100')}, 학습 {training.get('train_min', '-')}분.</p>",
         f"<p>결합 실험에 넣은 실험: <b>{html.escape(', '.join(combo.get('runs', [])) or '없음')}</b> "
         f"(기준: 모델의 {args.min_share:.0%} 이상에서 +{args.min_gain} 이상, 데이터 버전은 가장 좋은 하나). "
         + (
@@ -422,12 +524,14 @@ def write_report(out_dir, plan, state, models, name, sub, log, args) -> None:
         )
         + "</p>",
         f"<h2>모델 × 실험 점수</h2><table><tr><th>실험</th><th>묶음</th>{head}</tr>{''.join(rows)}</table>"
-        "<p>괄호 = 같은 모델 base 대비. 초록 칸 = 최종 1등. 정제(v1) 실험은 검증 정답이 바뀌므로 "
-        "결합 판단에는 v1 정답으로 다시 채점한 base와 비교했다.</p>",
+        "<p>괄호 = 같은 검증 사진·정답·번호표·IoU로 채점한 같은 모델 base 대비. "
+        "초록 칸 = 최종 1등. 선택용 재평가 파일이 있으면 그 점수를 사용한다.</p>",
         "<h2>그래프</h2>",
-        img(fig_dir / "scores.png"),
-        img(fig_dir / "metrics.png"),
-        *[img(fig_dir / f"curves_{m}.png") for m in models],
+        img(fig_dir / "scores.png") if not rescored else "",
+        img(fig_dir / "metrics.png")
+        if not rescored
+        else "<p>이전 원점수 그래프는 공통 재평가 점수와 섞지 않기 위해 제외했다.</p>",
+        *([img(fig_dir / f"curves_{m}.png") for m in models] if not rescored else []),
         class_rows,
     ]
     if tuned:

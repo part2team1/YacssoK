@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>약속 · 로그인</title>
+  <style nonce="__NONCE__">
+    *{box-sizing:border-box}body{margin:0;background:#fffdf8;color:#302d26;font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+    main{max-width:520px;margin:24px auto;padding:24px;background:#fffdf8;border:0;border-radius:22px}
+    .brand{display:flex;align-items:center;gap:9px;font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:36px}
+    .logo{position:relative;width:38px;height:32px;overflow:hidden;background:white;border-radius:7px}.logo img{position:absolute;width:88px;max-width:none;left:-24px;top:-6px}
+    h1{font-size:32px;line-height:1.35;letter-spacing:-1px;margin:0 0 12px}p{font-size:19px;line-height:1.65;margin:0 0 26px;color:#655f53}
+    fieldset{border:0;padding:0;margin:0 0 22px;min-width:0}legend,.field-label{font-size:19px;font-weight:700;margin-bottom:10px;display:block}
+    .modes{display:grid;grid-template-columns:1fr;gap:10px}.mode{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1.5px solid #ded5bd;border-radius:14px;cursor:pointer;min-height:90px}.mode:has(input:checked){background:#f6edce;border-color:#997a2b}.mode input{width:22px;height:22px;flex-shrink:0;margin:3px 0;accent-color:#745b1b}.mode strong{display:block;font-size:21px;margin-bottom:5px}.mode small{display:block;font-size:17px;line-height:1.5;color:#655f53}
+    .field{margin-bottom:20px}.field input{width:100%;height:58px;border:1.5px solid #b7a987;border-radius:12px;padding:12px 14px;font:inherit;font-size:20px;color:#302d26;background:#fff}
+    button{width:100%;min-height:62px;border:1px solid #e4be4d;border-radius:14px;background:#f1cf64;color:#302b1c;font:inherit;font-size:22px;font-weight:750;cursor:pointer;margin-top:4px}button:disabled{opacity:.65;cursor:wait}
+    input:focus-visible,button:focus-visible{outline:3px solid #805c05;outline-offset:3px}.mode:focus-within{outline:3px solid #805c05;outline-offset:3px}
+    #login-error{padding:12px 14px;border-radius:10px;background:#fff2e2;color:#754110;font-size:18px;line-height:1.6;margin:0 0 16px}#login-error[hidden]{display:none}
+    @media(max-width:600px){main{margin:0 auto;padding:24px 20px}.brand{margin-bottom:28px}h1{font-size:30px}.mode{padding:14px}p{margin-bottom:24px}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand"><div class="logo"><img src="__LOGO_DATA__" alt=""></div>약속</div>
+  <h1>어떤 화면을<br>사용하시겠어요?</h1>
+  <p>화면을 고른 뒤 로그인해 주세요.</p>
+  <form id="portal-login" action="/login" method="post">
+    <fieldset><legend>어떤 화면을 사용하시겠어요?</legend>
+      <div class="modes">
+        <label class="mode"><input type="radio" name="view" value="demo" checked><span><strong>앱 데모</strong><small>사진으로 알약을 확인해요</small></span></label>
+        <label class="mode"><input type="radio" name="view" value="test"><span><strong>테스트용</strong><small>인식 결과와 모델을 검토해요</small></span></label>
+      </div>
+    </fieldset>
+    <div class="field"><label class="field-label" for="username">계정</label><input id="username" name="username" type="text" autocomplete="username" required autocapitalize="none" spellcheck="false"></div>
+    <div class="field"><label class="field-label" for="password">비밀번호</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+    <p id="login-error" role="alert" hidden></p>
+    <button id="login-submit" type="submit">앱 데모로 로그인</button>
+  </form>
+  <noscript>로그인하려면 브라우저의 자바스크립트를 켜주세요.</noscript>
+</main>
+<script nonce="__NONCE__">
+  const form = document.querySelector('#portal-login');
+  const submit = document.querySelector('#login-submit');
+  const error = document.querySelector('#login-error');
+  const initial = new URLSearchParams(location.search).get('view') === 'test' ? 'test' : 'demo';
+  form.querySelector('input[name="view"][value="' + initial + '"]').checked = true;
+  function updateLabel() {
+    submit.textContent = form.querySelector('input[name="view"]:checked').value === 'test' ? '테스트용으로 로그인' : '앱 데모로 로그인';
+  }
+  form.querySelectorAll('input[name="view"]').forEach(input => input.addEventListener('change', updateLabel));
+  updateLabel();
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const view = form.querySelector('input[name="view"]:checked').value === 'test' ? 'test' : 'demo';
+    error.hidden = true;
+    submit.disabled = true;
+    submit.textContent = '로그인 중…';
+    try {
+      const response = await fetch('/login', {
+        method: 'POST', credentials: 'same-origin',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({username: form.elements.username.value, password: form.elements.password.value})
+      });
+      if (!response.ok || !(await response.json()).success) {
+        error.textContent = '계정 또는 비밀번호를 확인해주세요.';
+        error.hidden = false;
+        return;
+      }
+      form.elements.password.value = '';
+      location.replace('/?view=' + view);
+    } catch {
+      error.textContent = '연결을 확인한 뒤 다시 시도해주세요.';
+      error.hidden = false;
+    } finally {
+      submit.disabled = false;
+      updateLabel();
+    }
+  });
+</script>
+</body>
+</html>

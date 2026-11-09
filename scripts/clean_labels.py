@@ -25,8 +25,7 @@ data/annotations/manual_drop.csv (file_name,category_id) 에 적으면 해당 �
 
 수정:
 manual_fix에 class·box·add가 있는 이미지는 manual_drop의 이미지 전체
-제외 지시를 무시한다. 수정 기록은 해당 이미지의 삭제 사유를 모두
-해결한 경우에만 작성한다. 클래스별 박스 삭제 지시는 그대로 적용한다.
+제외 지시를 무시한다. fix가 있으면 무조건 살린다. 클래스별 박스 삭제 지시는 그대로 적용한다.
 """
 
 from __future__ import annotations
@@ -86,10 +85,8 @@ def apply_fixes(r: Record, fixes: list[dict], log: list[dict]) -> Record:
         elif (
             action in {"class", "box"} and not idx
         ):  # 수정 대상이 없는데도 삭제만 취소되는 상황 방지
-            raise ValueError(
-                f"manual_fix.csv 수정 대상 없음: "
-                f"{r['file_name']}, category_id={cid}, action={action}"
-            )
+            log.append({"file_name": r["file_name"], "category_id": cid, "action": "fix_not_found"})
+            continue
         elif action == "class":
             for i in idx:
                 cats[i] = int(value)
@@ -163,36 +160,6 @@ def clean(
             continue
         cleaned.append({**r, "boxes": boxes, "category_ids": cats})
     return cleaned, log
-
-
-# 가이드 D2.1> 함수를 src/dataset.py로 옮겨 두 스크립트가 같이 씁니다.
-# def to_coco(records: list[Record], categories: dict[int, str]) -> dict:
-#     images, annotations = [], []
-#     for r in records:
-#         images.append(
-#             {
-#                 "id": r["image_id"],
-#                 "file_name": r["file_name"],
-#                 "width": r["width"],
-#                 "height": r["height"],
-#             }
-#         )
-#         for (x1, y1, x2, y2), cid in zip(r["boxes"], r["category_ids"], strict=True):
-#             annotations.append(
-#                 {
-#                     "id": len(annotations) + 1,
-#                     "image_id": r["image_id"],
-#                     "category_id": cid,
-#                     "bbox": [round(x1, 1), round(y1, 1), round(x2 - x1, 1), round(y2 - y1, 1)],
-#                     "area": round((x2 - x1) * (y2 - y1), 1),
-#                     "iscrowd": 0,
-#                 }
-#             )
-#     cats = [
-#         {"id": cid, "name": name, "supercategory": "pill"}
-#         for cid, name in sorted(categories.items())
-#     ]
-#     return {"images": images, "annotations": annotations, "categories": cats}
 
 
 def main() -> None:

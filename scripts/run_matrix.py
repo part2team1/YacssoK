@@ -29,6 +29,7 @@ import subprocess
 import sys
 
 from src.interfaces import OUTPUT_DIR
+from src.provenance import experiment_signature
 from src.utils import apply_overrides, load_config, load_json, resolve_path
 
 PY = [sys.executable]
@@ -62,6 +63,26 @@ def _done(exp: str) -> bool:
 def _map(exp: str):
     path = OUTPUT_DIR / exp / "metrics.json"
     return load_json(path).get("map") if path.exists() else None
+
+
+def completed_for_config(exp: str, cfg: dict) -> bool:
+    """이름만 같은 과거 결과를 새 계획의 결과로 재사용하지 않는다."""
+    path = OUTPUT_DIR / exp / "metrics.json"
+    if not path.exists():
+        if any((path.parent / name).exists() for name in ("config.yaml", "best.pt")):
+            raise ValueError(f"[{exp}] 미완료 결과가 있습니다. 새 이름 또는 --force를 선택하세요.")
+        return False
+    if load_json(path).get("map") is None:
+        raise ValueError(
+            f"[{exp}] 점수가 없는 결과 파일이 있습니다. 새 이름 또는 --force를 선택하세요."
+        )
+    saved = load_json(path).get("provenance", {}).get("experiment")
+    if not saved or saved != experiment_signature(cfg):
+        raise ValueError(
+            f"[{exp}] 이전 결과의 설정·입력 지문이 없거나 현재와 다릅니다. "
+            "새 실험 이름을 쓰거나 --force로 명시적으로 다시 학습하세요."
+        )
+    return True
 
 
 def main() -> None:
@@ -120,6 +141,18 @@ def main() -> None:
                 print(f"[{exp}] 이미 있음 → 건너뜀")
                 continue
             cfg = apply_overrides(load_config(model_cfg), items)
+            cfg["exp_name"] = exp
+            if args.epochs is not None:
+                cfg["train"]["epochs"] = args.epochs
+            if not args.force:
+                try:
+                    if completed_for_config(exp, cfg):
+                        print(f"[{exp}] 설정·입력 일치 → 건너뜀")
+                        continue
+                except ValueError as error:
+                    print(error)
+                    failed.append(exp)
+                    continue
             ann = resolve_path(cfg["data"]["train_annotations"])
             if not ann.exists():
                 print(f"[{exp}] 데이터 없음 ({ann}) → 건너뜀. 데이터 버전을 먼저 만드세요.")
@@ -129,7 +162,7 @@ def main() -> None:
             set_args = ["--set", *items] if items else []
             if family == "yolo":
                 d = cfg["data"]
-                key = (d["version"], d.get("repeat_threshold"), d.get("class_map"))
+                key = tuple(sorted((k, repr(v)) for k, v in d.items()))
                 if key not in exported:
                     ok = _call(
                         PY

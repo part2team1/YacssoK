@@ -1,0 +1,23 @@
+{
+  "evaluation_name": "v0_same47_manual_fix_20261102",
+  "validation_images": 47,
+  "boxes_before": 153,
+  "boxes_after": 157,
+  "scope": "Same v0 validation images; manual_fix only. No manual_drop or automatic cleaning. Not full v1. No retraining/new inference.",
+  "metric": "mAP@[0.75:0.95]",
+  "runs": [
+    {
+      "condition": "D1",
+      "before": 0.96903,
+      "after": 0.98341
+    },
+    {
+      "condition": "D1+augmentation",
+      "before": 0.93817,
+      "after": 0.95234
+    }
+  ],
+  "wandb_url": "https://forge.coreweave.com/wandb/YacssoK/soonwoo_yolov8m",
+  "recorded_on": "2026-11-02",
+  "manual_fix_sha256": "4723a458d358b9e350ee512f743551ac29a5ed90f91d4e0806aaa3e7f99b9e44"
+}

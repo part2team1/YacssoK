@@ -41,12 +41,42 @@ COLUMNS = [
 ]
 
 
+def submission_configs(experiments: list[str]) -> list[dict]:
+    """모델 내부 라벨 번호가 같은 약을 뜻할 때만 앙상블을 허용한다."""
+    configs = [load_config(OUTPUT_DIR / exp / "config.yaml") for exp in experiments]
+    mappings = [label_to_category(load_class_map(cfg["data"]["class_map"])) for cfg in configs]
+    if any(mapping != mappings[0] for mapping in mappings[1:]):
+        raise ValueError(
+            "서로 다른 클래스 번호표의 모델은 합칠 수 없습니다. "
+            "같은 label_idx→category_id를 쓰는 실험만 선택하세요."
+        )
+    return configs
+
+
+def validate_predictions(pred_lists, valid_labels) -> None:
+    """캐시가 다른 사진이나 잘못된 라벨을 포함하면 CSV를 만들기 전에 중단한다."""
+    reference = None
+    for preds in pred_lists:
+        images = [(p["file_name"], p["image_id"]) for p in preds]
+        if len({name for name, _ in images}) != len(images):
+            raise ValueError("예측 목록에 같은 사진이 여러 번 있습니다.")
+        if reference is not None and set(images) != reference:
+            raise ValueError("앙상블의 테스트 사진 목록 또는 image_id가 다릅니다.")
+        reference = set(images)
+        for pred in preds:
+            if any(int(label) not in valid_labels for label in pred["labels"]):
+                raise ValueError("예측 라벨이 실험의 클래스 번호표에 없습니다.")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--exp", nargs="+", required=True, help="실험 이름 (여러 개면 앙상블)")
     ap.add_argument("--reuse", action="store_true", help="이미 있는 preds_test.json 재사용")
     args = ap.parse_args()
 
+    configs = submission_configs(args.exp)  # 추론·출력보다 먼저 검사한다.
+    cfg = configs[0]
+    l2c = label_to_category(load_class_map(cfg["data"]["class_map"]))
     pred_lists = []
     for exp in args.exp:
         path = OUTPUT_DIR / exp / "preds_test.json"
@@ -54,10 +84,9 @@ def main() -> None:
             pred_lists.append(predictions_from_json(load_json(path)))
         else:
             pred_lists.append(predict_test(exp))
+    validate_predictions(pred_lists, l2c)
     preds = pred_lists[0] if len(pred_lists) == 1 else ensemble_nms(pred_lists)
 
-    cfg = load_config(OUTPUT_DIR / args.exp[0] / "config.yaml")
-    l2c = label_to_category(load_class_map(cfg["data"]["class_map"]))
     conf_thr = cfg.get("submission", {}).get("conf_thr", 0.0)
 
     rows = []
