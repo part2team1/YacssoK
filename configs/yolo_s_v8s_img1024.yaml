@@ -1,0 +1,6 @@
+base: yolo_s_v8s.yaml
+exp_name: 1029_pegstar_yolov8s_v0_img1024
+owner: pegstar
+note: "YOLOv8s, img 1024 (각인 글자 판독으로 알약 이름 구분 개선 기대). 나머지 yolo_s_v8s와 같음"
+data:
+  img_size: 1024
