@@ -1,6 +1,6 @@
 """run_pipeline.py를 돌리기 전에 레포에 필요한 기능이 다 들어와 있는지 확인한다 (레포 폴더에서 실행).
 
-실행:  uv run python <이 파일 경로>
+실행:  uv run python scripts/check_pipeline_ready.py
 없음으로 나온 항목은 정답본 zip의 같은 파일과 VS Code에서 비교해 그 부분을 가져온다.
 """
 
@@ -24,6 +24,8 @@ CHECKS = [
     ("scripts/plot_matrix.py", "def load_curve", "결과 그래프"),
     ("scripts/run_pipeline.py", "def write_report", "전체 파이프라인"),
     ("configs/matrix_data.yaml", "copypaste_ocr", "계획 파일 (D11 포함 판)"),
+    ("configs/matrix_data.yaml", "aihub_cp_rfs", "계획 파일 (D6 + D1·D2 결합 판)"),
+    ("configs/data_v3p.yaml", "v3p", "D6 + D2 데이터 설정"),
     ("configs/yolo_baseline.yaml", "yolov8s", "모델 yolov8s"),
     ("configs/yolo11s.yaml", "yolo11s", "모델 yolo11s (모델 가이드 M2)"),
     ("configs/yolo26s.yaml", "yolo26s", "모델 yolo26s (모델 가이드 M2)"),

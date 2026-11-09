@@ -1,6 +1,6 @@
 # 데이터 실험 적용 가이드 (모델팀용)
 
-Oct 28, 2026
+Oct 31, 2026 · @Doosung Bang
 
 ## 이 문서로 하는 일
 
@@ -18,52 +18,7 @@ Oct 28, 2026
 2. 점수는 대회 지표 mAP@\[0.75:0.95\](`metrics.json`의 `map`)로 비교하고, 기준보다 \*\*0.01 이상 오르면 “효과 있음”\*\*으로 봅니다.
 3. 실험 이름(`--exp-name`)은 매번 새로 붙입니다. 같은 이름이면 `outputs/`가 덮어써집니다.
 
-## 빠른 시작: 처음부터 끝까지 (이 순서대로)
-
-**develop 동기화 → 데이터 버전 만들기 → 준비 점검 → 1 epoch 동작 확인 → 본 실행 → 결과 확인** 순서입니다. 여기서는 실행 순서만 보여 주고, 각 단계의 자세한 내용은 아래 장들에 있습니다. **모두가 돌릴 필요는 없습니다.** GPU PC 한 대에서 한 사람이 돌리거나, 모델 담당자끼리 `--models`로 모델을 나눠 돌립니다(사람마다 계획 파일을 복사해 `prefix`를 다르게).
-
-**▶ 터미널 (PowerShell·Bash 공통)** — 전체 순서
-
-```bash
-# 1) develop과 동기화 + 패키지 (데모·OCR은 쓸 때만)
-git switch <내이름>
-git fetch origin
-git merge origin/develop
-uv sync --extra demo                 # OCR(D11)까지 쓰려면 --extra ocr 추가 (develop에 D11이 들어온 뒤)
-
-# 2) 데이터 버전 만들기 (처음 한 번, 대회 데이터가 data/raw/ 에 있어야 함)
-uv run python scripts/export_yolo.py --config configs/base.yaml                          # v0 (기준)
-uv run python scripts/make_copy_paste.py --config configs/base.yaml --version v2          # v2 합성 (D2)
-uv run python scripts/clean_labels.py --config configs/base.yaml --version v1             # v1 정제 (D5·D10, manual_*.csv 반영)
-uv run python scripts/make_external.py --config configs/base.yaml --version v3 --classes known   # v3 (D6, AI Hub를 받은 경우만)
-
-# 3) 준비 점검: 필수 항목이 모두 OK인지 (OCR 2줄은 '없음'이어도 됨)
-uv run python scripts/check_pipeline_ready.py
-uv run --locked pytest -q
-
-# 4) 동작 확인: 모든 단계를 1 epoch으로 (점수는 0에 가까워도 정상). 끝에 "최종 1등"과 "보고서"가 나오면 통과
-uv run python scripts/run_pipeline.py --epochs 1 --tune-iterations 2 --tune-epochs 1
-
-# 5) 본 실행 (하루 이상 걸릴 수 있음). 멈추면 같은 명령을 다시 → 끝난 실험은 건너뜀
-uv run python scripts/run_pipeline.py --demo
-```
-
-| 단계 | 통과 기준 | 안 될 때 |
-| --- | --- | --- |
-| 1 동기화 | merge가 충돌 없이 끝남 | 충돌 파일을 Experimentation Lead와 해결 |
-| 2 데이터 | 각 명령 끝에 “저장: …” | 필요한 것만 만들어도 됨. 없는 버전의 실험은 5)에서 “데이터 없음”으로 건너뜀. v1은 `manual_drop.csv`·`manual_fix.csv`를 먼저 채운 뒤(데이터 가이드 D5·D10), v3는 「준비 ①」의 AI Hub 내려받기와 점검 후 |
-| 3 점검 | “모두 준비됨” 또는 OCR 2줄만 없음, `N passed` | “없음/부족” 줄의 파일을 정답본 zip과 비교해 가져옴 |
-| 4 동작 확인 | `최종 1등: …`, `보고서: outputs/pipeline_…_e1/report.html` | 오류 메시지와 함께 Experimentation Lead에게 |
-| 5 본 실행 | 같은 두 줄 + 데모가 http://127.0.0.1:7860 에서 열림 (끝내기 Ctrl+C) | `--stages plot report`로 그래프·보고서만 다시 만들 수 있음 |
-
-**6) 결과 확인과 다음 일**
-
-- `outputs/pipeline_<prefix>/report.html`을 브라우저로 열어 최종 1등과 그 근거(점수표·그래프)를 확인합니다. 대회 이미지가 없어 디스코드·PR에 공유해도 됩니다.
-- `submissions/<최종 1등>.csv`는 Experimentation Lead가 Kaggle에 제출합니다. 검증 점수 차이가 작으면 상위 2\~3개를 제출해 Public 점수로 고릅니다.
-- 사람 판단이 필요한 것(v3all 채택, D7 K-fold, D8 의사 라벨, 전체 데이터 최종 학습 P5)은 보고서를 보고 팀이 정합니다.
-- 커밋하지 않습니다: `outputs/`, `submissions/`, `data/` 아래 생성물. 커밋 전에는 `ruff check`·`ruff format`·`pytest`·`check_repo_policy.py`를 통과시킵니다.
-
-## 준비: 데이터 버전, 기준 모델, 실험 묶음
+# 준비: 데이터 버전, 기준 모델, 실험 묶음
 
 ### ① 데이터 버전 **만들기 **(처음 한 번, 각자 PC)
 
@@ -291,6 +246,7 @@ bundles:                       # 데이터 실험 묶음 = run_train.py --set �
   D6A: [data.version=v3all, data.train_images=data/external/v3all/images,
         data.train_annotations=data/annotations/v3all.json, data.class_map=data/class_map_v3all.json]
   D9: [yolo_args.mixup=0.1, yolo_args.scale=0.5]          # D3과 같이 쓴다 (runs의 augmixup)
+  D6P: [data.version=v3p, data.train_images=data/synth/v3p/images, data.train_annotations=data/annotations/v3p.json]  # D6 위에 D2
   V3CP: [data.version=v3cp, data.train_images=data/synth/v3cp/images, data.train_annotations=data/annotations/v3cp.json]
 
 runs:                          # 실험 이름: 묶음 목록 (뒤에 쓴 묶음의 같은 키가 이김)
@@ -300,7 +256,12 @@ runs:                          # 실험 이름: 묶음 목록 (뒤에 쓴 묶음
   augsafe: [D3]
   img1024: [D4]
   clean: [D5]                  # 검증 정답이 바뀜 → base를 --val-config로 다시 채점해 비교
-  aihub: [D6]
+  aihub: [D6]                  # D6 단독 (참고용)
+  # D6은 외부 사진의 클래스 불균형이 커서 단독으로는 효과가 잘 안 보인다 → D1·D2와 결합한 판도 같이 돌린다.
+  # 자동 결합(run_pipeline combo)은 아래 4개 중 가장 좋은 판 하나를 AI Hub 대표로 쓴다 (D6 단독 결과와 무관).
+  aihub_rfs: [D6, D1]          # D6 + D1 (드문 클래스 이미지 반복)
+  aihub_cp: [D6P]              # D6 + D2 (v3 위에 모자란 알약 합성, v3p 필요)
+  aihub_cp_rfs: [D6P, D1]      # D6 + D2 + D1
   augmixup: [D3, D9]
   # aihuball: [D6A]            # 팀 결정 후. 검증보다 Kaggle 점수로 판단
   # combo: [V3CP, D1, D3, D4]  # 단일 결과를 보고 효과 있던 것만 남겨 결합
@@ -442,7 +403,7 @@ uv run python scripts/plot_matrix.py --exps 1030_modelA_yolo11s_base 1030_modelA
 | 단계 | 하는 일 |
 | --- | --- |
 | 1 data\_exp | 모델마다 D0(base) + 계획 파일의 데이터 실험 학습. 정제(v1) 실험은 base를 v1 정답으로 다시 채점 |
-| 2 combo | 모델의 절반 이상에서 +0.01 이상인 실험을 모아 결합 실험 학습 (데이터 버전은 가장 좋은 하나, v3all 제외) |
+| 2 combo | 모델의 절반 이상에서 +0.01 이상인 실험을 모아 결합 실험 학습 (데이터 버전은 가장 좋은 하나, v3all 제외). 화면에 실험마다 통과·탈락이 나옴 |
 | 3 tune | 지금까지 1등 (모델, 실험)으로 하이퍼파라미터 탐색 → 찾은 값으로 다시 학습 (`tuned`) |
 | 4 ocr | 최종 1등 위에 D11 OCR 재분류. 점수가 오르면 최종 1등을 바꿈 (OCR 패키지 없으면 건너뜀) |
 | 5 plot | 모델 × 실험 그래프 (`outputs/compare_<prefix>/`) |
@@ -473,6 +434,23 @@ uv run python scripts/run_pipeline.py --stages plot report
 | `--min-gain` / `--min-share` | 0.01 / 0.5 | 결합에 넣을 기준: 모델의 50% 이상에서 +0.01 이상 |
 | `--tune-iterations` / `--tune-epochs` | 20 / 15 | 하이퍼파라미터 시도 횟수와 시도당 epoch. 늘릴수록 오래 걸림 |
 | `--stages` | 전부 | `data_exp combo tune ocr plot submit report` 중 고르기 |
+
+**자동 결합(combo) 조건과 D6(AI Hub)**
+
+| 규칙 | 내용 |
+| --- | --- |
+| 판정 단위 | `runs`의 실험 **하나하나**를 같은 모델의 `base`와 비교 (정제 v1은 다시 채점한 base와) |
+| 통과 | 모델의 `--min-share`(50%) 이상에서 +`--min-gain`(0.01) 이상, **그리고** 모델 평균 변화도 +0.01 이상 |
+| 제외 | `combo`·`tuned`, class\_map을 바꾸는 실험(v3all) |
+| 데이터 버전 | 통과한 데이터 실험(v1·v2·v3·v3p 등) 중 **평균 향상이 가장 큰 하나만** (버전 두 개를 동시에 쓸 수 없음) |
+| 학습 설정 | 통과한 D1·D3·D4·D9 등은 모두 더함 |
+| 결합 실행 | 고른 실험이 2개 이상일 때만. 1개면 그 실험이 그대로 후보 |
+
+**D6은 단독으로 판정하면 불리합니다.** AI Hub 사진은 흔한 알약에 몰려 있어, D6만으로는 드문 알약이 거의 늘지 않고 평균 점수 변화가 작습니다. 그래서 계획 파일에 **D6 + D1(`aihub_rfs`), D6 + D2(`aihub_cp`), D6 + D2 + D1(`aihub_cp_rfs`)** 판을 같이 넣어 두었습니다. 위 규칙은 실험마다 따로 판정하므로, D6 단독(`aihub`)이 탈락해도 결합 판이 통과하면 **그 판이 AI Hub 대표 데이터 버전으로 결합에 들어갑니다.** 예: `aihub` 탈락, `aihub_cp_rfs` 통과·데이터 1등이면 결합 = `[D6P, D1, (통과한 D3 등)]`. 반대로 결합 판까지 모두 v2(`copypaste`)보다 낮으면 AI Hub는 빠지는 것이 맞습니다.
+
+- `aihub_cp`·`aihub_cp_rfs`는 v3p가 필요합니다: v3를 만든 뒤 `make_copy_paste.py --config configs/yolo_v3_aihub.yaml --version v3p` (빠른 시작 2). 합성이 v3의 박스 수를 기준으로 **아직 모자란 알약만** 채우므로 AI Hub의 불균형을 보완합니다. 점검은 `review_labels.py --config configs/data_v3p.yaml --images synth --only-flagged`로 합니다(`configs/data_v3p.yaml`, 레포에 있음).
+- 판정 근거는 2단계 화면의 `통과/탈락 <실험> 평균 … 향상 모델 …%` 줄과 보고서의 “결합 실험에 넣은 실험”에서 확인합니다.
+- **실행 중에 계획 파일을 바꿔도 됩니다.** 같은 명령으로 다시 실행하면 끝난 실험은 건너뛰고 새 실험만 학습합니다. 결합 내용(`combo`)이나 1등이 바뀌면 예전 `combo`·`tuned` 결과를 쓰지 않고 다시 학습·탐색하며, 바뀌지 않았으면 하이퍼파라미터 탐색도 다시 하지 않습니다.
 
 **자동으로 하지 않는 것** (사람 판단 필요): 데이터 버전 만들기(「준비 ①」, 특히 v1 정제와 AI Hub), v3all 채택, D7 K-fold, D8 의사 라벨, 전체 데이터 최종 학습(P5), Kaggle 제출 자체. 데이터 버전이 없는 실험은 건너뛰고, 보고서의 “실행 기록”에 남습니다. 보고서에는 대회 이미지가 없어 팀에 공유해도 됩니다.
 
@@ -752,8 +730,10 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 4))
 for i, exp in enumerate(EXPS):
     df = pd.read_csv(OUTPUT_DIR / exp / "yolo_run" / "results.csv")
     df.columns = df.columns.str.strip()
-    train = df["train/box_loss"] + df["train/cls_loss"] + df["train/dfl_loss"]
-    val = df["val/box_loss"] + df["val/cls_loss"] + df["val/dfl_loss"]
+    # 모델마다 loss 종류가 다름 (YOLO26은 dfl_loss 없음) → 있는 *_loss 칸을 모두 더함
+    loss = [c for c in df.columns if c.endswith("_loss")]
+    train = df[[c for c in loss if c.startswith("train/")]].sum(axis=1)
+    val = df[[c for c in loss if c.startswith("val/")]].sum(axis=1)
     m = df["metrics/mAP50-95(B)"]
     c = f"C{i}"
     ax1.plot(df["epoch"], train, c, label=f"{exp} train")
@@ -965,3 +945,89 @@ yolo_args:
 | 최종 설정 파일, 내 계획 파일 configs/matrix\_<이름>.yaml, data/annotations/external\_drop.csv, 결합 데이터 설정(`configs/data_v3c.yaml` 등), 결합 버전의 `data/splits/<버전>/`와 `*_copy_paste.csv`·`*_external.csv` (데이터 담당) | `outputs/` 전부(가중치, 곡선, eval json), `data/` 이미지·`annotations/*.json`, `reports/*.html`, `train_batch*.jpg`, 점검용 `data/splits/v0_trainchk/`와 `configs/check_train.yaml` |
 
 점수가 오르지 않은 실험도 기록표에 남깁니다. “D1과 D2는 따로는 +0.02였지만 합치면 과적합됐다” 같은 결과가 보고서의 좋은 재료입니다.
+
+# 빠른 시작: 처음부터 끝까지 (데이터 증강 및 모델 실험 자동화)
+
+**develop 동기화 → 데이터 버전 만들기 → 준비 점검 → 1 epoch 동작 확인 → 본 실행 → 결과 확인** 순서입니다. 여기서는 실행 순서만 보여 주고, 각 단계의 자세한 내용은 아래 장들에 있습니다. **모두가 돌릴 필요는 없습니다.** GPU PC 한 대에서 한 사람이 돌리거나, 모델 담당자끼리 `--models`로 모델을 나눠 돌립니다(사람마다 계획 파일을 복사해 `prefix`를 다르게).
+
+**▶ 터미널 (PowerShell·Bash 공통)** — 전체 순서
+
+```bash
+# 1) develop과 동기화 + 패키지 (데모·OCR은 쓸 때만)
+git switch <내이름>
+git fetch origin
+git merge origin/develop
+uv sync --extra demo                 # OCR(D11)까지 쓰려면 --extra ocr 추가 (develop에 D11이 들어온 뒤)
+
+# 2) 데이터 버전 만들기 (처음 한 번, 대회 데이터가 data/raw/ 에 있어야 함)
+uv run python scripts/export_yolo.py --config configs/base.yaml                          # v0 (기준)
+uv run python scripts/make_copy_paste.py --config configs/base.yaml --version v2          # v2 합성 (D2)
+uv run python scripts/clean_labels.py --config configs/base.yaml --version v1             # v1 정제 (D5·D10, manual_*.csv 반영)
+uv run python scripts/make_external.py --config configs/base.yaml --version v3 --classes known   # v3 (D6, AI Hub를 받은 경우만)
+uv run python scripts/make_copy_paste.py --config configs/yolo_v3_aihub.yaml --version v3p  # v3p = v3 위에 합성 (D6+D2, 위 줄 다음에)
+
+# 3) 준비 점검: 필수 항목이 모두 OK인지 (OCR 2줄은 '없음'이어도 됨)
+uv run python scripts/check_pipeline_ready.py
+uv run --locked pytest -q
+
+# 4) 동작 확인: 모든 단계를 1 epoch으로 (점수는 0에 가까워도 정상). 끝에 "최종 1등"과 "보고서"가 나오면 통과
+uv run python scripts/run_pipeline.py --epochs 1 --tune-iterations 2 --tune-epochs 1
+
+# 5) 본 실행 (하루 이상 걸릴 수 있음). 멈추면 같은 명령을 다시 → 끝난 실험은 건너뜀
+uv run python scripts/run_pipeline.py --demo
+```
+
+| 단계 | 통과 기준 | 안 될 때 |
+| --- | --- | --- |
+| 1 동기화 | merge가 충돌 없이 끝남 | 충돌 파일을 Experimentation Lead와 해결 |
+| 2 데이터 | 각 명령 끝에 “저장: …” | 필요한 것만 만들어도 됨. 없는 버전의 실험은 5)에서 “데이터 없음”으로 건너뜀. v1은 `manual_drop.csv`·`manual_fix.csv`를 먼저 채운 뒤(데이터 가이드 D5·D10), v3는 「준비 ①」의 AI Hub 내려받기와 점검 후 |
+| 3 점검 | “모두 준비됨” 또는 OCR 2줄만 없음, `N passed` | “없음/부족” 줄의 파일을 정답본 zip과 비교해 가져옴 |
+| 4 동작 확인 | `최종 1등: …`, `보고서: outputs/pipeline_…_e1/report.html` | 오류 메시지와 함께 Experimentation Lead에게 |
+| 5 본 실행 | 같은 두 줄 + 데모가 http://127.0.0.1:7860 에서 열림 (끝내기 Ctrl+C) | `--stages plot report`로 그래프·보고서만 다시 만들 수 있음 |
+
+**6) 결과 확인과 다음 일**
+
+- `outputs/pipeline_<prefix>/report.html`을 브라우저로 열어 최종 1등과 그 근거(점수표·그래프)를 확인합니다. 대회 이미지가 없어 디스코드·PR에 공유해도 됩니다.
+- `submissions/<최종 1등>.csv`는 Experimentation Lead가 Kaggle에 제출합니다. 검증 점수 차이가 작으면 상위 2\~3개를 제출해 Public 점수로 고릅니다.
+- 사람 판단이 필요한 것(v3all 채택, D7 K-fold, D8 의사 라벨, 전체 데이터 최종 학습 P5)은 보고서를 보고 팀이 정합니다.
+- 커밋하지 않습니다: `outputs/`, `submissions/`, `data/` 아래 생성물. 커밋 전에는 `ruff check`·`ruff format`·`pytest`·`check_repo_policy.py`를 통과시킵니다.
+
+## 결과를 어디까지 믿을까: 한계와 제출 순서
+
+**`run_pipeline.py`의 최종 1등은 “이번에 시도한 조합 중 검증 점수가 가장 높은 것”입니다.** 가능한 모든 조합 중 최고는 아니고, 가이드의 단일 실험을 손으로 하지 않았어도 이 스크립트가 그 단계들을 대신합니다. `check_pipeline_ready.py`는 **코드만** 확인하므로, 데이터 버전(위 2)을 만들지 않으면 D2·D5·D6 실험은 건너뛰고 v0 실험(D1·D3·D4·D9)만 비교됩니다.
+
+| 한계 | 이유 | 보완 |
+| --- | --- | --- |
+| 판단 기준이 검증셋 47장 | 0.01 안팎 차이는 우연일 수 있음 | 보고서 점수표 상위 2\~3개를 모두 제출해 Public 점수로 결정 |
+| 시도 범위가 정해져 있음 | 모델 4개, 계획 파일의 실험, 결합 규칙(데이터 버전은 하나만), 튜닝 20회 | 아래 “더 개선하려면” |
+| v3all·D7·D8 제외 | 팀 판단이 필요해 자동으로 하지 않음 | 보고서를 보고 따로 실험 |
+| 최종 모델이 학습셋(185장)으로만 학습됨 | 검증셋 47장은 비교용으로 남겨 둠 | 고른 설정으로 전체 데이터 재학습(아래 ①) 후 제출하면 보통 더 오름 |
+
+**제출까지 권장 순서**
+
+1. 위 1)\~4): 동기화, 데이터 버전, 점검, 1 epoch 동작 확인
+2. `run_pipeline.py --demo` 본 실행
+3. `report.html`에서 1등과 근소한 차이의 상위 후보 확인
+4. 1등 CSV(`submissions/<실험>.csv`) 제출. 차이가 작으면 2\~3등도 `uv run python scripts/make_submission.py --exp <실험>`으로 만들어 제출하고 Public 점수로 고름
+5. (시간이 되면) 고른 설정으로 전체 데이터 재학습 후 최종 제출
+
+# 더 개선하려면: 추가로 시도해 볼 것
+
+**보고서를 본 뒤 기대 효과가 크고 비용이 작은 순서(①부터)로 해 봅니다.** 대부분 모델 가이드(v2)·데이터 가이드(v3)에 코드가 있고, develop에 아직 없는 것은 정답본 zip과 같은 파일을 비교해 가져옵니다.
+
+| # | 시도 | 기대 효과 | 방법 (관련 단계) | 비용 |
+| --- | --- | --- | --- | --- |
+| ① | 전체 데이터 재학습 | 학습 이미지 185 → 232장, 거의 항상 상승 | `make_folds.py`로 `v0_full` 분할 → `configs/yolo_full.yaml`의 base를 최종 설정으로 (모델 P5, 데이터 D7). 검증 점수는 의미 없으므로 Kaggle로만 확인 | 학습 1회 |
+| ② | 예측 설정 조정 | 재학습 없이 +α | `evaluate.py --exp <1등> --nms-iou 0.6`, `--conf 0.01` 등을 바꿔 가며 비교 → 좋은 값을 설정 `eval:`에 (모델 P1). YOLO26은 NMS가 없는 구조라 효과가 작을 수 있음 | 몇 분 |
+| ③ | TTA | 뒤집기·크기 변환 예측을 합쳐 박스 안정 | `evaluate.py --exp <1등> --tta`로 확인 후 `make_submission.py --exp <1등> --tta` (모델 P4) | 예측 시간 2\~3배 |
+| ④ | 시드·모델 앙상블 | 우연 오차가 줄고 보통 +0.01\~ | 같은 설정을 `--set seed=7`로 한 번 더 학습(모델 T4) 또는 보고서 상위 모델들을 `make_submission.py --exp A B --method wbf`(모델 P2). 같은 class\_map끼리만 | 학습 1회 + 예측 |
+| ⑤ | 데이터 버전 연결 | 정제·외부·합성 효과를 한 번에 | 자동 결합은 데이터 버전을 하나만 씁니다. 둘 이상이 효과 있었다면 「결합 실험 ①」의 v1 → v3c → v3cp를 만들고 계획 파일에 `V3CP` 실험 추가 | 데이터 생성 + 학습 |
+| ⑥ | 보고서 하위 10개 클래스 집중 | 클래스별 평균이라 낮은 클래스가 오르면 크게 오름 | 그 알약을 `make_copy_paste.py --min-boxes 20`으로 더 합성하거나 AI Hub `TL_3`\~ 더 받기. 어떤 알약과 헷갈리는지 `04_error_analysis.ipynb`에서 확인 | 데이터 + 학습 |
+| ⑦ | 더 큰 모델·해상도 | 작은 각인 구분 | `configs/yolo11m_1024.yaml`(모델 M5)을 계획 파일 `models`에 추가. GPU 메모리가 모자라면 batch 4 → 2 | 학습 4\~6배 |
+| ⑧ | 튜닝 더 길게 | 아직 찾지 못한 설정 | `run_pipeline.py --stages tune report --tune-iterations 50` (기본 20회) | 반나절\~하루 |
+| ⑨ | 학습 곡선 보고 에폭 조절 | 덜 배웠으면 큰 폭 상승 | 보고서 곡선에서 1등의 최고 epoch이 끝 근처면 `--set train.epochs=100`으로 재학습 (「과적합·과소적합 확인」) | 학습 2배 |
+| ⑩ | 2단계 분류기 | 모양·색이 비슷한 알약 구분 | `configs/two_stage.yaml`의 `detector_exp`를 1등으로 (모델 M4). ⑥에서 헷갈리는 쌍이 많을 때 | 분류기 학습 |
+| ⑪ | D11 OCR | 각인으로 이름 보정 | develop에 D11(데이터 가이드 v3)이 들어오면 파이프라인이 자동으로 포함 | 몇 분 |
+| ⑫ | v3all·의사 라벨 | 테스트에만 있는 알약, 데이터 양 | 팀 결정 후 `D6A`·`D8` 실험. 검증으로는 효과가 안 보여 Kaggle로 판단 | 데이터 + 학습 |
+
+어떤 것을 하든 **한 번에 하나씩** 바꾸고, 실험 기록표에 기준 대비 변화를 남깁니다. ①·③·④은 최종 모델이 정해진 뒤 마지막에 하고, ①을 한 모델은 검증 점수로 비교할 수 없으므로 Kaggle 점수로만 판단합니다.
